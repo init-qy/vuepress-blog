@@ -1,0 +1,11 @@
+.idea
+
+node_modules
+docs/.vuepress/.cache
+docs/.vuepress/.temp
+docs/.vuepress/dist
+
+node_modules/
+blog\src/.vuepress/.cache/
+blog\src/.vuepress/.temp/
+blog\src/.vuepress/dist/
