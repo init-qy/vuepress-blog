@@ -1,9 +1,7 @@
-import createBlogPlugin from './blog-plugin'
-import createReadingTimePlugin from './readtime-plugin'
+import createSearchPlugin from './search-plugin'
 
 export default function createVuePressPlugins() {
   const vuePressPlugins = []
-  // vuePressPlugins.push(createBlogPlugin())
-  // vuePressPlugins.push(createReadingTimePlugin())
+  vuePressPlugins.push(createSearchPlugin())
   return vuePressPlugins
 }

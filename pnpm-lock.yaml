@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@antfu/eslint-config': ^0.29.4
   '@vuepress/client': ^2.0.0-beta.53
+  '@vuepress/plugin-search': ^2.0.0-beta.53
   eslint: ^8.27.0
   sass-loader: ^13.2.0
   typescript: ^4.8.4
@@ -14,6 +15,7 @@ specifiers:
 devDependencies:
   '@antfu/eslint-config': 0.29.4_eslint@8.27.0+typescript@4.8.4
   '@vuepress/client': 2.0.0-beta.53
+  '@vuepress/plugin-search': 2.0.0-beta.53
   eslint: 8.27.0
   sass-loader: 13.2.0
   typescript: 4.8.4
@@ -2034,6 +2036,20 @@ packages:
     dependencies:
       '@vuepress/core': 2.0.0-beta.53
       prismjs: 1.29.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@vuepress/plugin-search/2.0.0-beta.53:
+    resolution: {integrity: sha512-x9FScY9aLTzlp6D5wO1d0kDkAO9TkzLwGueNx5F13Nkq589weq8uTTiNRA2oDM0l+H9BF6vDJ+XJlzE5W3u9gQ==}
+    dependencies:
+      '@vuepress/client': 2.0.0-beta.53
+      '@vuepress/core': 2.0.0-beta.53
+      '@vuepress/shared': 2.0.0-beta.53
+      '@vuepress/utils': 2.0.0-beta.53
+      chokidar: 3.5.3
+      vue: 3.2.44
+      vue-router: 4.1.6_vue@3.2.44
     transitivePeerDependencies:
       - supports-color
     dev: true

@@ -15,9 +15,11 @@ export default function createVuePressTheme() {
 
     logo: '/logo.svg',
 
-    repo: 'vuepress-theme-hope/vuepress-theme-hope',
+    repo: 'init-qy/vuepress-blog',
 
     docsDir: 'docs',
+
+    docsBranch: 'master',
 
     pageInfo: ['Author', 'Date', 'Category', 'Tag', 'ReadingTime'],
 
@@ -27,7 +29,7 @@ export default function createVuePressTheme() {
         // BiliBili: 'https://example.com',
         // Bitbucket: 'https://example.com',
         // Dingding: 'https://example.com',
-        Discord: 'https://example.com',
+        // Discord: 'https://example.com',
         // Dribbble: 'https://example.com',
         // Email: 'https://example.com',
         // Evernote: 'https://example.com',
@@ -73,7 +75,7 @@ export default function createVuePressTheme() {
         // sidebar
         sidebar: zhSidebar,
 
-        footer: '默认页脚',
+        footer: '',
 
         displayFooter: true,
 
@@ -94,7 +96,7 @@ export default function createVuePressTheme() {
         // sidebar
         sidebar: enSidebar,
 
-        footer: 'Default footer',
+        footer: '',
 
         displayFooter: true,
 
@@ -228,27 +230,6 @@ export default function createVuePressTheme() {
               src: '/assets/icon/chrome-192.png',
               sizes: '192x192',
               type: 'image/png',
-            },
-          ],
-          shortcuts: [
-            {
-              name: 'Demo',
-              short_name: 'Demo',
-              url: '/demo/',
-              icons: [
-                {
-                  src: '/assets/icon/guide-maskable.png',
-                  sizes: '192x192',
-                  purpose: 'maskable',
-                  type: 'image/png',
-                },
-                {
-                  src: '/assets/icon/guide-monochrome.png',
-                  sizes: '192x192',
-                  purpose: 'monochrome',
-                  type: 'image/png',
-                },
-              ],
             },
           ],
         },
