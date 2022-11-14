@@ -2,4 +2,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: https://init-qy.github.io/sitemap.xml
+Sitemap: https://init-qy.github.io/vuepress-blog/sitemap.xml
