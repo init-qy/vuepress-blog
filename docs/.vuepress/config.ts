@@ -4,6 +4,7 @@ import createVuePressPlugins from './plugins'
 import createVuePressTheme from './theme'
 
 export default defineUserConfig({
+  base: '/vuepress-blog/',
   locales: {
     '/': {
       lang: 'zh-CN',
