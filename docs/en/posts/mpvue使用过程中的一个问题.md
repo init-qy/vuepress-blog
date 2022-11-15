@@ -21,7 +21,7 @@ category: ["前端开发"]
 
 这个问题的出现源于 mpvue 在相同页面时共用一个实例，并且在小程序 onUnload 时并未销毁。具体问题在[github/mpvue/issue_140](https://github.com/Meituan-Dianping/mpvue/issues/140 "github/mpvue/issue_140")中解释的很清楚，解决方案也有很多。
 
-###### Object.assign()对象的拷贝
+### Object.assign()对象的拷贝
 
 **基本用法**
 Object.assign 方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）

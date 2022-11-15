@@ -21,9 +21,10 @@
   },
   "lint-staged": {
     "*.md": [
+      "markdownlint --fix",
       "prettier --write"
     ],
-    "*.{js,vue}": [
+    "*.{js,ts,vue}": [
       "eslint --fix"
     ],
     "*.{json,yml}": [

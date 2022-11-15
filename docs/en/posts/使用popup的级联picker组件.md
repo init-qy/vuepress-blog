@@ -32,7 +32,8 @@ category: ["前端开发"]
 
 ## 实现
 
-###### axml
+::: tabs#code
+@tab axml
 
 ```html
 <popup
@@ -68,7 +69,7 @@ category: ["前端开发"]
 </popup>
 ```
 
-###### acss
+@tab acss
 
 ```css
 .box {
@@ -90,7 +91,7 @@ category: ["前端开发"]
 }
 ```
 
-###### js
+@tab js
 
 ```js
 import fmtEvent from "mini-ali-ui/es/_util/fmtEvent";
@@ -158,6 +159,8 @@ Component({
   },
 });
 ```
+
+:::
 
 ## 思考
 

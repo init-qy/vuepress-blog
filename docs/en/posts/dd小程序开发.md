@@ -11,7 +11,7 @@ category: ["前端开发"]
 2. 钉钉 `dd.switchTab` 方法有问题,既不报错也无提示,现解决方案由 `dd.reLaunch` 代替
 3. 钉钉(与支付宝,未测试) `<swiper>`组件下只能接`<swiper-item>`组件,使用`view`包裹`<swiper-item>`组件可能无法正常显示
 
-> #### swiper 组件使用样例
+### swiper 组件使用样例
 
 ```html
 <swiper

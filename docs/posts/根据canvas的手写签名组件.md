@@ -26,18 +26,32 @@ category: ["前端开发"]
 ## 一些问题
 
 1. canvas 的宽高必须固定，所以实现是根据实际拿到的宽 width，乘以一个固定比值为高。在组件中直接传递即可。
-2. 必传参数 dpr，参考[如何解决画布模糊问题](https://opensupport.alipay.com/support/helpcenter/144/201602562003?ant_source=zsearch "如何解决画布模糊问题")
+2. 必传参数 dpr，参考
+   [如何解决画布模糊问题](https://opensupport.alipay.com/support/helpcenter/144/201602562003?ant_source=zsearch)
 3. 或许是我理解错误，save 和 restore 没有实现我想要的效果，所以撤回功能可能需要换一种方式实现。这里去掉了这个功能。
 4. clearRect 不能清除，需要在之前加上一行`content.beginPath()`，无法理解这个问题如何产生。
 
-###### 附：clearRect 不生效对比图
+:::: note 附：clearRect 不生效对比图
+
+::: tabs#imgs
+
+@tab clearRect 不生效
 
 ![clearRect不生效](https://i.loli.net/2021/01/19/xokKRpPZgyB1AsV.gif "clearRect不生效")
+
+@tab clearRect 生效
+
 ![clearRect生效](https://i.loli.net/2021/01/19/9a4cnIYhqrBfVDM.gif "clearRect生效")
+
+:::
+
+::::
 
 ## 实现
 
-##### axml
+::: tabs#code
+
+@tab axml
 
 ```html
 <popup
@@ -81,7 +95,7 @@ category: ["前端开发"]
 </popup>
 ```
 
-##### js
+@tab js
 
 ```javascript
 import fmtEvent from "mini-ali-ui-rpx/es/_util/fmtEvent";
@@ -206,7 +220,7 @@ Component({
 });
 ```
 
-##### acss
+@tab acss
 
 ```css
 .sign {
@@ -238,3 +252,5 @@ Component({
   height: 66rpx;
 }
 ```
+
+:::

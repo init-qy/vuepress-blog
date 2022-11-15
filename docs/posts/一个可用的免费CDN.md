@@ -26,4 +26,4 @@ cdn 的路径为
 或
 `https://cdn.jsdelivr.net/gh/init-qy/init-qy.github.io/images/avatar.gif`
 
-**如果分支为 master，那么可以只需仓库名即可**
+**如果分支为 master，那么可以只需仓库名即可。**
