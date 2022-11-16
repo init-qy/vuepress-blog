@@ -64,6 +64,13 @@ export default function createVuePressTheme() {
       articlePerPage: 5,
     },
 
+    themeColor: {
+      blue: '#2196f3',
+      red: '#f26d6d',
+      orange: '#fb9b5f',
+    },
+    fullscreen: true,
+
     locales: {
       /**
        * Chinese locale config
