@@ -1,6 +1,5 @@
 import { hopeTheme } from 'vuepress-theme-hope'
 import { enNavbar, zhNavbar } from '../navbar'
-import { enSidebar, zhSidebar } from '../sidebar'
 
 export default function createVuePressTheme() {
   return hopeTheme({
@@ -68,6 +67,7 @@ export default function createVuePressTheme() {
       blue: '#2196f3',
       red: '#f26d6d',
       orange: '#fb9b5f',
+      rebeccapurple: '#663399',
     },
     fullscreen: true,
 
@@ -80,7 +80,7 @@ export default function createVuePressTheme() {
         navbar: zhNavbar,
 
         // sidebar
-        sidebar: zhSidebar,
+        // sidebar: zhSidebar,
 
         footer: '',
 
@@ -101,7 +101,7 @@ export default function createVuePressTheme() {
         navbar: enNavbar,
 
         // sidebar
-        sidebar: enSidebar,
+        // sidebar: enSidebar,
 
         footer: '',
 
@@ -118,12 +118,12 @@ export default function createVuePressTheme() {
       },
     },
 
-    encrypt: {
-      config: {
-      // '/demo/encrypt.html': ['1234'],
-      // '/zh/demo/encrypt.html': ['1234'],
-      },
-    },
+    // encrypt: {
+    //   config: {
+    // '/demo/encrypt.html': ['1234'],
+    // '/zh/demo/encrypt.html': ['1234'],
+    // },
+    // },
 
     plugins: {
       blog: {
