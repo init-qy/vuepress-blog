@@ -3,9 +3,7 @@ import { useRouteLocale } from '@vuepress/client'
 import { useDateFormat, useNow, useStorage } from '@vueuse/core'
 import { useDarkMode } from '@theme-hope/modules/outlook/composables/index.js'
 import { computed, onMounted, watch } from 'vue'
-import * as echarts from 'echarts/core'
-import { GaugeChart } from 'echarts/charts'
-import { SVGRenderer } from 'echarts/renderers'
+import * as echarts from 'echarts'
 
 import type { GaugeSeriesOption } from 'echarts/charts'
 import type { EChartsType } from 'echarts/core'
@@ -25,7 +23,6 @@ const week = computed(() => {
 })
 
 // echarts
-echarts.use([GaugeChart, SVGRenderer])
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>
 let myChart: EChartsType | undefined
 
