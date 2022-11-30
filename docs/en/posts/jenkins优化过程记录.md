@@ -114,7 +114,7 @@ Refer to <https://www.jenkins.io/doc/book/pipeline/docker/#workspace-synchroniza
 
 ```shell
     # file exit or not
-    if [! -f "package.json.md5" ];then
+    if [ ! -f "package.json.md5" ];then
         echo "file does not exist"
         npm install
         md5sum package.json>package.json.md5
