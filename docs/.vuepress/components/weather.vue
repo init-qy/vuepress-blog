@@ -119,9 +119,9 @@ watch(locale, async () => {
   border: none;
 }
 .wind-icon {
-  height: 20px;
   width: 20px;
   text-align: center;
+  font-size: 14px;
 }
 .flex {
   display: flex;
