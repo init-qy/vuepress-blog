@@ -35,8 +35,11 @@
     ]
   },
   "dependencies": {
-    "@vueuse/core": "^9.5.0",
-    "echarts": "^5.4.0"
+    "@vueuse/core": "9.6.0",
+    "echarts": "5.4.0",
+    "lodash-es": "4.17.21",
+    "rgbaster": "^2.1.1",
+    "vue-skeletor": "1.0.6"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.30.0",

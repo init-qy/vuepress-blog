@@ -6,24 +6,30 @@ specifiers:
   '@commitlint/config-conventional': ^17.0.0
   '@vuepress/client': 2.0.0-beta.53
   '@vuepress/plugin-search': 2.0.0-beta.53
-  '@vueuse/core': ^9.5.0
-  echarts: ^5.4.0
+  '@vueuse/core': 9.6.0
+  echarts: 5.4.0
   eslint: ^8.27.0
   husky: ^8.0.2
   lint-staged: ^13.0.3
+  lodash-es: 4.17.21
   markdownlint-cli: 0.32.2
   prettier: 2.7.1
+  rgbaster: ^2.1.1
   sass-loader: ^13.2.0
   sort-package-json: 2.1.0
   typescript: ^4.8.4
   vue: 3.2.45
   vue-router: 4.1.6
+  vue-skeletor: 1.0.6
   vuepress: 2.0.0-beta.53
   vuepress-theme-hope: 2.0.0-beta.130
 
 dependencies:
   '@vueuse/core': 9.6.0_vue@3.2.45
   echarts: 5.4.0
+  lodash-es: 4.17.21
+  rgbaster: 2.1.1
+  vue-skeletor: 1.0.6
 
 devDependencies:
   '@antfu/eslint-config': 0.30.1_hsf322ms6xhhd4b5ne6lb74y4a
@@ -2992,8 +2998,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      is-text-path: 1.0.1
       JSONStream: 1.3.5
+      is-text-path: 1.0.1
       lodash: 4.17.21
       meow: 8.1.2
       split2: 3.2.2
@@ -5515,6 +5521,10 @@ packages:
       p-locate: 5.0.0
     dev: true
 
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
+
   /lodash.camelcase/4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
     dev: true
@@ -6405,6 +6415,10 @@ packages:
     resolution: {integrity: sha512-V2hovdzFbOi77/WajaSMXk2OLm+xNIeQdMMuB7icj7bk6zi2F8GGAxigcnDFpJHbNyNcgyJDiP+8nOrY5cZGrA==}
     dev: true
 
+  /rgbaster/2.1.1:
+    resolution: {integrity: sha512-vUQI+ldMMSGXEbWtqb/6aqLY1LHc33OtXg2Q9S0TCxzt2KxGncRJB6dk860KzhWTjms+Fz4wkxrJu8MlCrFpYg==}
+    dev: false
+
   /rimraf/3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
@@ -7227,6 +7241,10 @@ packages:
       '@vue/devtools-api': 6.4.5
       vue: 3.2.45
     dev: true
+
+  /vue-skeletor/1.0.6:
+    resolution: {integrity: sha512-ER4vHlFSXCW3ixK2DlczUE6CZliHsn4d2TvZ9/26C6Oq8zoyEY23BsqweMPtF8QULSz1+G5m2New1BwKNVOZhQ==}
+    dev: false
 
   /vue/3.2.45:
     resolution: {integrity: sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA==}

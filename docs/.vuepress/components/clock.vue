@@ -1,5 +1,4 @@
 <script setup name="clock" lang="ts">
-import { useRouteLocale } from '@vuepress/client'
 import { useDateFormat, useNow, useStorage } from '@vueuse/core'
 import { useDarkMode } from '@theme-hope/modules/outlook/composables/index.js'
 import { computed, onMounted, watch } from 'vue'
@@ -8,9 +7,9 @@ import * as echarts from 'echarts'
 import type { GaugeSeriesOption } from 'echarts/charts'
 import type { EChartsType } from 'echarts/core'
 
-import { getLocales } from './utils/getLocales'
+import { useLocale } from './utils/i18n'
 
-const routeLocalePath = useRouteLocale()
+const { locale } = useLocale()
 const { isDarkMode } = useDarkMode()
 const isGraphClock = useStorage('is-graph-clock', false)
 
@@ -18,8 +17,8 @@ const now = useNow()
 const date = useDateFormat(now, 'YYYY-MM-DD')
 const time = useDateFormat(now, 'HH:mm:ss')
 const week = computed(() => {
-  const weekFormatStr = routeLocalePath.value === '/' ? 'dddd' : 'ddd'
-  return useDateFormat(now, weekFormatStr, { locales: getLocales(routeLocalePath.value) }).value
+  const weekFormatStr = locale.value === 'zh-cn' ? 'dddd' : 'ddd'
+  return useDateFormat(now, weekFormatStr, { locales: locale.value }).value
 })
 
 // echarts

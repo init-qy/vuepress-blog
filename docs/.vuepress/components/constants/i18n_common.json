@@ -1,0 +1,12 @@
+{
+  "zh-cn": {
+    "todayWeather": "今日天气",
+    "visibility": "能见度",
+    "precipitation": "降水量"
+  },
+  "en": {
+    "todayWeather": "Weather Report",
+    "visibility": "visibility",
+    "precipitation": "precipitation"
+  }
+}

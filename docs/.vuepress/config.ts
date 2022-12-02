@@ -1,4 +1,5 @@
 import { path } from '@vuepress/utils'
+import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import createVuePressPlugins from './plugins'
 import createVuePressTheme from './theme'
@@ -28,4 +29,8 @@ export default defineUserConfig({
       './components/sideContainer.vue',
     ),
   },
+  bundler: viteBundler({
+    viteOptions: {},
+    vuePluginOptions: {},
+  }),
 })

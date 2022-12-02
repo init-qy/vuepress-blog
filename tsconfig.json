@@ -1,0 +1,17 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "watch": false,
+    "newLine": "lf",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "types": ["vite/client", "vite-plugin-svg-icons/client"],
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["docs/.vuepress/**/*.ts", "global.d.ts"],
+  "exclude": ["node_modules"]
+}
