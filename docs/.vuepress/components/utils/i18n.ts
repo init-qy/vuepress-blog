@@ -39,7 +39,7 @@ export function useI18n(locale: Ref<string>) {
     keys.splice(1, 0, locale.value)
     let result = get(i18nJsonMap, keys.join('.'))
     if (isNil(result)) {
-      console.error(`key ${key} is not exist!`)
+      // console.error(`key ${key} is not exist!`)
       result = rollback(key)
     }
     return result
