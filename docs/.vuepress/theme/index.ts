@@ -1,9 +1,11 @@
 import { hopeTheme } from 'vuepress-theme-hope'
 import { enNavbar, zhNavbar } from '../navbar'
 
+const hostname = 'https://init-qy.github.io'
+
 export default function createVuePressTheme() {
   return hopeTheme({
-    hostname: 'https://init-qy.github.io',
+    hostname,
 
     author: {
       name: 'init-qy',
@@ -21,6 +23,8 @@ export default function createVuePressTheme() {
     docsBranch: 'master',
 
     pageInfo: ['Author', 'Date', 'Category', 'Tag', 'ReadingTime'],
+
+    hotReload: true,
 
     blog: {
       medias: {
@@ -224,6 +228,7 @@ export default function createVuePressTheme() {
           ],
         },
       },
+      seo: { canonical: `${hostname}/vuepress-blog/` },
     },
   })
 }
