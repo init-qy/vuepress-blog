@@ -1,8 +1,8 @@
 <script setup name="weather" lang="ts">
 // svg from https://github.com/philanri/weather-icons
 // weather data from wttr.in
-import { useFetch } from '@vueuse/core'
-import { computed, onMounted, ref, watch } from 'vue'
+import { StorageSerializers, useFetch, useSessionStorage } from '@vueuse/core'
+import { computed, ref, watch } from 'vue'
 import { Skeletor } from 'vue-skeletor'
 import { getAddress, getIp } from './utils/getLocation'
 import { getWeatherIconFromCode } from './utils/weather'
@@ -35,8 +35,15 @@ const getWeatherData = async (): Promise<WeatherDataType> => {
   const ip = await getIp()
   const address = await getAddress(ip)
   const url = `https://wttr.in/${address}?format=j1&lang=${locale.value}`
-  const { data } = await useFetch(url).json()
-  const sourceData = data.value
+  const now = new Date().getTime()
+  const fetchData = useSessionStorage(`weatherData-${locale.value}`, { data: null, t: 0 }, { serializer: StorageSerializers.object })
+  if (now - fetchData.value.t > 60 * 60 * 1000) {
+    if (!fetchData.value.data)
+      weatherData.value = undefined
+    const { data } = await useFetch(url).json()
+    fetchData.value = { data: data.value, t: now }
+  }
+  const sourceData = fetchData.value.data
   const nearestArea = sourceData?.nearest_area[0]
   const currentCondition = sourceData?.current_condition[0]
   const getAddressFromWeatherData = () => {
@@ -56,7 +63,6 @@ const getWeatherData = async (): Promise<WeatherDataType> => {
   } as WeatherDataType
 }
 watch(locale, async () => {
-  weatherData.value = undefined
   weatherData.value = await getWeatherData()
 }, { immediate: true })
 </script>
