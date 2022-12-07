@@ -6,6 +6,7 @@
     "vuepress",
     "blog"
   ],
+  "homepage": "https://init-qy.github.io/vuepress-blog",
   "license": "MIT",
   "author": "init-qy",
   "scripts": {

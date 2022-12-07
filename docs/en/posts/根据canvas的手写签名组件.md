@@ -37,11 +37,11 @@ category: ["前端开发"]
 
 @tab clearRect 不生效
 
-![clearRect不生效](https://i.loli.net/2021/01/19/xokKRpPZgyB1AsV.gif "clearRect不生效")
+![clearRect不生效](/assets/img/clearRect_not.gif "clearRect不生效")
 
 @tab clearRect 生效
 
-![clearRect生效](https://i.loli.net/2021/01/19/9a4cnIYhqrBfVDM.gif "clearRect生效")
+![clearRect生效](/assets/img/clearRect_yes.gif "clearRect生效")
 
 :::
 
