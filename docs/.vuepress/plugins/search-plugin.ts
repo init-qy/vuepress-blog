@@ -1,16 +1,24 @@
-import { searchPlugin } from '@vuepress/plugin-search'
+import { searchProPlugin } from 'vuepress-plugin-search-pro'
 
 export default function createSearchPlugin() {
-  return searchPlugin({
-    locales: {
-      '/': {
-        placeholder: '搜索',
+  return searchProPlugin({
+    indexContent: true,
+    hotReload: true,
+    customFields: [
+      {
+        getter: page => page.frontmatter.category as string[],
+        formatter: {
+          '/': '分类：$content',
+          '/en/': 'Category: $content',
+        },
       },
-      '/en/': {
-        placeholder: 'Search',
+      {
+        getter: page => page.frontmatter.tag as string[],
+        formatter: {
+          '/': '标签：$content',
+          '/en/': 'Tag: $content',
+        },
       },
-    },
-    // 排除首页
-    isSearchable: page => page.path !== '/',
+    ],
   })
 }

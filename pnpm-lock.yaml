@@ -4,9 +4,10 @@ specifiers:
   '@antfu/eslint-config': ^0.30.0
   '@commitlint/cli': ^17.0.0
   '@commitlint/config-conventional': ^17.0.0
+  '@types/color': ^3.0.3
   '@vuepress/client': 2.0.0-beta.53
-  '@vuepress/plugin-search': 2.0.0-beta.53
   '@vueuse/core': 9.6.0
+  color: ^4.2.3
   echarts: 5.4.0
   eslint: ^8.27.0
   husky: ^8.0.2
@@ -14,29 +15,33 @@ specifiers:
   lodash-es: 4.17.21
   markdownlint-cli: 0.32.2
   prettier: 2.7.1
-  rgbaster: ^2.1.1
+  rgbaster: 2.1.1
   sass-loader: ^13.2.0
   sort-package-json: 2.1.0
+  typeit: 8.7.0
   typescript: ^4.8.4
   vue: 3.2.45
   vue-router: 4.1.6
   vue-skeletor: 1.0.6
   vuepress: 2.0.0-beta.53
+  vuepress-plugin-search-pro: 2.0.0-beta.135
   vuepress-theme-hope: 2.0.0-beta.135
 
 dependencies:
   '@vueuse/core': 9.6.0_vue@3.2.45
+  color: 4.2.3
   echarts: 5.4.0
   lodash-es: 4.17.21
   rgbaster: 2.1.1
+  typeit: 8.7.0
   vue-skeletor: 1.0.6
 
 devDependencies:
   '@antfu/eslint-config': 0.30.1_hsf322ms6xhhd4b5ne6lb74y4a
   '@commitlint/cli': 17.3.0
   '@commitlint/config-conventional': 17.3.0
+  '@types/color': 3.0.3
   '@vuepress/client': 2.0.0-beta.53
-  '@vuepress/plugin-search': 2.0.0-beta.53
   eslint: 8.28.0
   husky: 8.0.2
   lint-staged: 13.0.4
@@ -48,6 +53,7 @@ devDependencies:
   vue: 3.2.45
   vue-router: 4.1.6_vue@3.2.45
   vuepress: 2.0.0-beta.53_2ythdi7q4ppml34dx3kptsuwnu
+  vuepress-plugin-search-pro: 2.0.0-beta.135_aev3ztxejiagqbcljcr6cy4wee
   vuepress-theme-hope: 2.0.0-beta.135_aev3ztxejiagqbcljcr6cy4wee
 
 packages:
@@ -1769,6 +1775,22 @@ packages:
     resolution: {integrity: sha512-3owAC4iJub5WPqRhxd8INarF2bWeQq1yQHBgYhN0XLBJMpd5ED10RrJ3aKiAwlTyL5wK7RkBD4SZUQz2AAAMdA==}
     dev: true
 
+  /@types/color-convert/2.0.0:
+    resolution: {integrity: sha512-m7GG7IKKGuJUXvkZ1qqG3ChccdIM/qBBo913z+Xft0nKCX4hAU/IxKwZBU4cpRZ7GS5kV4vOblUkILtSShCPXQ==}
+    dependencies:
+      '@types/color-name': 1.1.1
+    dev: true
+
+  /@types/color-name/1.1.1:
+    resolution: {integrity: sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==}
+    dev: true
+
+  /@types/color/3.0.3:
+    resolution: {integrity: sha512-X//qzJ3d3Zj82J9sC/C18ZY5f43utPbAJ6PhYt/M7uG6etcF6MRpKdN880KBy43B0BMzSfeT96MzrsNjFI3GbA==}
+    dependencies:
+      '@types/color-convert': 2.0.0
+    dev: true
+
   /@types/debug/4.1.7:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
@@ -2293,20 +2315,6 @@ packages:
     dependencies:
       '@vuepress/core': 2.0.0-beta.53
       prismjs: 1.29.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /@vuepress/plugin-search/2.0.0-beta.53:
-    resolution: {integrity: sha512-x9FScY9aLTzlp6D5wO1d0kDkAO9TkzLwGueNx5F13Nkq589weq8uTTiNRA2oDM0l+H9BF6vDJ+XJlzE5W3u9gQ==}
-    dependencies:
-      '@vuepress/client': 2.0.0-beta.53
-      '@vuepress/core': 2.0.0-beta.53
-      '@vuepress/shared': 2.0.0-beta.53
-      '@vuepress/utils': 2.0.0-beta.53
-      chokidar: 3.5.3
-      vue: 3.2.45
-      vue-router: 4.1.6_vue@3.2.45
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2943,7 +2951,6 @@ packages:
     engines: {node: '>=7.0.0'}
     dependencies:
       color-name: 1.1.4
-    dev: true
 
   /color-name/1.1.3:
     resolution: {integrity: sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==}
@@ -2951,7 +2958,21 @@ packages:
 
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
-    dev: true
+
+  /color-string/1.9.1:
+    resolution: {integrity: sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==}
+    dependencies:
+      color-name: 1.1.4
+      simple-swizzle: 0.2.2
+    dev: false
+
+  /color/4.2.3:
+    resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
+    engines: {node: '>=12.5.0'}
+    dependencies:
+      color-convert: 2.0.1
+      color-string: 1.9.1
+    dev: false
 
   /colorette/2.0.19:
     resolution: {integrity: sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==}
@@ -5093,6 +5114,10 @@ packages:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
     dev: true
 
+  /is-arrayish/0.3.2:
+    resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
+    dev: false
+
   /is-bigint/1.0.4:
     resolution: {integrity: sha512-zB9CruMamjym81i2JZ3UMn54PKGsQzsJeo6xvN3HJJ4CAsQNB6iRutp2To77OfCNuoxspsIhzaPoO1zyCEhFOg==}
     dependencies:
@@ -6669,6 +6694,12 @@ packages:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: true
 
+  /simple-swizzle/0.2.2:
+    resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
+    dependencies:
+      is-arrayish: 0.3.2
+    dev: false
+
   /sitemap/7.1.1:
     resolution: {integrity: sha512-mK3aFtjz4VdJN0igpIJrinf3EO8U8mxOPsTBzSsy06UtjZQJ3YY3o3Xa7zSc5nMqcMrRwlChHZ18Kxg0caiPBg==}
     engines: {node: '>=12.0.0', npm: '>=5.6.0'}
@@ -7123,6 +7154,11 @@ packages:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
     dev: true
+
+  /typeit/8.7.0:
+    resolution: {integrity: sha512-MeraWJAquZr0EPo2yRYQnSdAxIuzgS5s4JEvzOdp63ZRRpETxtiHYvCJiK4aJA6FuScz3oUJkjmjQsLrx6VOMA==}
+    requiresBuild: true
+    dev: false
 
   /typescript/4.9.3:
     resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
@@ -7666,6 +7702,42 @@ packages:
       vuepress: 2.0.0-beta.53_2ythdi7q4ppml34dx3kptsuwnu
       vuepress-shared: 2.0.0-beta.135
     transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /vuepress-plugin-search-pro/2.0.0-beta.135_aev3ztxejiagqbcljcr6cy4wee:
+    resolution: {integrity: sha512-Ufrvu0jpyV4LMUzIg9leaHN9VZqNxSOcmtA6UhAYowA04mm1vZnZhZ8FjEPG59Rvpw5N46yT/AKAbXR3BLNy8Q==}
+    engines: {node: ^14.18.0 || >=16.0.0, npm: '>=8', pnpm: '>=7'}
+    peerDependencies:
+      sass-loader: ^13.2.0
+      vuepress: 2.0.0-beta.53
+      vuepress-vite: 2.0.0-beta.53
+      vuepress-webpack: 2.0.0-beta.53
+    peerDependenciesMeta:
+      sass-loader:
+        optional: true
+      vuepress:
+        optional: true
+      vuepress-vite:
+        optional: true
+      vuepress-webpack:
+        optional: true
+    dependencies:
+      '@types/body-scroll-lock': 3.1.0
+      '@vuepress/client': 2.0.0-beta.53
+      '@vuepress/utils': 2.0.0-beta.53
+      '@vueuse/core': 9.6.0_vue@3.2.45
+      body-scroll-lock: 3.1.5
+      cheerio: 1.0.0-rc.12
+      chokidar: 3.5.3
+      sass-loader: 13.2.0
+      vue: 3.2.45
+      vue-router: 4.1.6_vue@3.2.45
+      vuepress: 2.0.0-beta.53_2ythdi7q4ppml34dx3kptsuwnu
+      vuepress-plugin-sass-palette: 2.0.0-beta.135_aev3ztxejiagqbcljcr6cy4wee
+      vuepress-shared: 2.0.0-beta.135
+    transitivePeerDependencies:
+      - '@vue/composition-api'
       - supports-color
     dev: true
 

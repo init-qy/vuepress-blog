@@ -37,17 +37,19 @@
   },
   "dependencies": {
     "@vueuse/core": "9.6.0",
+    "color": "^4.2.3",
     "echarts": "5.4.0",
     "lodash-es": "4.17.21",
-    "rgbaster": "^2.1.1",
+    "rgbaster": "2.1.1",
+    "typeit": "8.7.0",
     "vue-skeletor": "1.0.6"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.30.0",
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
+    "@types/color": "^3.0.3",
     "@vuepress/client": "2.0.0-beta.53",
-    "@vuepress/plugin-search": "2.0.0-beta.53",
     "eslint": "^8.27.0",
     "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
@@ -59,6 +61,7 @@
     "vue": "3.2.45",
     "vue-router": "4.1.6",
     "vuepress": "2.0.0-beta.53",
+    "vuepress-plugin-search-pro": "2.0.0-beta.135",
     "vuepress-theme-hope": "2.0.0-beta.135"
   },
   "packageManager": "pnpm@7.14.0"
