@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@vueuse/core": "9.6.0",
-    "color": "^4.2.3",
+    "color": "4.2.3",
     "echarts": "5.4.0",
     "lodash-es": "4.17.21",
     "rgbaster": "2.1.1",
@@ -45,24 +45,34 @@
     "vue-skeletor": "1.0.6"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.30.0",
-    "@commitlint/cli": "^17.0.0",
-    "@commitlint/config-conventional": "^17.0.0",
-    "@types/color": "^3.0.3",
-    "@vuepress/client": "2.0.0-beta.53",
-    "eslint": "^8.27.0",
-    "husky": "^8.0.2",
-    "lint-staged": "^13.0.3",
+    "@antfu/eslint-config": "0.30.1",
+    "@commitlint/cli": "17.3.0",
+    "@commitlint/config-conventional": "17.3.0",
+    "@types/color": "3.0.3",
+    "@vuepress/client": "2.0.0-beta.58",
+    "eslint": "8.29.0",
+    "husky": "8.0.2",
+    "lint-staged": "13.1.0",
     "markdownlint-cli": "0.32.2",
     "prettier": "2.7.1",
-    "sass-loader": "^13.2.0",
+    "sass-loader": "13.2.0",
     "sort-package-json": "2.1.0",
-    "typescript": "^4.8.4",
+    "typescript": "4.9.4",
     "vue": "3.2.45",
     "vue-router": "4.1.6",
-    "vuepress": "2.0.0-beta.53",
-    "vuepress-plugin-search-pro": "2.0.0-beta.135",
-    "vuepress-theme-hope": "2.0.0-beta.135"
+    "vuepress": "2.0.0-beta.58",
+    "vuepress-plugin-search-pro": "2.0.0-beta.141",
+    "vuepress-theme-hope": "2.0.0-beta.141"
   },
-  "packageManager": "pnpm@7.14.0"
+  "packageManager": "pnpm@7.14.0",
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@types/react",
+        "react",
+        "react-dom",
+        "webpack"
+      ]
+    }
+  }
 }

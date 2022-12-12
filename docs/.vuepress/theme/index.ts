@@ -130,9 +130,7 @@ export default function createVuePressTheme() {
     // },
 
     plugins: {
-      blog: {
-        autoExcerpt: true,
-      },
+      blog: true,
 
       // If you don’t need comment feature, you can remove following option
       // The following config is for demo ONLY, if you need comment feature, please generate and use your own config, see comment plugin documentation for details.
@@ -172,7 +170,8 @@ export default function createVuePressTheme() {
         // flowchart: true,
         gfm: true,
         imageLazyload: true,
-        imageTitle: true,
+        figure: { focusable: false }, // disable until v147
+        // imageTitle: true,
         imageSize: true,
         include: true,
         katex: true,
