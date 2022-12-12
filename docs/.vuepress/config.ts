@@ -28,6 +28,10 @@ export default defineUserConfig({
       __dirname,
       './components/sideContainer.vue',
     ),
+    '@theme-hope/modules/blog/components/BlogHero.js': path.resolve(
+      __dirname,
+      './components/blogMain.vue',
+    ),
   },
   bundler: viteBundler({
     viteOptions: {},
