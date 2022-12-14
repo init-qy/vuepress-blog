@@ -4,6 +4,10 @@
   "labels": ["dependencies"],
   "packageRules": [
     {
+      "packageNames": ["vuepress", "@vuepress/client"],
+      "allowedVersions": "/^((?!pre).)*$/"
+    },
+    {
       "matchPackagePatterns": "^@?vue",
       "groupName": ["vue packages"]
     }
