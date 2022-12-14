@@ -5,7 +5,7 @@
   "packageRules": [
     {
       "packageNames": ["vuepress", "@vuepress/client"],
-      "allowedVersions": "/^((?!pre).)*$/"
+      "allowedVersions": "!/pre.*$/"
     },
     {
       "matchPackagePatterns": "^@?vue",
