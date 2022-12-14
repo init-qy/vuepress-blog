@@ -9,7 +9,7 @@ specifiers:
   '@vueuse/core': 9.6.0
   color: 4.2.3
   cpy-cli: ^4.2.0
-  echarts: 5.4.0
+  echarts: 5.4.1
   eslint: 8.29.0
   husky: 8.0.2
   lint-staged: 13.1.0
@@ -31,7 +31,7 @@ specifiers:
 dependencies:
   '@vueuse/core': 9.6.0_vue@3.2.45
   color: 4.2.3
-  echarts: 5.4.0
+  echarts: 5.4.1
   lodash-es: 4.17.21
   rgbaster: 2.1.1
   typeit: 8.7.0
@@ -4122,11 +4122,11 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /echarts/5.4.0:
-    resolution: {integrity: sha512-uPsO9VRUIKAdFOoH3B0aNg7NRVdN7aM39/OjovjO9MwmWsAkfGyeXJhK+dbRi51iDrQWliXV60/XwLA7kg3z0w==}
+  /echarts/5.4.1:
+    resolution: {integrity: sha512-9ltS3M2JB0w2EhcYjCdmtrJ+6haZcW6acBolMGIuf01Hql1yrIV01L1aRj7jsaaIULJslEP9Z3vKlEmnJaWJVQ==}
     dependencies:
       tslib: 2.3.0
-      zrender: 5.4.0
+      zrender: 5.4.1
 
   /ejs/3.1.8:
     resolution: {integrity: sha512-/sXZeMlhS0ArkfX2Aw780gJzXSMPnKjtspYZv+f3NiKLlubezAHDU5+9xz6gd3/NhG3txQCo6xlglmTS+oTGEQ==}
@@ -7812,7 +7812,7 @@ packages:
       '@vueuse/core': 9.6.0_vue@3.2.45
       balloon-css: 1.2.0
       chart.js: 4.0.1
-      echarts: 5.4.0
+      echarts: 5.4.1
       flowchart.js: 1.17.1
       juice: 8.1.0
       katex: 0.16.4
@@ -8479,7 +8479,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zrender/5.4.0:
-    resolution: {integrity: sha512-rOS09Z2HSVGFs2dn/TuYk5BlCaZcVe8UDLLjj1ySYF828LATKKdxuakSZMvrDz54yiKPDYVfjdKqcX8Jky3BIA==}
+  /zrender/5.4.1:
+    resolution: {integrity: sha512-M4Z05BHWtajY2241EmMPHglDQAJ1UyHQcYsxDNzD9XLSkPDqMq4bB28v9Pb4mvHnVQ0GxyTklZ/69xCFP6RXBA==}
     dependencies:
       tslib: 2.3.0
