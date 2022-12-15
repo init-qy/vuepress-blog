@@ -3,14 +3,14 @@ import weatherIcon from '../constants/weatherIcon.json'
 
 import type weatherCode from '../constants/i18n_weatherCode.json'
 
-export const getWeatherIconFromCode = (code: keyof typeof weatherCode['en'], windspeed: number) => {
+export const getWeatherIconFromCode = (code: keyof typeof weatherCode['en'], windSpeed: number) => {
   const now = useNow()
   const isNight = now.value.getHours() >= 18 || now.value.getHours() < 6
 
   let windLevel = 0
-  if (windspeed >= 15)
+  if (windSpeed >= 15)
     windLevel = 1
-  if (windspeed >= 25)
+  if (windSpeed >= 25)
     windLevel = 2
 
   let svgName = weatherIcon[code]

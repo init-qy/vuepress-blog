@@ -24,11 +24,11 @@ export default defineUserConfig({
   alias: {
     // 你可以在这里将别名定向到自己的组件
     // 比如这里我们将主题的主页组件改为用户 .vuepress/components 下的 HomePage.vue
-    '@theme-hope/modules/sidebar/components/Sidebar.js': path.resolve(
+    '@theme-hope/modules/sidebar/components/Sidebar': path.resolve(
       __dirname,
       './components/sideContainer.vue',
     ),
-    '@theme-hope/modules/blog/components/BlogHero.js': path.resolve(
+    '@theme-hope/modules/blog/components/BlogHero': path.resolve(
       __dirname,
       './components/blogMain.vue',
     ),

@@ -1,6 +1,6 @@
 <script setup name="clock" lang="ts">
 import { useDateFormat, useNow, useStorage } from '@vueuse/core'
-import { useDarkMode } from '@theme-hope/modules/outlook/composables/index.js'
+import { useDarkMode } from 'vuepress-theme-hope/outlook/composables/index.js'
 import { computed, onMounted, watch } from 'vue'
 import * as echarts from 'echarts'
 
