@@ -131,6 +131,7 @@ export default function createVuePressTheme() {
 
     plugins: {
       blog: true,
+      git: true,
 
       // If you don’t need comment feature, you can remove following option
       // The following config is for demo ONLY, if you need comment feature, please generate and use your own config, see comment plugin documentation for details.
