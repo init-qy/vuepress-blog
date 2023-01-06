@@ -19,7 +19,7 @@ specifiers:
   rgbaster: 2.1.1
   sass-loader: 13.2.0
   sort-package-json: 2.1.0
-  typeit: 8.7.0
+  typeit: 8.7.1
   typescript: 4.9.4
   vue: 3.2.45
   vue-router: 4.1.6
@@ -34,7 +34,7 @@ dependencies:
   echarts: 5.4.1
   lodash-es: 4.17.21
   rgbaster: 2.1.1
-  typeit: 8.7.0
+  typeit: 8.7.1
   vue-skeletor: 1.0.6
 
 devDependencies:
@@ -7179,8 +7179,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /typeit/8.7.0:
-    resolution: {integrity: sha512-MeraWJAquZr0EPo2yRYQnSdAxIuzgS5s4JEvzOdp63ZRRpETxtiHYvCJiK4aJA6FuScz3oUJkjmjQsLrx6VOMA==}
+  /typeit/8.7.1:
+    resolution: {integrity: sha512-Bx/O4NMz10NWh9FWYtVwV4XwGHF9UDJfpCZPJRtw2/oUcahFAStU8J0t19aroPfTV6s1UlS5ICoqilOqmEnh2Q==}
     requiresBuild: true
     dev: false
 
