@@ -95,10 +95,6 @@ export default function createVuePressTheme() {
           intro: '/zh/intro.html',
         },
 
-        // page meta
-        metaLocales: {
-          editLink: '在 GitHub 上编辑此页',
-        },
       },
       '/en/': {
       // navbar
@@ -114,10 +110,6 @@ export default function createVuePressTheme() {
         blog: {
           description: 'A FrontEnd programmer',
           intro: '/intro.html',
-        },
-
-        metaLocales: {
-          editLink: 'Edit this page on GitHub',
         },
       },
     },
@@ -229,5 +221,6 @@ export default function createVuePressTheme() {
       },
       seo: { canonical: `${hostname}/vuepress-blog/` },
     },
-  })
+  },
+  { custom: true, check: true })
 }

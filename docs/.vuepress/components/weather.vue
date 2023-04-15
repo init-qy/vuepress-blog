@@ -4,7 +4,8 @@
 import { StorageSerializers, useFetch, useSessionStorage } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 import { Skeletor } from 'vue-skeletor'
-import { getAddress, getIp } from './utils/getLocation'
+import { useDarkmode } from 'vuepress-theme-hope/outlook/composables/index.js'
+import { getAddress } from './utils/getLocation'
 import { getWeatherIconFromCode } from './utils/weather'
 import { useI18n, useLocale } from './utils/i18n'
 import 'vue-skeletor/dist/vue-skeletor.css'
@@ -24,16 +25,17 @@ interface WeatherDataType {
 
 const { locale } = useLocale()
 const { i18n } = useI18n(locale)
+const { isDarkmode } = useDarkmode()
 
+const weatherIcon = ref(null)
 const weatherData = ref<WeatherDataType>()
 
 const windTransform = computed(() => {
   return `rotate(${weatherData.value?.current.winddirDegree || 0}deg)`
 })
 
-const getWeatherData = async (): Promise<WeatherDataType> => {
-  const ip = await getIp()
-  const address = await getAddress(ip)
+async function getWeatherData(): Promise<WeatherDataType> {
+  const address = await getAddress()
   const url = `https://wttr.in/${address}?format=j1&lang=${locale.value}`
   const now = new Date().getTime()
   const fetchData = useSessionStorage(`weatherData-${locale.value}`, { data: null, t: 0 }, { serializer: StorageSerializers.object })
@@ -65,6 +67,18 @@ const getWeatherData = async (): Promise<WeatherDataType> => {
 watch(locale, async () => {
   weatherData.value = await getWeatherData()
 }, { immediate: true })
+watch([isDarkmode, weatherIcon], () => {
+  if (isDarkmode.value && weatherIcon.value) {
+    setTimeout(() => {
+      const svgs = weatherIcon.value.contentDocument.getElementsByTagName('svg')
+      svgs[0].style.backgroundColor = '#0d1117'
+    }, 16)
+  }
+  else if (!isDarkmode.value && weatherIcon.value) {
+    const svgs = weatherIcon.value.contentDocument.getElementsByTagName('svg')
+    svgs[0].style.backgroundColor = null
+  }
+}, { immediate: true })
 </script>
 
 <template>
@@ -74,7 +88,7 @@ watch(locale, async () => {
       <div>{{ weatherData.addressName }}</div>
     </div>
     <div class="flex">
-      <iframe class="weather-icon" :src="weatherData.current.weatherIconUrl" :name="weatherData.current.weather" />
+      <iframe ref="weatherIcon" class="weather-icon" :src="weatherData.current.weatherIconUrl" :name="weatherData.current.weather" />
       <div class="flex-1">
         <div>{{ weatherData.current.weather }}</div>
         <div>{{ weatherData.current.temperature }}</div>

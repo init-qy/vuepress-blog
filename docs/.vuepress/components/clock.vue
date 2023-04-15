@@ -1,6 +1,6 @@
 <script setup name="clock" lang="ts">
 import { useDateFormat, useNow, useStorage } from '@vueuse/core'
-import { useDarkMode } from 'vuepress-theme-hope/outlook/composables/index.js'
+import { useDarkmode } from 'vuepress-theme-hope/outlook/composables/index'
 import { computed, onMounted, watch } from 'vue'
 import * as echarts from 'echarts'
 
@@ -10,7 +10,7 @@ import type { EChartsType } from 'echarts/core'
 import { useLocale } from './utils/i18n'
 
 const { locale } = useLocale()
-const { isDarkMode } = useDarkMode()
+const { isDarkmode } = useDarkmode()
 const isGraphClock = useStorage('is-graph-clock', false)
 
 const now = useNow()
@@ -25,7 +25,7 @@ const week = computed(() => {
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>
 let myChart: EChartsType | undefined
 
-const initEcharts = () => {
+function initEcharts() {
   const chartDom = document.getElementById('clockEcharts')
   const chartDomClientWidth = chartDom.clientWidth
   chartDom.style.height = `${chartDomClientWidth}px`
@@ -213,11 +213,11 @@ const initEcharts = () => {
   } as EChartsOption
   option && myChart.setOption(option)
 }
-const destroyEcharts = () => {
+function destroyEcharts() {
   myChart.dispose()
   myChart = undefined
 }
-const setOption = (hour: number, minute: number, second: number, secondAnimation = true) => {
+function setOption(hour: number, minute: number, second: number, secondAnimation = true) {
   myChart?.setOption<EChartsOption>({
     series: [
       {

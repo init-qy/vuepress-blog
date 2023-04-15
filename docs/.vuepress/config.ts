@@ -2,7 +2,7 @@ import { path } from '@vuepress/utils'
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import createVuePressPlugins from './plugins'
-import createVuePressTheme from './theme'
+import createVuePressTheme from './theme/index'
 
 export default defineUserConfig({
   base: '/vuepress-blog/',

@@ -1,6 +1,6 @@
 import { StorageSerializers, useFetch, useSessionStorage } from '@vueuse/core'
 
-export const getIp = async () => {
+export async function getIp() {
   const ip = useSessionStorage('ip', '', { serializer: StorageSerializers.string })
   if (!ip.value) {
     const { data } = await useFetch('https://api.ipify.org')
@@ -8,10 +8,10 @@ export const getIp = async () => {
   }
   return ip.value
 }
-export const getAddress = async (ip: string) => {
+export async function getAddress() {
   const address = useSessionStorage('address', '', { serializer: StorageSerializers.string })
   if (!address.value) {
-    const { data } = await useFetch(`https://ip.useragentinfo.com/json?ip=${ip}`).json()
+    const { data } = await useFetch('https://ip.useragentinfo.com/json').json()
     const { country, province, city } = data.value || {}
     address.value = city || province || country || ''
   }
