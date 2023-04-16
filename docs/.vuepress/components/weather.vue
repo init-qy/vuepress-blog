@@ -56,11 +56,11 @@ async function getWeatherData(): Promise<WeatherDataType> {
     current: {
       weather: i18n(`weatherCode.${currentCondition?.weatherCode}`),
       weatherIconUrl: getWeatherIconFromCode(currentCondition?.weatherCode, Number(currentCondition?.windspeedKmph)),
-      temperature: `${currentCondition?.temp_C}(${currentCondition?.FeelsLikeC}) °C`, // temp_C(FeelsLikeC) °C
-      winddirDegree: Number(currentCondition?.winddirDegree),
-      windspeedKmph: `${currentCondition?.windspeedKmph} km/h`, // km/h
-      visibility: `${currentCondition?.visibility} km`, // km 能见度
-      precipMM: `${currentCondition?.precipMM} mm`, // mm 降水量
+      temperature: `${currentCondition?.temp_C ?? ''}(${currentCondition?.FeelsLikeC ?? ''}) °C`, // temp_C(FeelsLikeC) °C
+      winddirDegree: Number(currentCondition?.winddirDegree) ?? 0,
+      windspeedKmph: `${currentCondition?.windspeedKmph ?? ''} km/h`, // km/h
+      visibility: `${currentCondition?.visibility ?? ''} km`, // km 能见度
+      precipMM: `${currentCondition?.precipMM ?? ''} mm`, // mm 降水量
     },
   } as WeatherDataType
 }
@@ -68,16 +68,21 @@ watch(locale, async () => {
   weatherData.value = await getWeatherData()
 }, { immediate: true })
 watch([isDarkmode, weatherIcon], () => {
-  if (isDarkmode.value && weatherIcon.value) {
-    setTimeout(() => {
-      const svgs = weatherIcon.value.contentDocument.getElementsByTagName('svg')
-      svgs[0].style.backgroundColor = '#0d1117'
-    }, 16)
-  }
-  else if (!isDarkmode.value && weatherIcon.value) {
+  const setBackground = (value: string) => {
     const svgs = weatherIcon.value.contentDocument.getElementsByTagName('svg')
-    svgs[0].style.backgroundColor = null
+    if (svgs && svgs.length) {
+      svgs[0].style.backgroundColor = value
+    }
+    else {
+      setTimeout(() => {
+        setBackground(value)
+      }, 160)
+    }
   }
+  if (isDarkmode.value && weatherIcon.value)
+    setBackground('#0d1117')
+  else if (!isDarkmode.value && weatherIcon.value)
+    setBackground(null)
 }, { immediate: true })
 </script>
 
