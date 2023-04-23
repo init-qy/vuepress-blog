@@ -1,0 +1,12 @@
+[build.environment]
+  NPM_FLAGS = "--version"
+  NODE_VERSION = "18"
+
+[build]
+  publish = "docs/.vuepress/dist"
+  command = "npx pnpm i --store=node_modules/.pnpm-store && sed -i 's/\/vuepress-blog\//\//g' docs/.vuepress/config.ts && npx pnpm docs:build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
