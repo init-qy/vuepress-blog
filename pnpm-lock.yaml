@@ -12,7 +12,7 @@ specifiers:
   echarts: 5.4.2
   eslint: 8.38.0
   husky: 8.0.3
-  lint-staged: 13.2.1
+  lint-staged: 13.2.3
   lodash-es: 4.17.21
   markdownlint-cli: 0.33.0
   prettier: 2.8.8
@@ -46,7 +46,7 @@ devDependencies:
   cpy-cli: 4.2.0
   eslint: 8.38.0
   husky: 8.0.3
-  lint-staged: 13.2.1
+  lint-staged: 13.2.3
   markdownlint-cli: 0.33.0
   prettier: 2.8.8
   sass-loader: 13.2.2
@@ -5768,8 +5768,8 @@ packages:
       uc.micro: 1.0.6
     dev: true
 
-  /lint-staged/13.2.1:
-    resolution: {integrity: sha512-8gfzinVXoPfga5Dz/ZOn8I2GOhf81Wvs+KwbEXQn/oWZAvCVS2PivrXfVbFJc93zD16uC0neS47RXHIjXKYZQw==}
+  /lint-staged/13.2.3:
+    resolution: {integrity: sha512-zVVEXLuQIhr1Y7R7YAWx4TZLdvuzk7DnmrsTNL0fax6Z3jrpFcas+vKbzxhhvp6TA55m1SQuWkpzI1qbfDZbAg==}
     engines: {node: ^14.13.1 || >=16.0.0}
     hasBin: true
     dependencies:
@@ -5785,7 +5785,7 @@ packages:
       object-inspect: 1.12.3
       pidtree: 0.6.0
       string-argv: 0.3.1
-      yaml: 2.2.1
+      yaml: 2.3.1
     transitivePeerDependencies:
       - enquirer
       - supports-color
@@ -6577,7 +6577,7 @@ packages:
     dependencies:
       lilconfig: 2.1.0
       postcss: 8.4.21
-      yaml: 2.2.1
+      yaml: 2.3.1
     dev: true
 
   /postcss-selector-parser/6.0.11:
@@ -8742,11 +8742,11 @@ packages:
     dependencies:
       eslint-visitor-keys: 3.4.0
       lodash: 4.17.21
-      yaml: 2.2.1
+      yaml: 2.3.1
     dev: true
 
-  /yaml/2.2.1:
-    resolution: {integrity: sha512-e0WHiYql7+9wr4cWMx3TVQrNwejKaEe7/rHNmQmqRjazfOP5W8PB6Jpebb5o6fIapbz9o9+2ipcaTM2ZwDI6lw==}
+  /yaml/2.3.1:
+    resolution: {integrity: sha512-2eHWfjaoXgTBC2jNM1LRef62VQa0umtvRiDSk6HSzW7RvS5YtkabJrwYLLEKWBc8a5U2PTSCs+dJjUTJdlHsWQ==}
     engines: {node: '>= 14'}
     dev: true
 
