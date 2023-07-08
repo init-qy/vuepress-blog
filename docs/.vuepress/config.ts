@@ -33,6 +33,8 @@ export default defineUserConfig({
       './components/blogMain.vue',
     ),
   },
+  head: [
+  ],
   bundler: viteBundler({
     viteOptions: {},
     vuePluginOptions: {},

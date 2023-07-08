@@ -19,7 +19,8 @@
     "lint:md": "markdownlint docs/ --fix",
     "lint:prettier": "prettier --check --write .",
     "prepare": "husky install",
-    "sync:en-docs": "cpy docs/posts/* docs/en/posts"
+    "sync:en-docs": "cpy docs/posts/* docs/en/posts",
+    "up": "taze major -I"
   },
   "lint-staged": {
     "*.md": [
@@ -37,7 +38,7 @@
     ]
   },
   "dependencies": {
-    "@vueuse/core": "10.0.2",
+    "@vueuse/core": "10.2.1",
     "color": "4.2.3",
     "echarts": "5.4.2",
     "lodash-es": "4.17.21",
@@ -46,27 +47,28 @@
     "vue-skeletor": "1.0.6"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "0.38.4",
-    "@commitlint/cli": "17.6.1",
-    "@commitlint/config-conventional": "17.6.1",
+    "@antfu/eslint-config": "0.39.7",
+    "@commitlint/cli": "17.6.6",
+    "@commitlint/config-conventional": "17.6.6",
     "@types/color": "3.0.3",
-    "@vuepress/client": "2.0.0-beta.61",
-    "cpy-cli": "^4.2.0",
-    "eslint": "8.38.0",
+    "@vuepress/client": "2.0.0-beta.64",
+    "cpy-cli": "^5.0.0",
+    "eslint": "8.44.0",
     "husky": "8.0.3",
-    "lint-staged": "13.2.1",
-    "markdownlint-cli": "0.33.0",
-    "prettier": "2.8.8",
-    "sass-loader": "13.2.2",
-    "sort-package-json": "2.4.1",
-    "typescript": "5.0.4",
-    "vue": "3.2.47",
-    "vue-router": "4.1.6",
-    "vuepress": "2.0.0-beta.61",
-    "vuepress-plugin-search-pro": "2.0.0-beta.204",
-    "vuepress-theme-hope": "2.0.0-beta.204"
+    "lint-staged": "13.2.3",
+    "markdownlint-cli": "0.35.0",
+    "prettier": "3.0.0",
+    "sass-loader": "13.3.2",
+    "sort-package-json": "2.5.0",
+    "taze": "^0.11.2",
+    "typescript": "5.1.6",
+    "vue": "3.3.4",
+    "vue-router": "4.2.4",
+    "vuepress": "2.0.0-beta.64",
+    "vuepress-plugin-search-pro": "2.0.0-beta.230",
+    "vuepress-theme-hope": "2.0.0-beta.230"
   },
-  "packageManager": "pnpm@7.14.0",
+  "packageManager": "pnpm@8.6.6",
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": [

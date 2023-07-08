@@ -67,12 +67,7 @@ export default function createVuePressTheme() {
       articlePerPage: 5,
     },
 
-    themeColor: {
-      blue: '#2196f3',
-      red: '#f26d6d',
-      orange: '#fb9b5f',
-      rebeccapurple: '#663399',
-    },
+    themeColor: true,
     fullscreen: true,
 
     locales: {
