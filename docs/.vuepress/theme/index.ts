@@ -156,10 +156,11 @@ export default function createVuePressTheme() {
         // echarts: true,
         // flowchart: true,
         gfm: true,
-        imageLazyload: true,
+        imgLazyload: true,
         figure: { focusable: false }, // disable until v147
-        // imageTitle: true,
-        imageSize: true,
+        // 启用图片标记
+        // imgMark: true,
+        imgSize: true,
         include: true,
         katex: true,
         mark: true,
@@ -207,12 +208,28 @@ export default function createVuePressTheme() {
         manifest: {
           icons: [
             {
-              src: '/logo.svg',
-              sizes: 'any',
-              purpose: 'maskable',
+                "src": "/icon-192x192.png",
+                "sizes": "192x192",
+                "type": "image/png"
             },
+            {
+                "src": "/icon-256x256.png",
+                "sizes": "256x256",
+                "type": "image/png"
+            },
+            {
+                "src": "/icon-384x384.png",
+                "sizes": "384x384",
+                "type": "image/png"
+            },
+            {
+                "src": "/icon-512x512.png",
+                "sizes": "512x512",
+                "type": "image/png"
+            }
           ],
         },
+        update: 'hint',
       },
       seo: { canonical: `${hostname}/vuepress-blog/` },
     },
