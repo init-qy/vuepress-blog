@@ -19,7 +19,7 @@
     "lint:md": "markdownlint docs/ --fix",
     "lint:prettier": "prettier --check --write .",
     "prepare": "husky install",
-    "sync:en-docs": "cpy docs/posts/* docs/en/posts",
+    "sync:en-docs": "cpy 'docs/posts/*' docs/en/posts",
     "up": "taze major -I"
   },
   "lint-staged": {
