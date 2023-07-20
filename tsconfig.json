@@ -8,7 +8,7 @@
     "newLine": "lf",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "types": ["vite/client", "vite-plugin-svg-icons/client"],
+    "types": [],
     "typeRoots": ["node_modules/@types"]
   },
   "include": ["docs/.vuepress/**/*.ts", "global.d.ts"],

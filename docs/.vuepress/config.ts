@@ -32,6 +32,10 @@ export default defineUserConfig({
       __dirname,
       './components/blogMain.vue',
     ),
+    '@RealcuganNcnnWebassembly': path.resolve(
+      __dirname,
+      './components/realcugan-ncnn-webassembly/index.vue',
+    ),
   },
   head: [
   ],
