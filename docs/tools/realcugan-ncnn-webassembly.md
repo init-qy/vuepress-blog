@@ -6,6 +6,9 @@ pageInfo: false
 prev: false
 next: false
 editLink: false
+lastUpdated: false
+contributors: false
+article: false
 containerClass: custom-container
 ---
 # 动漫图片超分辨率 Real-CUGAN

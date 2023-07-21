@@ -5,3 +5,12 @@ $colors: #c0392b, #d35400, #f39c12, #27ae60, #16a085, #2980b9, #8e44ad, #2c3e50,
 $theme-colors: #2196f3, #f26d6d, #fb9b5f, #663399;
 
 $dark-selector: 'html[data-theme="dark"]';
+
+.side-container {
+  border-radius: 4px;
+  box-shadow: 2px 0 8px var(--card-shadow);
+  margin: 1rem 2rem;
+  padding: 1rem;
+  text-align: center;
+  font-size: 12px;
+}

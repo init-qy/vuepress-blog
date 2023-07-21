@@ -27,7 +27,7 @@ const { locale } = useLocale()
 const { i18n } = useI18n(locale)
 const { isDarkmode } = useDarkmode()
 
-const weatherIcon = ref(null)
+const weatherIcon = ref<HTMLIFrameElement>()
 const weatherData = ref<WeatherDataType>()
 
 const windTransform = computed(() => {
@@ -69,7 +69,7 @@ watch(locale, async () => {
 }, { immediate: true })
 watch([isDarkmode, weatherIcon], () => {
   const setBackground = (value: string) => {
-    const svgs = weatherIcon.value.contentDocument.getElementsByTagName('svg')
+    const svgs = weatherIcon.value!.contentDocument?.getElementsByTagName('svg')
     if (svgs && svgs.length) {
       svgs[0].style.backgroundColor = value
     }
@@ -82,12 +82,12 @@ watch([isDarkmode, weatherIcon], () => {
   if (isDarkmode.value && weatherIcon.value)
     setBackground('#0d1117')
   else if (!isDarkmode.value && weatherIcon.value)
-    setBackground(null)
+    setBackground('')
 }, { immediate: true })
 </script>
 
 <template>
-  <div v-if="weatherData" class="container">
+  <div v-if="weatherData" class="side-container !text-right">
     <div class="title">
       <div>{{ i18n('common.todayWeather') }}</div>
       <div>{{ weatherData.addressName }}</div>
@@ -125,14 +125,6 @@ watch([isDarkmode, weatherIcon], () => {
 <style lang="scss" scoped>
 @use '../styles/config.scss' as *;
 
-.container {
-  border-radius: 4px;
-  box-shadow: 2px 0 8px var(--card-shadow);
-  margin: 1rem 2rem;
-  padding: 1rem;
-  text-align: right;
-  font-size: 12px;
-}
 .title {
   display: flex;
   justify-content: space-between;
@@ -147,17 +139,5 @@ watch([isDarkmode, weatherIcon], () => {
   width: 20px;
   text-align: center;
   font-size: 14px;
-}
-.flex {
-  display: flex;
-}
-.flex-1 {
-  flex: 1 1 0;
-}
-.justify-end {
-  justify-content: end;
-}
-.mb-10 {
-  margin-bottom: 10px;
 }
 </style>

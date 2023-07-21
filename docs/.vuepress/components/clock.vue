@@ -1,16 +1,16 @@
 <script setup name="clock" lang="ts">
 import { useDateFormat, useNow, useStorage } from '@vueuse/core'
-import { useDarkmode } from 'vuepress-theme-hope/outlook/composables/index'
 import { computed, onMounted, watch } from 'vue'
 import * as echarts from 'echarts'
 
+// import { useDarkmode } from 'vuepress-theme-hope/outlook/composables/index'
+
 import type { GaugeSeriesOption } from 'echarts/charts'
-import type { EChartsType } from 'echarts/core'
 
 import { useLocale } from './utils/i18n'
 
 const { locale } = useLocale()
-const { isDarkmode } = useDarkmode()
+// const { isDarkmode } = useDarkmode()
 const isGraphClock = useStorage('is-graph-clock', false)
 
 const now = useNow()
@@ -23,13 +23,15 @@ const week = computed(() => {
 
 // echarts
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>
-let myChart: EChartsType | undefined
+let myChart: echarts.ECharts | undefined
 
 function initEcharts() {
   const chartDom = document.getElementById('clockEcharts')
+  if (!chartDom)
+    return
   const chartDomClientWidth = chartDom.clientWidth
   chartDom.style.height = `${chartDomClientWidth}px`
-  myChart = echarts.init(chartDom, null, {
+  myChart = echarts.init(chartDom, undefined, {
     renderer: 'svg',
   })
   const option: EChartsOption = {
@@ -214,7 +216,7 @@ function initEcharts() {
   option && myChart.setOption(option)
 }
 function destroyEcharts() {
-  myChart.dispose()
+  myChart?.dispose()
   myChart = undefined
 }
 function setOption(hour: number, minute: number, second: number, secondAnimation = true) {
@@ -266,7 +268,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="side-container">
     <div class="date">
       {{ `${date}  ${week}` }}
     </div>
@@ -285,13 +287,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 @use '../styles/config.scss' as *;
 
-.container {
-  border-radius: 4px;
-  box-shadow: 2px 0 8px var(--card-shadow);
-  margin: 1rem 2rem;
-  padding: 1rem;
-  text-align: center;
-}
 .switch-clock {
   cursor: pointer;
 }
