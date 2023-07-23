@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 dependencies:
   '@vueuse/core':
     specifier: 10.2.1
@@ -26,9 +22,6 @@ dependencies:
   typeit:
     specifier: 8.7.1
     version: 8.7.1
-  vue-skeletor:
-    specifier: 1.0.6
-    version: 1.0.6
   wasm-feature-detect:
     specifier: ^1.5.1
     version: 1.5.1
@@ -88,6 +81,9 @@ devDependencies:
   unplugin-vue-components:
     specifier: ^0.25.1
     version: 0.25.1(rollup@2.79.1)(vue@3.3.4)
+  vite-plugin-cross-origin-isolation:
+    specifier: ^0.1.6
+    version: 0.1.6
   vue:
     specifier: 3.3.4
     version: 3.3.4
@@ -9495,6 +9491,10 @@ packages:
       type-fest: 3.12.0
     dev: true
 
+  /vite-plugin-cross-origin-isolation@0.1.6:
+    resolution: {integrity: sha512-OY0naW9nPUDrKTffYnY7FRYXOgZdHoNwMGpPxUmj/n32mGZi01fcq+J536jkmwGWX7DLT95XBQVHHbrAJzTvrw==}
+    dev: true
+
   /vite@4.3.9(@types/node@20.4.1):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -9577,10 +9577,6 @@ packages:
       '@vue/devtools-api': 6.5.0
       vue: 3.3.4
     dev: true
-
-  /vue-skeletor@1.0.6:
-    resolution: {integrity: sha512-ER4vHlFSXCW3ixK2DlczUE6CZliHsn4d2TvZ9/26C6Oq8zoyEY23BsqweMPtF8QULSz1+G5m2New1BwKNVOZhQ==}
-    dev: false
 
   /vue@3.3.4:
     resolution: {integrity: sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==}
@@ -10669,3 +10665,7 @@ packages:
     resolution: {integrity: sha512-DRUM4ZLnoaT0PBVvGBDO9oWIDBKFdAVieNWxWwK0niYzJCMwGchRk21/hsE+RKkIveH3XHCyvXcJDkgLVvfizQ==}
     dependencies:
       tslib: 2.3.0
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false

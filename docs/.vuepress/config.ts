@@ -3,6 +3,7 @@ import { path } from '@vuepress/utils'
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import Unocss from 'unocss/vite'
+import crossOriginIsolation from 'vite-plugin-cross-origin-isolation'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import {
@@ -50,6 +51,7 @@ export default defineUserConfig({
   bundler: viteBundler({
     viteOptions: {
       plugins: [
+        crossOriginIsolation(),
         Unocss({
           mode: 'per-module',
         }),
