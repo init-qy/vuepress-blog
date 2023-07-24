@@ -1,5 +1,6 @@
 <script setup lang="ts" name="imgCompare">
-import { ref } from 'vue'
+import { computed, ref, unref } from 'vue'
+import NaivePkg from 'naive-ui'
 
 const props = defineProps({
   width: Number,
@@ -7,6 +8,8 @@ const props = defineProps({
   backImg: String,
   frontImg: String,
 })
+
+const { NIcon } = NaivePkg
 
 const sliderRef = ref()
 
@@ -56,12 +59,12 @@ const handleMousedown = function (event: MouseEvent) {
       @mousedown.prevent="handleMousedown"
     >
       <div class="arrow">
-        <n-icon size="19">
+        <NIcon size="19">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"><g fill="none"><path d="M15 17.898c0 1.074-1.265 1.648-2.073.941l-6.31-5.522a1.75 1.75 0 0 1 0-2.634l6.31-5.522c.808-.707 2.073-.133 2.073.941v11.796z" fill="currentColor" /></g></svg>
-        </n-icon>
-        <n-icon size="19">
+        </NIcon>
+        <NIcon size="19">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"><g fill="none"><path d="M9 17.898c0 1.074 1.265 1.648 2.073.941l6.31-5.522a1.75 1.75 0 0 0 0-2.634l-6.31-5.522C10.265 4.454 9 5.028 9 6.102v11.796z" fill="currentColor" /></g></svg>
-        </n-icon>
+        </NIcon>
       </div>
     </div>
   </div>

@@ -4,14 +4,23 @@ import { computed, onBeforeUnmount, onMounted, ref, unref } from 'vue'
 import { useStorage } from '@vueuse/core'
 import * as wasmFeatureDetect from 'wasm-feature-detect'
 import { usePageData } from '@vuepress/client'
-import {
-  createDiscreteApi,
-  darkTheme,
-  lightTheme,
-} from 'naive-ui'
+import NaivePkg from 'naive-ui'
 import type { ConfigProviderProps } from 'naive-ui'
 import SideControl from './sideControl.vue'
 import ImgCompare from './imgCompare.vue'
+
+const {
+  NAlert,
+  NButton,
+  NConfigProvider,
+  NImage,
+  NP,
+  NProgress,
+  NSpace,
+  createDiscreteApi,
+  darkTheme,
+  lightTheme,
+} = NaivePkg
 
 enum processStatusType {
   SUCCESS,
@@ -28,10 +37,9 @@ let message, dialog
 const sideControlRef = ref()
 const previewBoxRef = ref()
 
-const themeColor = ref(window.getComputedStyle(document.body).getPropertyValue('--theme-color'))
-const interval = setInterval(() => {
-  themeColor.value = window.getComputedStyle(document.body).getPropertyValue('--theme-color')
-}, 1000)
+const themeColor = ref('#41b349')
+let interval
+
 /**
  * @type import('naive-ui').GlobalThemeOverrides
  */
@@ -265,6 +273,10 @@ onMounted(() => {
     }
   }
   routeLoad()
+
+  interval = setInterval(() => {
+    themeColor.value = window.getComputedStyle(document.body).getPropertyValue('--theme-color')
+  }, 1000)
 })
 onBeforeUnmount(() => {
   if (interval)
@@ -273,54 +285,54 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <n-config-provider :theme="isDarkmode ? darkTheme : lightTheme" :theme-overrides="themeOverrides">
-    <n-alert title="本项目基于Web Assembly技术，在浏览器端使用CPU完成图像处理，不会上传任何图片到云端。" type="info" closable>
-      注意：本页面处理图片时占用内存约900M，且CPU占用较高。如果使用有问题，请在PC端使用最新版的Chrome或Firefox打开本页面。如输出有问题或长时间无响应，请刷新重试。
-    </n-alert>
-    <div class="flex mt-10">
-      <SideControl ref="sideControlRef" @process="process" />
-      <!-- preview -->
-      <div ref="previewBoxRef" class="flex-1 ml-16">
-        <!--      进度条 -->
-        <template v-if="!wasmModuleLoaded">
-          <b>资源努力加载中(约12MB)......</b>
-        </template>
-        <template v-if="processStatus === processStatusType.PROCESSING">
-          <n-space justify="space-between" class="mb-2.5">
-            <n-p>{{ progressTip }} 剩余时长: {{ procRemainingTime.toFixed(2) }}秒</n-p>
-            <n-button round size="small" strong secondary @click="handleCancel">
-              取消处理
-            </n-button>
-          </n-space>
-          <n-progress
-            type="line"
-            :color="themeColor"
-            :percentage="progressRate"
-            indicator-placement="inside"
-            processing
-          />
-        </template>
-        <template v-if="processStatus === processStatusType.SUCCESS">
-          <n-space justify="space-between" class="mb-2.5">
-            <n-p>{{ progressTip }}</n-p>
-            <n-button :color="themeColor" round size="small" @click="saveOutput">
-              保存图片
-            </n-button>
-          </n-space>
-          <ImgCompare v-if="realcuganParams.previewRadio === 0" :width="previewBoxSize.width" :height="previewBoxSize.height" :front-img="outputImgSrc" :back-img="uploadImgSrc" />
-          <n-space v-else :wrap="realcuganParams.previewRadio === 2">
-            <n-image :src="uploadImgSrc" alt="uploadImg" />
-            <n-image :src="outputImgSrc" alt="outputImg" />
-          </n-space>
-        </template>
+  <ClientOnly>
+    <NConfigProvider :theme="isDarkmode ? darkTheme : lightTheme" :theme-overrides="themeOverrides">
+      <NAlert title="本项目基于Web Assembly技术，在浏览器端使用CPU完成图像处理，不会上传任何图片到云端。" type="info" closable>
+        注意：本页面处理图片时占用内存约900M，且CPU占用较高。如果使用有问题，请在PC端使用最新版的Chrome或Firefox打开本页面。如输出有问题或长时间无响应，请刷新重试。
+      </NAlert>
+      <div class="flex mt-10">
+        <SideControl ref="sideControlRef" @process="process" />
+        <!-- preview -->
+        <div ref="previewBoxRef" class="flex-1 ml-16">
+          <!--      进度条 -->
+          <template v-if="!wasmModuleLoaded">
+            <NP>资源努力加载中(约12MB)......</NP>
+          </template>
+          <template v-if="processStatus === processStatusType.PROCESSING">
+            <NSpace justify="space-between" class="mb-2.5">
+              <NP>{{ progressTip }} 剩余时长: {{ procRemainingTime.toFixed(2) }}秒</NP>
+              <NButton round size="small" strong secondary @click="handleCancel">
+                取消处理
+              </NButton>
+            </NSpace>
+            <NProgress
+              type="line"
+              :color="themeColor"
+              :percentage="progressRate"
+              indicator-placement="inside"
+              processing
+            />
+          </template>
+          <template v-if="processStatus === processStatusType.SUCCESS">
+            <NSpace justify="space-between" class="mb-2.5">
+              <NP>{{ progressTip }}</NP>
+              <NButton :color="themeColor" round size="small" @click="saveOutput">
+                保存图片
+              </NButton>
+            </NSpace>
+            <ImgCompare v-if="realcuganParams.previewRadio === 0" :width="previewBoxSize.width" :height="previewBoxSize.height" :front-img="outputImgSrc" :back-img="uploadImgSrc" />
+            <NSpace v-else :wrap="realcuganParams.previewRadio === 2">
+              <NImage :src="uploadImgSrc" alt="uploadImg" />
+              <NImage :src="outputImgSrc" alt="outputImg" />
+            </NSpace>
+          </template>
+        </div>
       </div>
+    </NConfigProvider>
+    <div class="display-none">
+      <canvas id="canvas-output" ref="canvasOutputRef" />
     </div>
-  </n-config-provider>
-
-  <div class="display-none">
-    <canvas id="canvas-upload" />
-    <canvas id="canvas-output" ref="canvasOutputRef" />
-  </div>
+  </ClientOnly>
 </template>
 
 <style lang="scss">

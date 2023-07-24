@@ -4,10 +4,12 @@
 import { StorageSerializers, useFetch, useSessionStorage } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 import { useDarkmode } from 'vuepress-theme-hope/outlook/composables/index.js'
+import NaivePkg from 'naive-ui'
 import { getAddress } from './utils/getLocation'
 import { getWeatherIconFromCode } from './utils/weather'
 import { useI18n, useLocale } from './utils/i18n'
 
+const { NSkeleton, NSpace } = NaivePkg
 interface WeatherDataType {
   addressName: string
   current: {
@@ -109,13 +111,13 @@ watch([isDarkmode, weatherIcon], () => {
     </div>
   </div>
   <div v-else class="side-container">
-    <n-skeleton round size="small" height="14" class="mb-2.5" />
+    <NSkeleton round size="small" :height="14" class="mb-2.5" />
     <div class="flex">
-      <n-skeleton circle size="large" :width="80" :height="80" />
-      <n-space vertical class="flex-1">
-        <n-skeleton round size="small" width="60%" height="14" class="ml-auto" />
-        <n-skeleton v-for="i in 4" :key="i" :width="`${40 + i * 10}%`" round size="small" height="14" class="ml-auto" />
-      </n-space>
+      <NSkeleton circle size="large" :width="80" :height="80" />
+      <NSpace vertical class="flex-1">
+        <NSkeleton round size="small" width="60%" :height="14" class="ml-auto" />
+        <NSkeleton v-for="i in 4" :key="i" :width="`${40 + i * 10}%`" round size="small" height="14" class="ml-auto" />
+      </NSpace>
     </div>
   </div>
 </template>

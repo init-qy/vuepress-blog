@@ -1,15 +1,8 @@
-import { resolve } from 'node:path'
 import { path } from '@vuepress/utils'
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import Unocss from 'unocss/vite'
 import crossOriginIsolation from 'vite-plugin-cross-origin-isolation'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import {
-  NaiveUiResolver,
-  VueUseComponentsResolver,
-} from 'unplugin-vue-components/resolvers'
 import createVuePressTheme from './theme/index'
 import createVuePressPlugins from './plugins'
 
@@ -54,26 +47,6 @@ export default defineUserConfig({
         crossOriginIsolation(),
         Unocss({
           mode: 'per-module',
-        }),
-        Components({
-          dirs: resolve(__dirname, './components'),
-          dts: resolve(
-            __dirname,
-            './types/components.d.ts',
-          ),
-          extensions: ['vue', 'md'],
-          include: [/\.md$/, /\.vue$/],
-          resolvers: [
-            NaiveUiResolver(),
-            VueUseComponentsResolver(),
-          ],
-        }),
-        AutoImport({
-          dts: resolve(
-            __dirname,
-            './types/auto-imports.d.ts',
-          ),
-          imports: ['vue', 'vue-router', '@vueuse/core'],
         }),
       ],
     },
