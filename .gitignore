@@ -1,6 +1,18 @@
+# IDEA files
 .idea
 
+# OSX dir files
+.DS_Store
+
+# packages
 node_modules
+
+# build chches
 docs/.vuepress/.cache
 docs/.vuepress/.temp
+# build outputs
 docs/.vuepress/dist
+# wasm outputs
+docs/.vuepress/public/tools/realcugan-ncnn-webassembly*
+docs/.vuepress/public/tools/up2x*
+docs/.vuepress/public/tools/up3x*

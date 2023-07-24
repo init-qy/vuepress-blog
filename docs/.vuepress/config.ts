@@ -1,8 +1,10 @@
 import { path } from '@vuepress/utils'
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
-import createVuePressPlugins from './plugins'
+import Unocss from 'unocss/vite'
+import crossOriginIsolation from 'vite-plugin-cross-origin-isolation'
 import createVuePressTheme from './theme/index'
+import createVuePressPlugins from './plugins'
 
 export default defineUserConfig({
   base: '/vuepress-blog/',
@@ -32,11 +34,22 @@ export default defineUserConfig({
       __dirname,
       './components/blogMain.vue',
     ),
+    '@RealcuganNcnnWebassembly': path.resolve(
+      __dirname,
+      './components/realcugan-ncnn-webassembly/index.vue',
+    ),
   },
   head: [
   ],
   bundler: viteBundler({
-    viteOptions: {},
+    viteOptions: {
+      plugins: [
+        crossOriginIsolation(),
+        Unocss({
+          mode: 'per-module',
+        }),
+      ],
+    },
     vuePluginOptions: {},
   }),
 })

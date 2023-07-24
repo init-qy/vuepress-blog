@@ -42,15 +42,17 @@
     "color": "4.2.3",
     "echarts": "5.4.2",
     "lodash-es": "4.17.21",
+    "naive-ui": "^2.34.4",
     "rgbaster": "2.1.1",
     "typeit": "8.7.1",
-    "vue-skeletor": "1.0.6"
+    "wasm-feature-detect": "^1.5.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "0.39.7",
     "@commitlint/cli": "17.6.6",
     "@commitlint/config-conventional": "17.6.6",
     "@types/color": "3.0.3",
+    "@types/emscripten": "^1.39.6",
     "@vuepress/client": "2.0.0-beta.64",
     "cpy-cli": "^5.0.0",
     "eslint": "8.44.0",
@@ -62,6 +64,8 @@
     "sort-package-json": "2.5.0",
     "taze": "^0.11.2",
     "typescript": "5.1.6",
+    "unocss": "^0.53.5",
+    "vite-plugin-cross-origin-isolation": "^0.1.6",
     "vue": "3.3.4",
     "vue-router": "4.2.4",
     "vuepress": "2.0.0-beta.64",

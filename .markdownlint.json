@@ -13,12 +13,13 @@
   "MD033": {
     "allowed_elements": [
       "br",
-      "kbd",
       "script",
+      "style",
       "span",
       "BiliBili",
       "MigrationTool",
-      "YouTube"
+      "YouTube",
+      "RealcuganNcnnWebassembly"
     ]
   },
   "MD035": {
