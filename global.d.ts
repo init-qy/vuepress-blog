@@ -5,9 +5,10 @@ declare module '*.vue' {
 	const component: DefineComponent<{}, {}, any>
 	export default component
 }
-
-declare global {
-	interface Window {
-		Module: any;
-	}
+interface Window {
+  Module: any,
+  HEAPU8: any,
+  _malloc: Function,
+  _free: Function,
+  _process_image: Function,
 }

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-./emsdk/emsdk install 3.1.43
-./emsdk/emsdk activate 3.1.43
+./emsdk/emsdk install 3.1.28
+./emsdk/emsdk activate 3.1.28
 
 source ./emsdk/emsdk_env.sh
 

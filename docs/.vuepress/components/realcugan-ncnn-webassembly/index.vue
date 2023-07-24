@@ -11,6 +11,7 @@ import {
 } from 'naive-ui'
 import type { ConfigProviderProps } from 'naive-ui'
 import SideControl from './sideControl.vue'
+import ImgCompare from './imgCompare.vue'
 
 enum processStatusType {
   SUCCESS,
@@ -23,6 +24,9 @@ const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
   theme: isDarkmode.value ? darkTheme : lightTheme,
 }) as ConfigProviderProps)
 let message, dialog
+
+const sideControlRef = ref()
+const previewBoxRef = ref()
 
 const pageData = usePageData()
 let srcInteractedData = null
@@ -45,9 +49,17 @@ const outputParams = ref({
   scaleRadio: 2,
   denoiseRadio: 0,
 })
+const uploadImgSrc = ref('')
 const outputImgSrc = ref('')
+const previewBoxSize = ref({
+  width: 0,
+  height: 0,
+})
 
 const process = function (uploadImageData, w, h, fileName = '') {
+  const uploadCanvas = sideControlRef.value.canvasUploadRef
+  uploadImgSrc.value = uploadCanvas.toDataURL()
+
   const outputCanvas = canvasOutputRef.value
   if (!outputCanvas)
     return
@@ -63,12 +75,11 @@ const process = function (uploadImageData, w, h, fileName = '') {
   }
   outputCanvas.width = w * scaleRadio
   outputCanvas.height = h * scaleRadio
-
-  srcInteractedData = _malloc(uploadImageData.data.length)
-  HEAPU8.set(uploadImageData.data, srcInteractedData)
+  srcInteractedData = window._malloc(uploadImageData.data.length)
+  window.HEAPU8.set(uploadImageData.data, srcInteractedData)
   const imageDataOutput = outputCtx.getImageData(0, 0, outputCanvas.width, outputCanvas.height)
-  dstInteractedData = _malloc(imageDataOutput.data.length)
-  const retCode = _process_image(0, srcInteractedData, dstInteractedData, w, h, scaleRadio, denoiseRadio)
+  dstInteractedData = window._malloc(imageDataOutput.data.length)
+  const retCode = window._process_image(0, srcInteractedData, dstInteractedData, w, h, scaleRadio, denoiseRadio)
   if (retCode !== 0) {
     message.warning('请稍后再试')
     processStatus.value = processStatusType.FAIL
@@ -81,16 +92,18 @@ const onProcessEnd = function (cost) {
     return
   const ctxOutput = canvasOutput.getContext('2d')
   const imageDataOutput = ctxOutput.getImageData(0, 0, canvasOutput.width, canvasOutput.height)
+  previewBoxSize.value.width = Math.min(previewBoxRef.value.clientWidth, canvasOutput.width)
+  previewBoxSize.value.height = previewBoxSize.value.width * canvasOutput.height / canvasOutput.width
 
-  const result = HEAPU8.subarray(dstInteractedData, dstInteractedData + imageDataOutput.data.length)
+  const result = window.HEAPU8.subarray(dstInteractedData, dstInteractedData + imageDataOutput.data.length)
   imageDataOutput.data.set(result)
   ctxOutput.putImageData(imageDataOutput, 0, 0)
-  console.log('output size: ', result.length)
   outputImgSrc.value = canvasOutput.toDataURL()
-  _free(srcInteractedData)
-  _free(dstInteractedData)
+  window._free(srcInteractedData)
+  window._free(dstInteractedData)
   srcInteractedData = null
   dstInteractedData = null
+  sideControlRef.value.resetImage()
 
   processStatus.value = processStatusType.SUCCESS
   const costTime = (cost / 1000).toFixed(2)
@@ -194,7 +207,6 @@ const handleCancel = function () {
 onMounted(() => {
   window.Module = {
     print: (text) => {
-      console.log(text)
       // catch callback =_=
       if (text.length > 11 && text.substring(0, 10) === '$CALLBACK$')
         wasmCallback(text.substring(11))
@@ -248,9 +260,9 @@ onMounted(() => {
       注意：本页面处理图片时占用内存约900M，且CPU占用较高。如果使用有问题，请在PC端使用最新版的Chrome或Firefox打开本页面。如输出有问题或长时间无响应，请刷新重试。
     </n-alert>
     <div class="flex mt-10">
-      <SideControl @process="process" />
+      <SideControl ref="sideControlRef" @process="process" />
       <!-- preview -->
-      <div class="flex-1">
+      <div ref="previewBoxRef" class="flex-1 ml-16">
         <!--      进度条 -->
         <template v-if="!wasmModuleLoaded">
           <b>资源努力加载中(约12MB)......</b>
@@ -273,6 +285,8 @@ onMounted(() => {
           <n-button type="primary" round @click="saveOutput">
             保存图片
           </n-button>
+          <ImgCompare v-if="realcuganParams.previewRadio === 0" :width="previewBoxSize.width" :height="previewBoxSize.height" :front-img="outputImgSrc" :back-img="uploadImgSrc" />
+          <n-image :src="uploadImgSrc" />
           <n-image :src="outputImgSrc" />
         </template>
       </div>

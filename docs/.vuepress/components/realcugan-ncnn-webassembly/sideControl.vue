@@ -1,6 +1,6 @@
 <script setup lang="ts" name="sideControl">
 import { computed, ref } from 'vue'
-import type { FormInst, UploadFileInfo } from 'naive-ui'
+import type { FormInst } from 'naive-ui'
 import { useStorage } from '@vueuse/core'
 import InfoIcon from './infoIcon.vue'
 
@@ -13,7 +13,7 @@ const model = useStorage('realcuganParams', {
   denoiseRadio: 0,
   previewRadio: 0,
 })
-const uploadImage = ref()
+const uploadImage = ref('')
 const scaleRadioList = [{
   value: 2,
   label: '2X',
@@ -45,18 +45,14 @@ const previewRadioList = [{
   label: '并列',
 }]
 
-// watch(() => model.value.scaleRadio, (val) => {
-//   if (val === 3)
-//     model.value.denoiseRadio = 3
-// })
-const handleChange = function ({ file }: { file: UploadFileInfo; fileList: Array<UploadFileInfo>; event?: Event }) {
+const handleChange = function ({ file }) {
   const canvas = canvasUploadRef.value
   if (!canvas)
     return
   const ctx = canvas.getContext('2d')
   const img = new Image()
   const reader = new FileReader()
-  reader.onload = function ({ target }: ProgressEvent) {
+  reader.onload = function ({ target }) {
     if (typeof target.result === 'string') {
       uploadImage.value = target.result
       img.src = target.result
@@ -77,10 +73,31 @@ const handleChange = function ({ file }: { file: UploadFileInfo; fileList: Array
     console.error(e)
   }
 }
+const useTestCase = function () {
+  const canvas = canvasUploadRef.value
+  if (!canvas)
+    return
+  const ctx = canvas.getContext('2d')
+  const imageName = 'testImage.jpg'
+  const img = new Image()
+  img.onload = function () {
+    canvas.width = img.width
+    canvas.height = img.height
+    ctx.drawImage(img, 0, 0)
+    const uploadImageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+    emits('process', uploadImageData, canvas.width, canvas.height, imageName)
+  }
+  uploadImage.value = imageName
+  img.src = imageName
+}
+const resetImage = function () {
+  uploadImage.value = ''
+}
+defineExpose({ resetImage, canvasUploadRef })
 </script>
 
 <template>
-  <n-space vertical>
+  <n-space vertical class="w-430px flex-shrink-0">
     <n-form
       ref="formRef"
       :model="model"
@@ -154,8 +171,11 @@ const handleChange = function ({ file }: { file: UploadFileInfo; fileList: Array
             </n-p>
           </n-upload-dragger>
         </n-upload>
-        <n-image v-else :src="uploadImage" class="max-w-300px hover:cursor-pointer" />
+        <n-image v-if="uploadImage" :src="uploadImage" class="max-w-300px hover:cursor-pointer" />
       </n-form-item>
+      <n-button v-if="!uploadImage" @click="useTestCase">
+        使用示例图片
+      </n-button>
     </n-form>
   </n-space>
   <div class="display-none">

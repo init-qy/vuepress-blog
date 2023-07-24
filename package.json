@@ -52,6 +52,7 @@
     "@commitlint/cli": "17.6.6",
     "@commitlint/config-conventional": "17.6.6",
     "@types/color": "3.0.3",
+    "@types/emscripten": "^1.39.6",
     "@vuepress/client": "2.0.0-beta.64",
     "cpy-cli": "^5.0.0",
     "eslint": "8.44.0",
