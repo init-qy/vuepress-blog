@@ -97,7 +97,7 @@ defineExpose({ resetImage, canvasUploadRef })
 </script>
 
 <template>
-  <n-space vertical class="w-430px flex-shrink-0">
+  <n-space vertical class="w-400px flex-shrink-0">
     <n-form
       ref="formRef"
       :model="model"
@@ -173,7 +173,7 @@ defineExpose({ resetImage, canvasUploadRef })
         </n-upload>
         <n-image v-if="uploadImage" :src="uploadImage" class="max-w-300px hover:cursor-pointer" />
       </n-form-item>
-      <n-button v-if="!uploadImage" @click="useTestCase">
+      <n-button v-if="!uploadImage" strong secondary @click="useTestCase">
         使用示例图片
       </n-button>
     </n-form>

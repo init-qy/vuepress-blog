@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDarkmode } from 'vuepress-theme-hope/outlook/composables/index'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, unref } from 'vue'
 import { useStorage } from '@vueuse/core'
 import * as wasmFeatureDetect from 'wasm-feature-detect'
 import { usePageData } from '@vuepress/client'
@@ -28,6 +28,19 @@ let message, dialog
 const sideControlRef = ref()
 const previewBoxRef = ref()
 
+const themeColor = ref(window.getComputedStyle(document.body).getPropertyValue('--theme-color'))
+const interval = setInterval(() => {
+  themeColor.value = window.getComputedStyle(document.body).getPropertyValue('--theme-color')
+}, 1000)
+/**
+ * @type import('naive-ui').GlobalThemeOverrides
+ */
+const themeOverrides = computed(() => ({
+  common: {
+    primaryColor: unref(themeColor),
+  },
+}))
+
 const pageData = usePageData()
 let srcInteractedData = null
 let dstInteractedData = null
@@ -48,6 +61,7 @@ const outputParams = ref({
   fileName: '',
   scaleRadio: 2,
   denoiseRadio: 0,
+  previewRadio: 0,
 })
 const uploadImgSrc = ref('')
 const outputImgSrc = ref('')
@@ -252,10 +266,14 @@ onMounted(() => {
   }
   routeLoad()
 })
+onBeforeUnmount(() => {
+  if (interval)
+    clearInterval(interval)
+})
 </script>
 
 <template>
-  <n-config-provider :theme="isDarkmode ? darkTheme : lightTheme">
+  <n-config-provider :theme="isDarkmode ? darkTheme : lightTheme" :theme-overrides="themeOverrides">
     <n-alert title="本项目基于Web Assembly技术，在浏览器端使用CPU完成图像处理，不会上传任何图片到云端。" type="info" closable>
       注意：本页面处理图片时占用内存约900M，且CPU占用较高。如果使用有问题，请在PC端使用最新版的Chrome或Firefox打开本页面。如输出有问题或长时间无响应，请刷新重试。
     </n-alert>
@@ -268,26 +286,32 @@ onMounted(() => {
           <b>资源努力加载中(约12MB)......</b>
         </template>
         <template v-if="processStatus === processStatusType.PROCESSING">
-          <n-text>{{ progressTip }}</n-text>
-          <n-text>剩余时长: {{ procRemainingTime.toFixed(2) }}秒</n-text>
-          <n-button round @click="handleCancel">
-            取消处理
-          </n-button>
+          <n-space justify="space-between" class="mb-2.5">
+            <n-p>{{ progressTip }} 剩余时长: {{ procRemainingTime.toFixed(2) }}秒</n-p>
+            <n-button round size="small" strong secondary @click="handleCancel">
+              取消处理
+            </n-button>
+          </n-space>
           <n-progress
             type="line"
+            :color="themeColor"
             :percentage="progressRate"
             indicator-placement="inside"
             processing
           />
         </template>
         <template v-if="processStatus === processStatusType.SUCCESS">
-          <n-text>{{ progressTip }}</n-text>
-          <n-button type="primary" round @click="saveOutput">
-            保存图片
-          </n-button>
+          <n-space justify="space-between" class="mb-2.5">
+            <n-p>{{ progressTip }}</n-p>
+            <n-button :color="themeColor" round size="small" @click="saveOutput">
+              保存图片
+            </n-button>
+          </n-space>
           <ImgCompare v-if="realcuganParams.previewRadio === 0" :width="previewBoxSize.width" :height="previewBoxSize.height" :front-img="outputImgSrc" :back-img="uploadImgSrc" />
-          <n-image :src="uploadImgSrc" />
-          <n-image :src="outputImgSrc" />
+          <n-space v-else :wrap="realcuganParams.previewRadio === 2">
+            <n-image :src="uploadImgSrc" alt="uploadImg" />
+            <n-image :src="outputImgSrc" alt="outputImg" />
+          </n-space>
         </template>
       </div>
     </div>

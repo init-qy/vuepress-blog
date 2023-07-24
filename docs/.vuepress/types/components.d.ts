@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     BlogMain: typeof import('./../components/blogMain.vue')['default']
     Clock: typeof import('./../components/clock.vue')['default']
+    ImgCompare: typeof import('./../components/realcugan-ncnn-webassembly/imgCompare.vue')['default']
     InfoIcon: typeof import('./../components/realcugan-ncnn-webassembly/infoIcon.vue')['default']
     NAlert: typeof import('naive-ui')['NAlert']
     NButton: typeof import('naive-ui')['NButton']

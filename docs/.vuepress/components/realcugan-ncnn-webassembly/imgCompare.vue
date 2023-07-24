@@ -56,8 +56,12 @@ const handleMousedown = function (event: MouseEvent) {
       @mousedown.prevent="handleMousedown"
     >
       <div class="arrow">
-        <span>a</span>
-        <span>a</span>
+        <n-icon size="19">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"><g fill="none"><path d="M15 17.898c0 1.074-1.265 1.648-2.073.941l-6.31-5.522a1.75 1.75 0 0 1 0-2.634l6.31-5.522c.808-.707 2.073-.133 2.073.941v11.796z" fill="currentColor" /></g></svg>
+        </n-icon>
+        <n-icon size="19">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"><g fill="none"><path d="M9 17.898c0 1.074 1.265 1.648 2.073.941l6.31-5.522a1.75 1.75 0 0 0 0-2.634l-6.31-5.522C10.265 4.454 9 5.028 9 6.102v11.796z" fill="currentColor" /></g></svg>
+        </n-icon>
       </div>
     </div>
   </div>
@@ -93,26 +97,26 @@ const handleMousedown = function (event: MouseEvent) {
     width: 2px;
     left: 50%;
     top: 0px;
-    background: white;
+    background: var(--theme-color);
     height: 100%;
     display: block;
     z-index: 2;
 
     .arrow {
       border-radius: 100%;
-      background: #fff;
-      width: 34px;
-      height: 34px;
+      background: var(--vp-bg);
+      width: 38px;
+      height: 38px;
       position: absolute;
-      left: 50%;
-      margin-left: -17px;
-      margin-top: -17px;
-      border: 2px solid;
+      margin-left: -20px;
+      margin-top: -20px;
+      border: 2px solid var(--theme-color);
       top: 50%;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: var(--theme-color);
     }
   }
 }
