@@ -5,9 +5,10 @@ import Unocss from 'unocss/vite'
 import crossOriginIsolation from 'vite-plugin-cross-origin-isolation'
 import createVuePressTheme from './theme/index'
 import createVuePressPlugins from './plugins'
+import { baseUrl } from './components/constants/constants'
 
 export default defineUserConfig({
-  base: '/vuepress-blog/',
+  base: baseUrl,
   locales: {
     '/': {
       lang: 'zh-CN',
@@ -39,10 +40,13 @@ export default defineUserConfig({
       './components/realcugan-ncnn-webassembly/index.vue',
     ),
   },
-  head: [
+  head: [['script', { src: `${baseUrl}enable-threads.js` }],
   ],
   bundler: viteBundler({
     viteOptions: {
+      ssr: {
+        noExternal: ['naive-ui', 'vueuc', 'date-fns'],
+      },
       plugins: [
         crossOriginIsolation(),
         Unocss({

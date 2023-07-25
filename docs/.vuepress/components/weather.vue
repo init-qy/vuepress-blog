@@ -4,12 +4,11 @@
 import { StorageSerializers, useFetch, useSessionStorage } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 import { useDarkmode } from 'vuepress-theme-hope/outlook/composables/index.js'
-import NaivePkg from 'naive-ui'
+import { NSkeleton, NSpace } from 'naive-ui'
 import { getAddress } from './utils/getLocation'
 import { getWeatherIconFromCode } from './utils/weather'
 import { useI18n, useLocale } from './utils/i18n'
 
-const { NSkeleton, NSpace } = NaivePkg
 interface WeatherDataType {
   addressName: string
   current: {

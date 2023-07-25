@@ -1,11 +1,9 @@
 <script setup name="infoIcon" lang="ts">
-import NaivePkg from 'naive-ui'
+import { NIcon, NPopover } from 'naive-ui'
 
 const props = defineProps({
   info: String,
 })
-
-const { NIcon, NPopover } = NaivePkg
 </script>
 
 <template>

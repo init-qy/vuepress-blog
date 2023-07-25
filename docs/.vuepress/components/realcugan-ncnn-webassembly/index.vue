@@ -4,12 +4,7 @@ import { computed, onBeforeUnmount, onMounted, ref, unref } from 'vue'
 import { useStorage } from '@vueuse/core'
 import * as wasmFeatureDetect from 'wasm-feature-detect'
 import { usePageData } from '@vuepress/client'
-import NaivePkg from 'naive-ui'
-import type { ConfigProviderProps } from 'naive-ui'
-import SideControl from './sideControl.vue'
-import ImgCompare from './imgCompare.vue'
-
-const {
+import {
   NAlert,
   NButton,
   NConfigProvider,
@@ -20,7 +15,10 @@ const {
   createDiscreteApi,
   darkTheme,
   lightTheme,
-} = NaivePkg
+} from 'naive-ui'
+import type { ConfigProviderProps } from 'naive-ui'
+import SideControl from './sideControl.vue'
+import ImgCompare from './imgCompare.vue'
 
 enum processStatusType {
   SUCCESS,
@@ -79,6 +77,11 @@ const previewBoxSize = ref({
 })
 
 const process = function (uploadImageData, w, h, fileName = '') {
+  if (!wasmModuleLoaded.value) {
+    message.warning('wasm 还未加载完成，请稍后再试')
+    sideControlRef.value.resetImage()
+    return
+  }
   const uploadCanvas = sideControlRef.value.canvasUploadRef
   uploadImgSrc.value = uploadCanvas.toDataURL()
 
@@ -158,6 +161,9 @@ const wasmCallback = function (rawData) {
 }
 
 const checkWasmSupportAndLoad = async function () {
+  // if (!window.location.host.includes('netlify.app'))
+  //   await fetch(`${baseUrl}assets/enable-thread.js`)
+
   const [hasSIMD, hasThreads] = await Promise.all([wasmFeatureDetect.simd(), wasmFeatureDetect.threads()])
   if (!hasSIMD) {
     message.error('浏览器不支持simd (不支持iOS，Android请单独用Chrome/Firefox等浏览器打开，桌面端请使用最新版本的Chrome或Firefox)', {

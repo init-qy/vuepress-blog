@@ -2,12 +2,10 @@
 import { computed, ref } from 'vue'
 import type { FormInst } from 'naive-ui'
 import { useStorage } from '@vueuse/core'
-import NaivePkg from 'naive-ui'
+import { NButton, NForm, NFormItem, NIcon, NImage, NP, NRadioButton, NRadioGroup, NSpace, NUpload, NUploadDragger } from 'naive-ui'
 import InfoIcon from './infoIcon.vue'
 
 const emits = defineEmits(['save', 'process'])
-
-const { NButton, NForm, NFormItem, NIcon, NImage, NP, NRadioButton, NRadioGroup, NSpace, NUpload, NUploadDragger } = NaivePkg
 
 const formRef = ref<FormInst>()
 const canvasUploadRef = ref<HTMLCanvasElement>()

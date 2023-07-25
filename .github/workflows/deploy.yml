@@ -36,7 +36,7 @@ jobs:
         run: git submodule update --init
 
       - name: Build wasm files
-        run: bash ./docs/.vuepress/realcugan-ncnn-webassembly/build.sh
+        run: cd ./docs/.vuepress/realcugan-ncnn-webassembly && bash build.sh
 
       - name: Build Docs
         run: |-

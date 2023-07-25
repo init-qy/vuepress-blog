@@ -1,6 +1,6 @@
 <script setup lang="ts" name="imgCompare">
 import { computed, ref, unref } from 'vue'
-import NaivePkg from 'naive-ui'
+import { NIcon } from 'naive-ui'
 
 const props = defineProps({
   width: Number,
@@ -8,8 +8,6 @@ const props = defineProps({
   backImg: String,
   frontImg: String,
 })
-
-const { NIcon } = NaivePkg
 
 const sliderRef = ref()
 
