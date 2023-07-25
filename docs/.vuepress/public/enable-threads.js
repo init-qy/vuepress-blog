@@ -34,8 +34,8 @@ if(typeof window === 'undefined') {
     if(r.status === 0) {
       return r;
     }
+    const headers = new Headers(r.headers);
     if(!/(.*alicdn.*)|(.*bing.*)/.test(request.url)){
-      const headers = new Headers(r.headers);
       headers.set("Cross-Origin-Embedder-Policy", "require-corp"); // or: credentialless
       headers.set("Cross-Origin-Opener-Policy", "same-origin");
     }
