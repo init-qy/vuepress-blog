@@ -9,13 +9,13 @@ const props = defineProps({
   frontImg: String,
 })
 
-const sliderRef = ref()
+const sliderRef = ref<HTMLElement>()
 
 const imgStyle = computed(() => ({ width: `${props.width}px`, height: `${props.height}px` }))
 
 const sliderPos = ref(props.width / 2)
-
 const active = ref(true)
+
 const handleMousedown = function (event: MouseEvent) {
   active.value = true
   const sliderOffsetLeft = unref(sliderRef).offsetLeft
@@ -41,19 +41,19 @@ const handleMousedown = function (event: MouseEvent) {
 
 <template>
   <div
-    class="PictureComparison"
+    class="relative"
     :style="imgStyle"
   >
-    <div class="before-image" :style="`width:${sliderPos}px`">
+    <div class="z-1 absolute overflow-hidden" :style="{ width: `${sliderPos}px` }">
       <img :src="frontImg" alt="" :style="imgStyle" class="h-auto !max-w-screen">
     </div>
-    <div class="after-image">
+    <div class="absolute">
       <img :src="backImg" alt="" :style="imgStyle" class="h-auto !max-w-screen">
     </div>
     <div
       ref="sliderRef"
       class="divider-bar"
-      :style="`left:${sliderPos}px`"
+      :style="{ left: `${sliderPos}px` }"
       @mousedown.prevent="handleMousedown"
     >
       <div class="arrow">
@@ -69,56 +69,28 @@ const handleMousedown = function (event: MouseEvent) {
 </template>
 
 <style lang="scss" scoped>
-.PictureComparison {
-  position: relative;
-  display: inline-block;
-  margin: 0 auto;
-  min-height: 273px;
-  margin-bottom: 40px;
-
-  .before-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 50%;
-    overflow: hidden;
-  }
-
-  .after-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-  }
-
-  .divider-bar {
-    cursor: ew-resize;
-    position: absolute;
-    width: 2px;
-    left: 50%;
-    top: 0px;
-    background: var(--theme-color);
-    height: 100%;
-    display: block;
-    z-index: 2;
-
-    .arrow {
-      border-radius: 100%;
-      background: var(--vp-bg);
-      width: 38px;
-      height: 38px;
-      position: absolute;
-      margin-left: -20px;
-      margin-top: -20px;
-      border: 2px solid var(--theme-color);
-      top: 50%;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--theme-color);
-    }
-  }
+.divider-bar {
+  cursor: ew-resize;
+  position: absolute;
+  width: 2px;
+  background: var(--theme-color);
+  height: 100%;
+  z-index: 2;
+}
+.arrow {
+  border-radius: 100%;
+  background: var(--vp-bg);
+  width: 38px;
+  height: 38px;
+  position: absolute;
+  top: 50%;
+  margin-left: -20px;
+  margin-top: -20px;
+  border: 2px solid var(--theme-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--theme-color);
 }
 </style>

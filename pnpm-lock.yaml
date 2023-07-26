@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@vueuse/core':
     specifier: 10.2.1
@@ -78,9 +82,6 @@ devDependencies:
   unocss:
     specifier: ^0.53.5
     version: 0.53.5(postcss@8.4.25)(rollup@2.79.1)(vite@4.3.9)
-  vite-plugin-cross-origin-isolation:
-    specifier: ^0.1.6
-    version: 0.1.6
   vue:
     specifier: 3.3.4
     version: 3.3.4
@@ -9384,10 +9385,6 @@ packages:
       type-fest: 3.12.0
     dev: true
 
-  /vite-plugin-cross-origin-isolation@0.1.6:
-    resolution: {integrity: sha512-OY0naW9nPUDrKTffYnY7FRYXOgZdHoNwMGpPxUmj/n32mGZi01fcq+J536jkmwGWX7DLT95XBQVHHbrAJzTvrw==}
-    dev: true
-
   /vite@4.3.9(@types/node@20.4.1):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -10549,7 +10546,3 @@ packages:
     resolution: {integrity: sha512-DRUM4ZLnoaT0PBVvGBDO9oWIDBKFdAVieNWxWwK0niYzJCMwGchRk21/hsE+RKkIveH3XHCyvXcJDkgLVvfizQ==}
     dependencies:
       tslib: 2.3.0
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

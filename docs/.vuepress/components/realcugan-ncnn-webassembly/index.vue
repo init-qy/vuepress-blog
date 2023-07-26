@@ -16,7 +16,7 @@ import {
   darkTheme,
   lightTheme,
 } from 'naive-ui'
-import type { ConfigProviderProps } from 'naive-ui'
+import { useI18n, useLocale } from '../utils/i18n'
 import SideControl from './sideControl.vue'
 import ImgCompare from './imgCompare.vue'
 
@@ -26,17 +26,25 @@ enum processStatusType {
   PROCESSING,
   NONE,
 }
+const { locale } = useLocale()
+const { i18n } = useI18n(locale)
+const pageData = usePageData()
 const { isDarkmode } = useDarkmode()
-const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
-  theme: isDarkmode.value ? darkTheme : lightTheme,
-}) as ConfigProviderProps)
-let message, dialog
+let message, dialog, interval
 
+const realcuganParams = useStorage('realcuganParams', {
+  scaleRadio: 2,
+  denoiseRadio: 0,
+  previewRadio: 0,
+})
+// dom ref
 const sideControlRef = ref()
-const previewBoxRef = ref()
+const previewBoxRef = ref<HTMLElement>()
+const canvasOutputRef = ref<HTMLCanvasElement>()
+const configProviderRef = ref()
 
+// theme
 const themeColor = ref('#41b349')
-let interval
 
 /**
  * @type import('naive-ui').GlobalThemeOverrides
@@ -47,22 +55,15 @@ const themeOverrides = computed(() => ({
   },
 }))
 
-const pageData = usePageData()
-let srcInteractedData = null
-let dstInteractedData = null
-const canvasOutputRef = ref<HTMLCanvasElement>()
+// processStatus
+let srcInteractedData, dstInteractedData
 const wasmModuleLoaded = ref(false)
-const realcuganParams = useStorage('realcuganParams', {
-  scaleRadio: 2,
-  denoiseRadio: 0,
-  previewRadio: 0,
-})
-
 const processStatus = ref<processStatusType>(processStatusType.NONE)
 const progressTip = ref('')
 const progressRate = ref(0)
 const procRemainingTime = ref(0)
 
+// output
 const outputParams = ref({
   fileName: '',
   scaleRadio: 2,
@@ -78,7 +79,7 @@ const previewBoxSize = ref({
 
 const process = function (uploadImageData, w, h, fileName = '') {
   if (!wasmModuleLoaded.value) {
-    message.warning('wasm 还未加载完成，请稍后再试')
+    message.warning(i18n('wasm.wasmLoading'))
     sideControlRef.value.resetImage()
     return
   }
@@ -88,10 +89,10 @@ const process = function (uploadImageData, w, h, fileName = '') {
   const outputCanvas = canvasOutputRef.value
   if (!outputCanvas)
     return
-  const outputCtx = outputCanvas.getContext('2d')
+  const outputCtx = outputCanvas.getContext('2d', { willReadFrequently: true })
   const { scaleRadio, denoiseRadio } = realcuganParams.value
   processStatus.value = processStatusType.PROCESSING
-  progressTip.value = '启动中，预计10秒内完成耗时估算...'
+  progressTip.value = i18n('wasm.resourcePreLoading')
   progressRate.value = 0
   // init output params
   outputParams.value = {
@@ -106,7 +107,7 @@ const process = function (uploadImageData, w, h, fileName = '') {
   dstInteractedData = window._malloc(imageDataOutput.data.length)
   const retCode = window._process_image(0, srcInteractedData, dstInteractedData, w, h, scaleRadio, denoiseRadio)
   if (retCode !== 0) {
-    message.warning('请稍后再试')
+    message.error(i18n('wasm.wasmError'))
     processStatus.value = processStatusType.FAIL
   }
 }
@@ -115,7 +116,7 @@ const onProcessEnd = function (cost) {
   const canvasOutput = canvasOutputRef.value
   if (!canvasOutput)
     return
-  const ctxOutput = canvasOutput.getContext('2d')
+  const ctxOutput = canvasOutput.getContext('2d', { willReadFrequently: true })
   const imageDataOutput = ctxOutput.getImageData(0, 0, canvasOutput.width, canvasOutput.height)
   previewBoxSize.value.width = Math.min(previewBoxRef.value.clientWidth, canvasOutput.width)
   previewBoxSize.value.height = previewBoxSize.value.width * canvasOutput.height / canvasOutput.width
@@ -132,13 +133,14 @@ const onProcessEnd = function (cost) {
 
   processStatus.value = processStatusType.SUCCESS
   const costTime = (cost / 1000).toFixed(2)
-  progressTip.value = `处理完成！耗时: ${costTime}秒`
-  message.success(`处理完成！耗时: ${costTime}秒`)
+  const successMsg = i18n('wasm.processSuccessMsg', [costTime])
+  progressTip.value = successMsg
+  message.success(successMsg)
 }
 
 const onProcessProgressChange = function (totalCost, tileCost, progressRatePercent, remainingTime) {
   processStatus.value = processStatusType.PROCESSING
-  progressTip.value = '本地CPU努力处理中......'
+  progressTip.value = i18n('wasm.processingMsg')
   progressRate.value = Math.floor(progressRatePercent * 10000) / 100
   procRemainingTime.value = Math.round(remainingTime / 10) / 100
 }
@@ -157,29 +159,27 @@ const wasmCallback = function (rawData) {
   catch (e) {
     processStatus.value = processStatusType.FAIL
     console.error('wasmCallback parse error:', e)
+    message.error(i18n('wasm.wasmError'))
   }
 }
 
 const checkWasmSupportAndLoad = async function () {
-  // if (!window.location.host.includes('netlify.app'))
-  //   await fetch(`${baseUrl}assets/enable-thread.js`)
-
   const [hasSIMD, hasThreads] = await Promise.all([wasmFeatureDetect.simd(), wasmFeatureDetect.threads()])
   if (!hasSIMD) {
-    message.error('浏览器不支持simd (不支持iOS，Android请单独用Chrome/Firefox等浏览器打开，桌面端请使用最新版本的Chrome或Firefox)', {
+    message.error(i18n('wasm.notSupport', ['simd']), {
       keepAliveOnHover: true,
     })
     return
   }
   if (!hasThreads) {
-    message.error('浏览器不支持pthreads (不支持iOS，Android请单独用Chrome/Firefox等浏览器打开，桌面端请使用最新版本的Chrome或Firefox)', {
+    message.error(i18n('wasm.notSupport', ['pthreads']), {
       keepAliveOnHover: true,
     })
     return
   }
   fetch('realcugan-ncnn-webassembly-simd-threads.wasm')
     .then((response) => {
-      response.arrayBuffer()
+      return response.arrayBuffer()
     })
     .then((buffer) => {
       window.Module.wasmBinary = buffer
@@ -189,11 +189,6 @@ const checkWasmSupportAndLoad = async function () {
         // console.log('Emscripten loaded.')
       }
       document.body.appendChild(script)
-
-      window.Module.onRuntimeInitialized = () => {
-        // console.log('wasm module loaded')
-        wasmModuleLoaded.value = true
-      }
     })
 }
 
@@ -219,12 +214,13 @@ const saveOutput = function () {
     case 3:
       fileName += '-denoise3x.png'
       break
+    default: fileName += '.png'
   }
   a.download = fileName
   document.body.appendChild(a) // 添加a标签到body下
   a.click()
   document.body.removeChild(a) //  完成后删除a标签
-  message.success('保存成功')
+  message.success(i18n('wasm.saveSuccess'))
 }
 
 const handleCancel = function () {
@@ -233,43 +229,58 @@ const handleCancel = function () {
 
 // init emscripten
 onMounted(() => {
-  window.Module = {
-    print: (text) => {
+  if (!window.Module) {
+    window.Module = {
+      print: (text) => {
       // catch callback =_=
-      if (text.length > 11 && text.substring(0, 10) === '$CALLBACK$')
-        wasmCallback(text.substring(11))
-    },
-    printErr: (text) => {
-      console.error(text)
-      if ((`${text}`).includes('memory access out of bounds')) {
-        dialog.error({
-          title: '标签页内存受限',
-          content: '本页面多次处理图片后，触发了浏览器内存限制，请点击刷新按钮重试',
-          closable: false,
-          positiveText: '刷新',
-          onPositiveClick: handleCancel,
-        })
-      }
-      else {
-        dialog.error({
-          title: '处理错误',
-          content: `错误信息: ${text}`,
-          closable: false,
-          positiveText: '刷新重试',
-          onPositiveClick: handleCancel,
-        })
-      }
-    },
+        if (text.length > 11 && text.substring(0, 10) === '$CALLBACK$')
+          wasmCallback(text.substring(11))
+      },
+      printErr: (text) => {
+        console.error(text)
+        if (text.includes('memory access out of bounds')) {
+          dialog.error({
+            title: i18n('wasm.memoryOut'),
+            content: i18n('wasm.memoryOutContent'),
+            closable: false,
+            positiveText: i18n('wasm.refresh'),
+            onPositiveClick: handleCancel,
+          })
+        }
+        else {
+          dialog.error({
+            title: i18n('wasm.handleErr'),
+            content: `i18n('wasm.handleErrContent'): ${text}`,
+            closable: false,
+            positiveText: i18n('wasm.refresh'),
+            onPositiveClick: handleCancel,
+          })
+        }
+      },
+      onRuntimeInitialized: () => {
+        wasmModuleLoaded.value = window.wasmModuleLoaded = true
+      },
+    }
   }
+
+  // naive ui
   const api = createDiscreteApi(
     ['message', 'dialog'],
-    { configProviderProps: configProviderPropsRef },
+    { configProviderProps: configProviderRef },
   )
   message = api.message
   dialog = api.dialog
 
   const routeLoad = function () {
     if (window.location.pathname.includes(pageData.value.path)) {
+      // wasm load status
+      if (window.wasmModuleLoaded === undefined) {
+        wasmModuleLoaded.value = window.wasmModuleLoaded = false
+      }
+      else {
+        wasmModuleLoaded.value = window.wasmModuleLoaded
+        handleCancel()
+      }
       checkWasmSupportAndLoad()
     }
     else {
@@ -280,6 +291,7 @@ onMounted(() => {
   }
   routeLoad()
 
+  // theme
   interval = setInterval(() => {
     themeColor.value = window.getComputedStyle(document.body).getPropertyValue('--theme-color')
   }, 1000)
@@ -292,9 +304,9 @@ onBeforeUnmount(() => {
 
 <template>
   <ClientOnly>
-    <NConfigProvider :theme="isDarkmode ? darkTheme : lightTheme" :theme-overrides="themeOverrides">
-      <NAlert title="本项目基于Web Assembly技术，在浏览器端使用CPU完成图像处理，不会上传任何图片到云端。" type="info" closable>
-        注意：本页面处理图片时占用内存约900M，且CPU占用较高。如果使用有问题，请在PC端使用最新版的Chrome或Firefox打开本页面。如输出有问题或长时间无响应，请刷新重试。
+    <NConfigProvider ref="configProviderRef" :theme="isDarkmode ? darkTheme : lightTheme" :theme-overrides="themeOverrides">
+      <NAlert :title="i18n('wasm.alertTitle')" type="info" closable>
+        {{ i18n('wasm.alertTip') }}
       </NAlert>
       <div class="flex mt-10">
         <SideControl ref="sideControlRef" @process="process" />
@@ -302,13 +314,13 @@ onBeforeUnmount(() => {
         <div ref="previewBoxRef" class="flex-1 ml-16">
           <!--      进度条 -->
           <template v-if="!wasmModuleLoaded">
-            <NP>资源努力加载中(约12MB)......</NP>
+            <NP>{{ i18n('wasm.resourceLoading') }}</NP>
           </template>
           <template v-if="processStatus === processStatusType.PROCESSING">
             <NSpace justify="space-between" class="mb-2.5">
-              <NP>{{ progressTip }} 剩余时长: {{ procRemainingTime.toFixed(2) }}秒</NP>
+              <NP>{{ progressTip }} {{ i18n('wasm.remainingTime', [procRemainingTime.toFixed(2)]) }}</NP>
               <NButton round size="small" strong secondary @click="handleCancel">
-                取消处理
+                {{ i18n('wasm.cancelProcess') }}
               </NButton>
             </NSpace>
             <NProgress
@@ -323,7 +335,7 @@ onBeforeUnmount(() => {
             <NSpace justify="space-between" class="mb-2.5">
               <NP>{{ progressTip }}</NP>
               <NButton :color="themeColor" round size="small" @click="saveOutput">
-                保存图片
+                {{ i18n('wasm.saveImg') }}
               </NButton>
             </NSpace>
             <ImgCompare v-if="realcuganParams.previewRadio === 0" :width="previewBoxSize.width" :height="previewBoxSize.height" :front-img="outputImgSrc" :back-img="uploadImgSrc" />

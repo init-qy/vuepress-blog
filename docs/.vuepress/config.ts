@@ -2,7 +2,6 @@ import { path } from '@vuepress/utils'
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import Unocss from 'unocss/vite'
-import crossOriginIsolation from 'vite-plugin-cross-origin-isolation'
 import createVuePressTheme from './theme/index'
 import createVuePressPlugins from './plugins'
 import { baseUrl } from './components/constants/constants'
@@ -48,7 +47,6 @@ export default defineUserConfig({
         noExternal: ['naive-ui', 'vueuc', 'date-fns'],
       },
       plugins: [
-        crossOriginIsolation(),
         Unocss({
           mode: 'per-module',
         }),

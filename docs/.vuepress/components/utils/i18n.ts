@@ -23,6 +23,14 @@ export function useLocale() {
   }
 }
 
+export function format(str: string, ...args: unknown[]): string {
+  for (const [i, arg] of args.entries()) {
+    const regExp = new RegExp(`\\{${i}\\}`, 'g')
+    str = str.replace(regExp, arg as string)
+  }
+  return str
+}
+
 export function useI18n(locale: Ref<string>) {
   const getI18nModule = () => {
     const modules = import.meta.glob('../constants/i18n*.json', { import: 'default', eager: true })
@@ -34,7 +42,7 @@ export function useI18n(locale: Ref<string>) {
     return jsonMap
   }
   const i18nJsonMap = getI18nModule()
-  const i18n = (key: string, rollback = (_: string) => ''): string => {
+  const i18n = (key: string, param?: (string | number)[], rollback = (_: string) => ''): string => {
     const keys = key.split('.')
     keys.splice(1, 0, locale.value)
     let result = get(i18nJsonMap, keys.join('.'))
@@ -42,7 +50,7 @@ export function useI18n(locale: Ref<string>) {
       // console.error(`key ${key} is not exist!`)
       result = rollback(key)
     }
-    return result
+    return param ? format(result, ...param) : result
   }
   return {
     i18n,

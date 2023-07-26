@@ -3,6 +3,13 @@ import { enNavbar, zhNavbar } from '../navbar'
 
 const hostname = 'https://init-qy.github.io'
 
+const catalogTitle = {
+  '/posts/': '文章',
+  '/en/posts/': 'article',
+  '/tools/': '工具',
+  '/en/tools/': 'tool',
+}
+
 export default function createVuePressTheme() {
   return hopeTheme({
     hostname,
@@ -236,6 +243,9 @@ export default function createVuePressTheme() {
         update: 'hint',
       },
       seo: { canonical: `${hostname}/vuepress-blog/` },
+      autoCatalog: {
+        frontmatter: path => ({ title: catalogTitle[path], pageInfo: false }),
+      },
     },
   },
   { custom: true, check: true })

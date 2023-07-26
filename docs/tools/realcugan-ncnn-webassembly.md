@@ -1,4 +1,5 @@
 ---
+title: 动漫图片超分辨率 Real-CUGAN
 breadcrumb: false
 toc: false
 sidebar: false
@@ -12,7 +13,6 @@ article: false
 containerClass: custom-container
 ---
 
-# 动漫图片超分辨率 Real-CUGAN
 
 <RealcuganNcnnWebassembly></RealcuganNcnnWebassembly>
 

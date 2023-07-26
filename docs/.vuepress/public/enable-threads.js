@@ -29,16 +29,33 @@ if(typeof window === 'undefined') {
       });
     }
 
+    // do something Redirect
+    var pattern = /.+\/en\/.+\.(js|wasm|bin|param|data)$/;
+    if(pattern.test(request.url)){
+      request = new Request(request.url.replaceAll('/en',''), {
+        cache: request.cache,
+        credentials: request.credentials,
+        headers: request.headers,
+        integrity: request.integrity,
+        destination: request.destination,
+        keepalive: request.keepalive,
+        method: request.method,
+        mode: request.mode,
+        redirect: request.redirect,
+        referrer: request.referrer,
+        referrerPolicy: request.referrerPolicy,
+        signal: request.signal,
+      });
+    }
+
     let r = await fetch(request).catch(e => console.error(e));
 
     if(r.status === 0) {
       return r;
     }
     const headers = new Headers(r.headers);
-    if(!/(.*alicdn.*)|(.*bing.*)/.test(request.url)){
-      headers.set("Cross-Origin-Embedder-Policy", "require-corp"); // or: credentialless
-      headers.set("Cross-Origin-Opener-Policy", "same-origin");
-    }
+    headers.set("Cross-Origin-Embedder-Policy", "credentialless"); // or: require-corp
+    headers.set("Cross-Origin-Opener-Policy", "same-origin");
 
     return new Response(r.body, { status: r.status, statusText: r.statusText, headers });
   }

@@ -1,11 +1,15 @@
 <script setup lang="ts" name="sideControl">
-import { computed, ref } from 'vue'
-import type { FormInst } from 'naive-ui'
+import { ref } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { NButton, NForm, NFormItem, NIcon, NImage, NP, NRadioButton, NRadioGroup, NSpace, NUpload, NUploadDragger } from 'naive-ui'
+import type { FormInst } from 'naive-ui'
+import { useI18n, useLocale } from '../utils/i18n'
 import InfoIcon from './infoIcon.vue'
 
 const emits = defineEmits(['save', 'process'])
+
+const { locale } = useLocale()
+const { i18n } = useI18n(locale)
 
 const formRef = ref<FormInst>()
 const canvasUploadRef = ref<HTMLCanvasElement>()
@@ -23,28 +27,25 @@ const scaleRadioList = [{
   value: 3,
   label: '3X',
 }]
-const denoiseRadioList = computed(() => ([{
+const denoiseRadioList = [{
   value: -1,
-  label: '保守',
-  // disabled: model.value.scaleRadio === 3,
+  label: i18n('wasm.denoiseRadio1'),
 }, {
   value: 0,
-  label: '无降噪',
-  // disabled: model.value.scaleRadio === 3,
+  label: i18n('wasm.denoiseRadio2'),
 }, {
   value: 3,
-  label: '降噪3X',
-  disabled: false,
-}]))
+  label: i18n('wasm.denoiseRadio3'),
+}]
 const previewRadioList = [{
   value: 0,
-  label: '叠图',
+  label: i18n('wasm.previewMode1'),
 }, {
   value: 1,
-  label: '并排',
+  label: i18n('wasm.previewMode2'),
 }, {
   value: 2,
-  label: '并列',
+  label: i18n('wasm.previewMode3'),
 }]
 
 const handleChange = function ({ file }) {
@@ -108,7 +109,7 @@ defineExpose({ resetImage, canvasUploadRef })
       label-width="120"
       require-mark-placement="right-hanging"
     >
-      <NFormItem label="超分倍率 :" path="scaleRadio">
+      <NFormItem :label="`${i18n('wasm.scaleRadio')} :`" path="scaleRadio">
         <NRadioGroup v-model:value="model.scaleRadio" name="scaleRadio">
           <NRadioButton
             v-for="item in scaleRadioList"
@@ -117,21 +118,20 @@ defineExpose({ resetImage, canvasUploadRef })
             :label="item.label"
           />
         </NRadioGroup>
-        <InfoIcon info="会决定输出图片的尺寸。目前3X处理会耗时比较久，推荐2X" />
+        <InfoIcon :info="i18n('wasm.scaleInfo')" />
       </NFormItem>
-      <NFormItem label="降噪配置 :" path="denoiseRadio">
+      <NFormItem :label="`${i18n('wasm.denoiseRadio')} :`" path="denoiseRadio">
         <NRadioGroup v-model:value="model.denoiseRadio" name="denoiseRadio">
           <NRadioButton
             v-for="item in denoiseRadioList"
             :key="item.value"
             :value="item.value"
             :label="item.label"
-            :disabled="item.disabled"
           />
         </NRadioGroup>
-        <InfoIcon info="降噪版: 如果原片噪声多，压得烂，推荐使用； 无降噪版：适合原图噪声不多，想提高分辨率/清晰度/做通用性的增强、修复处理； 保守版: 如果你担心丢失纹理，担心画风被改变，担心颜色被增强，总之就是各种担心AI会留下浓重的处理痕迹，推荐使用该版本" />
+        <InfoIcon :info="i18n('wasm.denoiseInfo')" />
       </NFormItem>
-      <NFormItem label="预览模式 :" path="previewRadio">
+      <NFormItem :label="`${i18n('wasm.previewMode')} :`" path="previewRadio">
         <NRadioGroup v-model:value="model.previewRadio" name="previewRadio">
           <NRadioButton
             v-for="item in previewRadioList"
@@ -166,17 +166,17 @@ defineExpose({ resetImage, canvasUploadRef })
               </NIcon>
             </div>
             <NP class="text-sm">
-              点击或者拖动图片到该区域来上传
+              {{ i18n('wasm.uploadText1') }}
             </NP>
             <NP class="text-xs">
-              只能选取jpg/png/webp/bmp文件
+              {{ i18n('wasm.uploadText2') }}
             </NP>
           </NUploadDragger>
         </NUpload>
         <NImage v-if="uploadImage" :src="uploadImage" class="max-w-300px hover:cursor-pointer" />
       </NFormItem>
       <NButton v-if="!uploadImage" strong secondary @click="useTestCase">
-        使用示例图片
+        {{ i18n('wasm.useExample') }}
       </NButton>
     </NForm>
   </NSpace>

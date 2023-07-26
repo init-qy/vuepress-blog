@@ -7,6 +7,7 @@ declare module '*.vue' {
 }
 interface Window {
   Module: any,
+  wasmModuleLoaded: boolean,
   HEAPU8: any,
   _malloc: Function,
   _free: Function,
