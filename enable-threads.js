@@ -30,9 +30,9 @@ if(typeof window === 'undefined') {
     }
 
     // do something Redirect
-    var pattern = /.+\/en\/.+\.(js|wasm|bin|param|data)$/;
+    const pattern = /.+\/en\/tools\/.+\.(js|wasm|bin|param|data|jpg)$/;
     if(pattern.test(request.url)){
-      request = new Request(request.url.replaceAll('/en',''), {
+      request = new Request(request.url.replaceAll('/en/tools','/tools'), {
         cache: request.cache,
         credentials: request.credentials,
         headers: request.headers,
