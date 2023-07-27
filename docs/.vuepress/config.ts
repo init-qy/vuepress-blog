@@ -40,6 +40,7 @@ export default defineUserConfig({
     ),
   },
   head: [['script', { src: `${baseUrl}enable-threads.js` }],
+    ['meta', { name: 'google-site-verification', content: '22NqsNzYy4a9xvRbx3KbqMMf1biuAbEHD_m6-Yow_yY' }],
   ],
   bundler: viteBundler({
     viteOptions: {
