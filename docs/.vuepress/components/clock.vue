@@ -272,7 +272,7 @@ onMounted(() => {
     <div class="date">
       {{ `${date}  ${week}` }}
     </div>
-    <div class="switch-clock" @click="isGraphClock = !isGraphClock">
+    <div class="cursor-pointer" @click="isGraphClock = !isGraphClock">
       <div v-if="!isGraphClock" class="time">
         {{ time }}
       </div>
@@ -287,9 +287,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 @use '../styles/config.scss' as *;
 
-.switch-clock {
-  cursor: pointer;
-}
 .date {
   font-size: 20px;
   margin-bottom: 0.5rem;
