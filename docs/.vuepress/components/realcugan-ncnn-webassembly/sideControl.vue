@@ -4,6 +4,7 @@ import { useStorage } from '@vueuse/core'
 import { NButton, NForm, NFormItem, NIcon, NImage, NP, NRadioButton, NRadioGroup, NSpace, NUpload, NUploadDragger } from 'naive-ui'
 import type { FormInst } from 'naive-ui'
 import { useI18n, useLocale } from '../utils/i18n'
+import { getAssetsUrl } from '../utils/url'
 import InfoIcon from './infoIcon.vue'
 
 const emits = defineEmits(['save', 'process'])
@@ -82,6 +83,7 @@ const useTestCase = function () {
     return
   const ctx = canvas.getContext('2d')
   const imageName = 'testImage.jpg'
+  const imageUrl = getAssetsUrl(imageName)
   const img = new Image()
   img.onload = function () {
     canvas.width = img.width
@@ -90,8 +92,8 @@ const useTestCase = function () {
     const uploadImageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
     emits('process', uploadImageData, canvas.width, canvas.height, imageName)
   }
-  uploadImage.value = imageName
-  img.src = imageName
+  uploadImage.value = imageUrl
+  img.src = imageUrl
 }
 const resetImage = function () {
   uploadImage.value = ''

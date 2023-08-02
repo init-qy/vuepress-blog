@@ -56,7 +56,8 @@ ssr: {
 
 在使用`emscripten`生成完文件后，我们需要把它们和模型文件放在同一文件夹中，使其能够读取使用这些模型。
 在实际开发过程中，我因为这些文件的读取位置问题有许多困扰，在生成的js文件中读取`.bin`模型使用的是相对路径，而我页面的路径为`/tools/realcugan-ncnn-webassembly.html`,也就是说它会尝试获取`/tools/xxx.bin`这个文件，这就意味着我需要把生成的`.js,.wasm,.bin`放在`public/tools`文件夹下。
-同时，由于支持`i8n`的原因，另一个英文网址`/en/tools/realcugan-ncnn-webassembly.html`无法读取`.bin`模型，这个问题如果是自己的服务器应该很好解决，直接给nginx写一个重定向即可，可是由于我的网站部署在`github.io`上，最简单快捷图省事的方法是在相对应的文件夹下放一份完全相同的资源文件，问题就迎刃而解，缺点是比较占仓库存储。我这里采用了一个非常hack的方法，通过`work server`强行对其进行重定向。
+同时，由于支持`i18n`的原因，另一个英文网址`/en/tools/realcugan-ncnn-webassembly.html`无法读取`.bin`模型，这个问题如果是自己的服务器应该很好解决，直接给nginx写一个重定向即可，可是由于我的网站部署在`github.io`上，最简单快捷图省事的方法是在相对应的文件夹下放一份完全相同的资源文件，问题就迎刃而解，缺点是比较占仓库存储。我这里采用了一个非常hack的方法，通过`work server`强行对其进行重定向。
+
 ```js
 // do something Redirect
 const pattern = /.+\/en\/tools\/.+\.(js|wasm|bin|param|data|jpg)$/
@@ -76,6 +77,16 @@ if (pattern.test(request.url)) {
     signal: request.signal,
   })
 }
+```
+
+**---2023-08-02更新---**
+
+`emscripten`有暴露方法`locateFile`，可以对加载的文件进行重定向，使用cdn或其他URL。因此我去掉了hack的重定向方法。
+
+```ts
+locateFile: (path: string, prefix: string) => {
+  return prefix.replace('/en/', '/') + path
+},
 ```
 
 我不太清楚多页面对wasm应用的影响，但是我的确在各个标签切换的时候出现了问题：`onRuntimeInitialized`只执行一次。因此，我采用了最方便，最快捷，最不会出错的方式解决这个问题：在进入页面时reload。

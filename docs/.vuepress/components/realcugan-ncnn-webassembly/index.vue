@@ -17,6 +17,7 @@ import {
   lightTheme,
 } from 'naive-ui'
 import { useI18n, useLocale } from '../utils/i18n'
+import { getAssetsUrl } from '../utils/url'
 import SideControl from './sideControl.vue'
 import ImgCompare from './imgCompare.vue'
 
@@ -177,14 +178,14 @@ const checkWasmSupportAndLoad = async function () {
     })
     return
   }
-  fetch('realcugan-ncnn-webassembly-simd-threads.wasm')
+  fetch(getAssetsUrl('realcugan-ncnn-webassembly-simd-threads.wasm'))
     .then((response) => {
       return response.arrayBuffer()
     })
     .then((buffer) => {
       window.Module.wasmBinary = buffer
       const script = document.createElement('script')
-      script.src = 'realcugan-ncnn-webassembly-simd-threads.js'
+      script.src = getAssetsUrl('realcugan-ncnn-webassembly-simd-threads.js')
       script.onload = () => {
         // console.log('Emscripten loaded.')
       }
@@ -256,6 +257,9 @@ onMounted(() => {
             onPositiveClick: handleCancel,
           })
         }
+      },
+      locateFile: (path: string, prefix: string) => {
+        return prefix.replace('/en/', '/') + path
       },
       onRuntimeInitialized: () => {
         wasmModuleLoaded.value = window.wasmModuleLoaded = true
