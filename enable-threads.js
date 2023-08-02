@@ -29,25 +29,6 @@ if(typeof window === 'undefined') {
       });
     }
 
-    // do something Redirect
-    const pattern = /.+\/en\/tools\/.+\.(js|wasm|bin|param|data|jpg)$/;
-    if(pattern.test(request.url)){
-      request = new Request(request.url.replaceAll('/en/tools','/tools'), {
-        cache: request.cache,
-        credentials: request.credentials,
-        headers: request.headers,
-        integrity: request.integrity,
-        destination: request.destination,
-        keepalive: request.keepalive,
-        method: request.method,
-        mode: request.mode,
-        redirect: request.redirect,
-        referrer: request.referrer,
-        referrerPolicy: request.referrerPolicy,
-        signal: request.signal,
-      });
-    }
-
     let r = await fetch(request).catch(e => console.error(e));
 
     if(r.status === 0) {
