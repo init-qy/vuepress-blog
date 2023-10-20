@@ -49,8 +49,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "0.39.7",
-    "@commitlint/cli": "17.6.6",
-    "@commitlint/config-conventional": "17.6.6",
+    "@commitlint/cli": "17.8.1",
+    "@commitlint/config-conventional": "17.8.1",
     "@types/color": "3.0.3",
     "@types/emscripten": "^1.39.6",
     "@vuepress/client": "2.0.0-beta.64",
