@@ -1,29 +1,33 @@
 ---
-title: 一个可用的免费CDN
+title: A free and available CDN.
 date: 2020-11-17 10:26:32
-tag: ["工具"]
-category: ["工具"]
+tag:
+  - tool
+category:
+  - tool
 ---
 
-## 免费 CDN
+## Free CDN
 
-找到了一个好用的 cdn，mark 一下
+Found a useful CDN, marking it down.
 
-github 资源在国内加载速度较慢，因此需要使用 CDN 提高速度。JSDelivr + Github 就可以提供非常好用的 CDN 服务。
+Loading GitHub resources in China is slow, so we need to use a CDN to improve the speed. JSDelivr + GitHub can provide a very useful CDN service.
 
-对于个人来说，可以将图片存在 github 上;通过 cdn 访问链接，实际上达到了 oss 的效果。
+For individuals, you can store images on GitHub; by accessing the link through the CDN, you actually achieve the effect of using an object storage service (OSS).
 
-## 具体使用
+## How to Use
 
-准备一个 GitHub 仓库，将图片上传至这个仓库。
+Prepare a GitHub repository and upload the images to this repository.
 
-cdn 的路径为
-`https://cdn.jsdelivr.net/gh/${你的用户名}/${你的仓库名}@${分支或版本}/文件路径`
+The CDN path is
+`https://cdn.jsdelivr.net/gh/${your_username}/${your_repository_name}@${branch_or_version}/file_path`
 
-## 例子
+## Example
 
 `https://cdn.jsdelivr.net/gh/init-qy/init-qy.github.io@master/images/avatar.gif`
-或
+or
 `https://cdn.jsdelivr.net/gh/init-qy/init-qy.github.io/images/avatar.gif`
 
-**如果分支为 master，那么可以只需仓库名即可。**
+**If the branch is master, you only need the repository name.**
+
+> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.

@@ -1,13 +1,15 @@
 import { hopeTheme } from 'vuepress-theme-hope'
-import { enNavbar, zhNavbar } from '../navbar'
+import { enNavbar, esNavbar, zhNavbar } from '../navbar'
 
 const hostname = 'https://init-qy.github.io'
 
 const catalogTitle = {
   '/posts/': '文章',
   '/en/posts/': 'article',
+  '/es/posts/': 'artículo',
   '/tools/': '工具',
   '/en/tools/': 'tool',
+  '/es/tools/': 'herramienta',
 }
 
 export default function createVuePressTheme() {
@@ -85,9 +87,6 @@ export default function createVuePressTheme() {
         // navbar
         navbar: zhNavbar,
 
-        // sidebar
-        // sidebar: zhSidebar,
-
         footer: '',
 
         displayFooter: true,
@@ -102,8 +101,18 @@ export default function createVuePressTheme() {
       // navbar
         navbar: enNavbar,
 
-        // sidebar
-        // sidebar: enSidebar,
+        footer: '',
+
+        displayFooter: true,
+
+        blog: {
+          description: 'A FrontEnd programmer',
+          intro: '/intro.html',
+        },
+      },
+      '/es/': {
+        // navbar
+        navbar: esNavbar,
 
         footer: '',
 

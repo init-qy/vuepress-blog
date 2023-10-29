@@ -1,5 +1,5 @@
 ---
-title: Calling Android camera functions in Unity
+title: Llamando a la función de la cámara de Android en Unity.
 date: 2023-07-17 15:35:00
 tag:
   - unity
@@ -8,7 +8,7 @@ category:
   - Unity
 ---
 
-`Unity` itself provides interfaces such as `WebcamDevice` and `WebcamTexture` to support access to physical cameras. However, these interfaces provide limited parameters, so we need to call native functions in `Unity` to obtain the corresponding parameters.
+`Unity` itself provides interfaces such as `WebcamDevice` and `WebcamTexture` to support access to physical cameras, but these interfaces provide too few parameters. Therefore, we need to call native functions in `Unity` to obtain the corresponding parameters.
 
 ## Environment
 
@@ -39,9 +39,9 @@ if (cameraManager != null)
 
 ---
 
-In the code above, if you are calling a method in a class, use `Call`, where the first parameter is the method name and the second parameter is optional, representing the arguments passed.
-If the original class is needed during the argument passing process, such as the `Key` in the code above, it needs to be wrapped with `AndroidJavaObject`. Only some basic types (`int`, `float[]`) can be passed directly.
-If you are accessing a member (fields) in a class, use `GetStatic`. For example, `CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS` in Java can be obtained using `GetStatic`.
+In the code above, if you are calling a method in a class, use `Call`, where the first parameter is the method name and the second parameter is optional and represents the arguments passed.
+If the original class is needed during the argument passing process, such as the `Key` in the code above, it needs to be wrapped using `AndroidJavaObject`. Only some basic types (`int`, `float[]`) can be passed directly.
+If you are accessing a member (fields) of a class, use `GetStatic`, for example, `CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS` in `java` can be obtained using `GetStatic`.
 
 ## References
 
@@ -49,4 +49,4 @@ If you are accessing a member (fields) in a class, use `GetStatic`. For example,
 - <https://github.com/huailiang/WebCam>
 - <https://developer.android.com/reference/android/hardware/camera2/package-summary.html>
 
-> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.
+> Este post está traducido usando ChatGPT, por favor [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) si hay alguna omisión.

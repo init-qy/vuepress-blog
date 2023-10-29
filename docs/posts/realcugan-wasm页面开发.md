@@ -24,6 +24,7 @@ category: ["前端开发"]
 ### emscripten
 
 因为本次并没有完整的开发`wasm`，只是根据大佬的仓库进行了一些更新和迁移，因此对其了解不深，只有三点需要注意：
+
 - emscripten的版本最好指定，因为不清楚新版本是否有破坏性更新，我也没有找到详细的更新文档。
 - `-sEXPORTED_FUNCTIONS`制定了输出函数，使其暴露在`Module`中，如果你发现`_xxFun not defined`，应该在`CMakeList.txt`中修改。
 - build缓存需要清空，否则可能有意料之外的问题。
@@ -34,11 +35,12 @@ Unocss相对简单，目前还未发现样式覆盖的问题，只需要配置�
 
 ```ts
 Unocss({
-  mode: 'per-module',
-})
+  mode: "per-module",
+});
 ```
 
 Naive Ui相对复杂，需要分成几点：
+
 - 首先是无法使用`unplugin`系列的自动引用方法来编写代码，必须要手动引用。
 - 然后是需要在组件的最外边包裹`<ClientOnly>`组件，让它跳过ssg编译。
 - message,dialog等组件通过`createDiscreteApi`来使用。
@@ -60,9 +62,9 @@ ssr: {
 
 ```js
 // do something Redirect
-const pattern = /.+\/en\/tools\/.+\.(js|wasm|bin|param|data|jpg)$/
+const pattern = /.+\/en\/tools\/.+\.(js|wasm|bin|param|data|jpg)$/;
 if (pattern.test(request.url)) {
-  request = new Request(request.url.replaceAll('/en/tools', '/tools'), {
+  request = new Request(request.url.replaceAll("/en/tools", "/tools"), {
     cache: request.cache,
     credentials: request.credentials,
     headers: request.headers,
@@ -75,11 +77,11 @@ if (pattern.test(request.url)) {
     referrer: request.referrer,
     referrerPolicy: request.referrerPolicy,
     signal: request.signal,
-  })
+  });
 }
 ```
 
-**---2023-08-02更新---**
+#### **---2023-08-02更新---**
 
 `emscripten`有暴露方法`locateFile`，可以对加载的文件进行重定向，使用cdn或其他URL。因此我去掉了hack的重定向方法。
 
@@ -94,8 +96,7 @@ locateFile: (path: string, prefix: string) => {
 
 ### COOP-COEP
 
-同源策略是浏览器强加的一道坎，只有服务器签署了~~我同意该协议~~同源，才能给你提供`sharedbuffer`，这里同样使用了一种很hack的方法来使wasm应用能正常运行，参考[coi-serviceworker](https://github.com/gzuidhof/coi-serviceworker)，也因为这样，这个工具只能在chrome,edge运行，参考(https://caniuse.com/mdn-api_window_credentialless)。
-
+同源策略是浏览器强加的一道坎，只有服务器签署了~~我同意该协议~~同源，才能给你提供`sharedbuffer`，这里同样使用了一种很hack的方法来使wasm应用能正常运行，参考[coi-serviceworker](https://github.com/gzuidhof/coi-serviceworker)，也因为这样，这个工具只能在chrome,edge运行，参考(<https://caniuse.com/mdn-api_window_credentialless)。>
 
 ## 下一步
 

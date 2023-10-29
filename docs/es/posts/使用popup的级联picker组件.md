@@ -1,16 +1,16 @@
 ---
-title: Using a cascading picker component with a popup.
+title: Componente de selector en cascada con popup
 date: 2020-11-11 09:57:01
 tag:
   - mini-app
   - DingTalk
 category:
-  - front-end development
+  - desarrollo front-end
 ---
 
 ## Background
 
-Since DingTalk does not have a ready-made picker selection component similar to [vant-weapp](https://youzan.github.io/vant-weapp/#/picker "vant-weapp"), I plan to encapsulate one myself. The dependencies used are the popup and button components of `mini-ali-ui`. The native `picker-view` is used.
+Como DingTalk no tiene un componente de selección de picker similar a [vant-weapp](https://youzan.github.io/vant-weapp/#/picker "vant-weapp"), decidí crear uno propio. Utiliza los componentes de popup y button de `mini-ali-ui`. También utiliza el `picker-view` nativo.
 
 ```json
 {
@@ -24,14 +24,13 @@ Since DingTalk does not have a ready-made picker selection component similar to 
 
 ## Approach
 
-Since this is a component I use myself, considering that most use cases involve multiple columns and may require linkage, I referred to the approach of picker linkage in vant-weapp. I exposed the onChange event for the page to implement the linkage switching effect and dynamically assign values to the lists.
-Here, I implemented a setColumnValues method to assign values to the lists, but in fact, it is only necessary to reassign values to the props, which is more convenient.
+Dado que este es un componente que estoy utilizando personalmente y considerando que la mayoría de los casos de uso implican selecciones de múltiples columnas y posiblemente interdependientes, me he basado en la implementación de la selección de múltiples columnas en vant-weapp. Expongo el evento `onChange` para que la página pueda implementar la lógica de interdependencia y actualizar dinámicamente las listas. He implementado un método llamado `setColumnValues` que se utiliza para asignar los valores a las listas, pero en realidad solo es necesario asignar nuevos valores a las propiedades (`props`), lo cual es más conveniente.
 
-- This component can also be used for single-column selection. Alipay also has multi-column selection, but DingTalk does not.
-- The position can be set to `bottom` or `top`, and left and right positions are not currently considered.
-- Custom styles are not considered. As a form selection component, unified styles are better.
-- `onChange` is the core of implementing multi-column linkage.
-- In `onConfirm`, `detail.value` is the array of selected option indexes, and `detail.detail` is the array of selected option values.
+- Este componente también se puede utilizar para selecciones de una sola columna. Alipay también tiene selecciones de múltiples columnas, pero DingTalk no.
+- La posición puede ser `bottom` o `top`, pero no se ha implementado la alineación izquierda o derecha.
+- No se ha considerado la personalización del estilo. Como este componente es parte de un formulario, es mejor mantener un estilo uniforme.
+- El evento `onChange` es fundamental para implementar la interdependencia de múltiples columnas.
+- En el evento `onConfirm`, `detail.value` es un array con los índices de las opciones seleccionadas y `detail.detail` es un array con los valores de las opciones seleccionadas.
 
 ## Implementation
 
@@ -167,8 +166,8 @@ Component({
 
 ## Considerations
 
-- More styles can be considered.
-- In fact, a maximum of three columns are suitable for this display method, and more columns may not be suitable. Restrictions can be applied.
-- The combination of popup and picker can be used to replace the native date selection.
+- Se pueden considerar más estilos.
+- En realidad, como máximo se pueden utilizar tres columnas. No es adecuado mostrar más columnas de esta manera, por lo que se puede establecer un límite.
+- La combinación de los componentes de popup y picker se puede utilizar para reemplazar la selección de fechas nativa.
 
-> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.
+> Este post está traducido usando ChatGPT, por favor [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) si hay alguna omisión.

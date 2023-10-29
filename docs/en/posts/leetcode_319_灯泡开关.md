@@ -1,22 +1,25 @@
 ---
-title: leetcode_319:灯泡开关
+title: "Leetcode_319: Light Bulb Switch"
 date: 2020-11-18 09:36:54
-tag: ["leetcode", "算法"]
-category: ["算法"]
+tag:
+  - leetcode
+  - arithmetic
+category:
+  - arithmetic
 ---
 
-## 题目
+## Title
 
-传送门：[灯泡开关](https://leetcode-cn.com/problems/bulb-switcher/ "灯泡开关")
+Link: [Bulb Switcher](https://leetcode-cn.com/problems/bulb-switcher/ "Bulb Switcher")
 
-> 初始时有 n 个灯泡关闭。
-> 第 1 轮，你打开所有的灯泡。 第 2 轮，每两个灯泡你关闭一次。 第 3 轮，每三个灯泡切换一次开关（如果关闭则开启，如果开启则关闭）。
-> 第 i 轮，每 i 个灯泡切换一次开关。 对于第 n 轮，你只切换最后一个灯泡的开关。
-> 找出 n 轮后有多少个亮着的灯泡。
+> There are initially n bulbs turned off.
+> In the first round, you turn on all the bulbs. In the second round, you toggle every second bulb. In the third round, you toggle every third bulb (if the bulb is on, turn it off; if it is off, turn it on).
+> For the i-th round, you toggle every i-th bulb. For the n-th round, you only toggle the last bulb.
+> Find how many bulbs are on after n rounds.
 
-## 思路
+## Approach
 
-开始思维很简单：如果我要知道 n 个灯泡的开关情况，只需要知道 n-1 个灯泡的情况+第 n 个灯泡的情况；而第 n 个灯泡的情况很显然跟它的因子个数相关。比如 12 有 6 个因子，经过偶数次开关，灯泡为暗。由此得到以下代码：
+The initial thinking is simple: to determine the state of n bulbs, we only need to know the state of n-1 bulbs plus the state of the n-th bulb; and the state of the n-th bulb is obviously related to the number of its factors. For example, 12 has 6 factors, and after an even number of toggles, the bulb is off. Based on this, we can come up with the following code:
 
 ```java
 class Solution {
@@ -32,12 +35,11 @@ class Solution {
 }
 ```
 
-那么很显然，这个代码的时间复杂度为 O(n&sup2;)。
-在 n=99999 时就已经超时了。
+However, it is obvious that the time complexity of this code is O(n&sup2;). It already times out when n=99999.
 
 ---
 
-接下来，我对计算因子个数的方法进行了优化：
+Next, I optimized the method of calculating the number of factors:
 
 ```java
 class Solution {
@@ -65,12 +67,11 @@ class Solution {
 }
 ```
 
-这比循环 n/2 次快了许多，但仍然在最后 9999999 时超时了。
-看来按照一开始的思路注定是走不通了。
+This is much faster than looping n/2 times, but it still times out when n=9999999. It seems that the initial approach is not feasible.
 
 ---
 
-先上代码
+Here is the code:
 
 ```java
 class Solution {
@@ -80,10 +81,11 @@ class Solution {
 }
 ```
 
-很神奇，但这是为什么呢？
-在之前的思路中，我们都是通过计算一个数的因子个数来判断灯泡的亮暗情况。事实上，我们无需计算个数，只需知晓个数奇偶就行。通过观察发现，大部分因子都是成双成对的，只有一种可能，那就是平方数，只有平方数拥有奇数个因子，它们的灯泡才会亮。问题迎刃而解。
+It's quite magical, but why is it like this? In the previous approach, we calculated the number of factors of a number to determine the state of the bulb. In fact, we don't need to calculate the exact number, we just need to know if it's odd or even. By observing, we found that most factors come in pairs, except for one possibility: square numbers. Only square numbers have an odd number of factors, and their bulbs will be on. The problem is solved effortlessly.
 
-## 总结
+## Summary
 
-这是一道很有意思的题，设置的非常巧妙。
-~~妙啊~~
+This is a very interesting problem with a clever design.
+~~Amazing!~~
+
+> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.

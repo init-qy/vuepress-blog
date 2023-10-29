@@ -1,48 +1,53 @@
 ---
-title: real-cugan-wasm页面开发
+title: Real-cugan-wasm page development
 date: 2023-07-26 15:39:35
-tag: ["real-cugan", "wasm"]
-category: ["前端开发"]
+tag:
+  - real-cugan
+  - wasm
+category:
+  - front-end development
 ---
 
-仅此记录下自己大约一周的wasm页面嵌入vuepress的过程，其中涉及到许多方面的内容，包括（[git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules),[emscripten](https://github.com/emscripten-core/emscripten),[naive-ui](https://naiveui.com),[COOP-COEP](https://web.dev/coop-coep/)）这些技术的探索与使用。目前这个[工具页面](../tools/realcugan-ncnn-webassembly)已经大致完成，并在chrome浏览器中有了较好的体验。
+Just record my process of embedding a wasm page into vuepress for about a week. It involves many aspects, including [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules), [emscripten](https://github.com/emscripten-core/emscripten), [naive-ui](https://naiveui.com), [COOP-COEP](https://web.dev/coop-coep/), and the exploration and use of these technologies. Currently, this [tool page](../tools/realcugan-ncnn-webassembly) has been roughly completed and has a good experience in the Chrome browser.
 
-## 背景
+## Background
 
-一次偶然的机会我了解到b站出了一个AI工具[Real-CUGAN](https://github.com/bilibili/ailab/tree/main/Real-CUGAN)，并看到了其中的[网页wasm实现](https://real-cugan.animesales.xyz/)，然后突发奇想试试在vuepress中嵌入实现，放在我自己的博客里。
+By chance, I learned that Bilibili released an AI tool called [Real-CUGAN](https://github.com/bilibili/ailab/tree/main/Real-CUGAN), and saw its [web wasm implementation](https://real-cugan.animesales.xyz/). Then I had the idea of embedding it into vuepress and putting it on my own blog.
 
-## 过程
+## Process
 
-这次的实现还是比较复杂的，中间遇到了不少问题，都是首次遇到，也算是增加了不少经验。整个`wasm`的实现大部分参考了[realcugan-ncnn-webassembly](https://github.com/hanFengSan/realcugan-ncnn-webassembly)的逻辑，但是根据[realcugan-ncnn-webassembly](https://github.com/nihui/realcugan-ncnn-vulkan/tree/master/models/models-pro)更新成了其中的`models-pro`。接下来我会根据每个用到的技术记录下使用过程和遇到的问题。
+This implementation is still relatively complex, and I encountered many problems in the middle, all of which were encountered for the first time, which also added a lot of experience. The implementation of the entire `wasm` mostly refers to the logic of [realcugan-ncnn-webassembly](https://github.com/hanFengSan/realcugan-ncnn-webassembly), but it has been updated to the `models-pro` in [realcugan-ncnn-webassembly](https://github.com/nihui/realcugan-ncnn-vulkan/tree/master/models/models-pro). Next, I will record the usage and problems encountered according to each technology used.
 
 ### git submodule
 
-[realcugan-ncnn-webassembly](https://github.com/hanFengSan/realcugan-ncnn-webassembly)这个仓库作者其实没有把`git submodule`上传，因此直接克隆这个仓库并执行`git submodule update --init`无法生效，也无法确定`submodule`的版本，因此我使用最新版的`ncnn`跑出来的根本无法使用，最后还是根据[realcugan-ncnn-webassembly](https://github.com/nihui/realcugan-ncnn-vulkan/tree/master/models/models-pro)确认了版本。
+The author of [realcugan-ncnn-webassembly](https://github.com/hanFengSan/realcugan-ncnn-webassembly) did not upload the `git submodule`, so cloning this repository and executing `git submodule update --init` will not take effect, and the version of `submodule` cannot be determined. Therefore, the version of `ncnn` I ran with the latest version cannot be used at all, and finally, I confirmed the version according to [realcugan-ncnn-webassembly](https://github.com/nihui/realcugan-ncnn-vulkan/tree/master/models/models-pro).
 
-同时，我把`emsdk`放进了`submodule`中，这样就可以直接在`github action`中设置`emscripten`，完成后续的编译过程。
+At the same time, I put `emsdk` into the `submodule`, so that `emscripten` can be set directly in `github action` to complete the subsequent compilation process.
 
 ### emscripten
 
-因为本次并没有完整的开发`wasm`，只是根据大佬的仓库进行了一些更新和迁移，因此对其了解不深，只有三点需要注意：
-- emscripten的版本最好指定，因为不清楚新版本是否有破坏性更新，我也没有找到详细的更新文档。
-- `-sEXPORTED_FUNCTIONS`制定了输出函数，使其暴露在`Module`中，如果你发现`_xxFun not defined`，应该在`CMakeList.txt`中修改。
-- build缓存需要清空，否则可能有意料之外的问题。
+Because this time I didn't develop `wasm` completely, I just made some updates and migrations based on the repository of the great god, so I don't know much about it, there are only three points to note:
 
-### Unocss及Naive Ui的引入
+- It is best to specify the version of emscripten because it is not clear whether the new version has destructive updates, and I have not found detailed update documents.
+- `-sEXPORTED_FUNCTIONS` specifies the output functions to expose them in `Module`. If you find `_xxFun not defined`, you should modify it in `CMakeList.txt`.
+- The build cache needs to be cleared, otherwise there may be unexpected problems.
 
-Unocss相对简单，目前还未发现样式覆盖的问题，只需要配置即可：
+### Introduction of Unocss and Naive Ui
+
+Unocss is relatively simple, and I have not found any style override issues so far, just need to configure it:
 
 ```ts
 Unocss({
-  mode: 'per-module',
-})
+  mode: "per-module",
+});
 ```
 
-Naive Ui相对复杂，需要分成几点：
-- 首先是无法使用`unplugin`系列的自动引用方法来编写代码，必须要手动引用。
-- 然后是需要在组件的最外边包裹`<ClientOnly>`组件，让它跳过ssg编译。
-- message,dialog等组件通过`createDiscreteApi`来使用。
-- 最后需要设置ssr，这样才能build成功：
+Naive Ui is relatively complex and needs to be divided into several points:
+
+- First, it is impossible to use the automatic reference method of the `unplugin` series to write code, and manual reference is required.
+- Then, you need to wrap the `<ClientOnly>` component outside the component to skip ssg compilation.
+- Components such as message and dialog are used through `createDiscreteApi`.
+- Finally, SSR needs to be set up in order to build successfully:
 
 ```ts
 ssr: {
@@ -50,19 +55,19 @@ ssr: {
 }
 ```
 
-这些配置和使用看起来很简单，实际上每一条结论的得出背后都需要很多次的尝试。这些配置都在[本仓库](https://github.com/init-qy/vuepress-blog/blob/master/docs/.vuepress/config.ts#L46-L55)中可以找到。
+These configurations and usage may seem simple, but in reality, each conclusion requires many attempts to reach. These configurations can be found in [this repository](https://github.com/init-qy/vuepress-blog/blob/master/docs/.vuepress/config.ts#L46-L55).
 
-### wasm文件的使用
+### Using wasm files
 
-在使用`emscripten`生成完文件后，我们需要把它们和模型文件放在同一文件夹中，使其能够读取使用这些模型。
-在实际开发过程中，我因为这些文件的读取位置问题有许多困扰，在生成的js文件中读取`.bin`模型使用的是相对路径，而我页面的路径为`/tools/realcugan-ncnn-webassembly.html`,也就是说它会尝试获取`/tools/xxx.bin`这个文件，这就意味着我需要把生成的`.js,.wasm,.bin`放在`public/tools`文件夹下。
-同时，由于支持`i18n`的原因，另一个英文网址`/en/tools/realcugan-ncnn-webassembly.html`无法读取`.bin`模型，这个问题如果是自己的服务器应该很好解决，直接给nginx写一个重定向即可，可是由于我的网站部署在`github.io`上，最简单快捷图省事的方法是在相对应的文件夹下放一份完全相同的资源文件，问题就迎刃而解，缺点是比较占仓库存储。我这里采用了一个非常hack的方法，通过`work server`强行对其进行重定向。
+After generating the files using `emscripten`, we need to place them in the same folder as the model files so that they can be read and used by the application. During the development process, I encountered many difficulties with the file reading location. The generated JavaScript file reads the `.bin` model using a relative path. In my case, the page path is `/tools/realcugan-ncnn-webassembly.html`, which means it will attempt to access the file `/tools/xxx.bin`. This implies that I need to place the generated `.js`, `.wasm`, and `.bin` files in the `public/tools` folder.
+
+Additionally, due to support for `i18n`, the English version of the website `/en/tools/realcugan-ncnn-webassembly.html` is unable to read the `.bin` model. This problem can be easily solved on a self-hosted server by writing a redirect in Nginx. However, since my website is deployed on `github.io`, the simplest and most convenient solution is to place an identical copy of the resource files in the corresponding folder. This solves the problem, but it does consume more repository storage. I have used a rather hacky method here by forcibly redirecting it through a work server.
 
 ```js
 // do something Redirect
-const pattern = /.+\/en\/tools\/.+\.(js|wasm|bin|param|data|jpg)$/
+const pattern = /.+\/en\/tools\/.+\.(js|wasm|bin|param|data|jpg)$/;
 if (pattern.test(request.url)) {
-  request = new Request(request.url.replaceAll('/en/tools', '/tools'), {
+  request = new Request(request.url.replaceAll("/en/tools", "/tools"), {
     cache: request.cache,
     credentials: request.credentials,
     headers: request.headers,
@@ -75,13 +80,13 @@ if (pattern.test(request.url)) {
     referrer: request.referrer,
     referrerPolicy: request.referrerPolicy,
     signal: request.signal,
-  })
+  });
 }
 ```
 
-**---2023-08-02更新---**
+#### **---Updated on August 2, 2023---**
 
-`emscripten`有暴露方法`locateFile`，可以对加载的文件进行重定向，使用cdn或其他URL。因此我去掉了hack的重定向方法。
+`emscripten` provides the `locateFile` method, which allows for redirection of the loaded files using a CDN or other URLs. Therefore, I have removed the hacky redirect method.
 
 ```ts
 locateFile: (path: string, prefix: string) => {
@@ -89,14 +94,15 @@ locateFile: (path: string, prefix: string) => {
 },
 ```
 
-我不太清楚多页面对wasm应用的影响，但是我的确在各个标签切换的时候出现了问题：`onRuntimeInitialized`只执行一次。因此，我采用了最方便，最快捷，最不会出错的方式解决这个问题：在进入页面时reload。
-这样或许会令人困惑，但这已经是我能想到的最好解法了。
+I am not sure about the impact of multiple pages on wasm applications, but I did encounter a problem when switching between tabs: `onRuntimeInitialized` only executes once. Therefore, I have used the most convenient, fastest, and least error-prone way to solve this problem: reloading the page when entering it.
+This may be confusing, but it is the best solution I can think of.
 
 ### COOP-COEP
 
-同源策略是浏览器强加的一道坎，只有服务器签署了~~我同意该协议~~同源，才能给你提供`sharedbuffer`，这里同样使用了一种很hack的方法来使wasm应用能正常运行，参考[coi-serviceworker](https://github.com/gzuidhof/coi-serviceworker)，也因为这样，这个工具只能在chrome,edge运行，参考(https://caniuse.com/mdn-api_window_credentialless)。
+The same-origin policy is a barrier imposed by browsers. Only when the server signs the ~~I agree to this protocol~~ same-origin agreement can it provide you with a `sharedbuffer`. Here, I have also used a hacky method to ensure the proper functioning of the wasm application, referring to [coi-serviceworker](https://github.com/gzuidhof/coi-serviceworker). Because of this, this tool can only run on Chrome and Edge, as referenced in (<https://caniuse.com/mdn-api_window_credentialless>).
 
+## Next Steps
 
-## 下一步
+With the experience gained from this development, there are actually many more things that can be done. In theory, I can develop any functional program in the browser without worrying about language or environment limitations. Perhaps there may be some shortcomings in terms of runtime speed, but as the saying goes, "If it works, it works."
 
-有了本次的开发经验，其实能做的事情又多了很多，我理论上可以在浏览器里开发任意功能的程序，而不用在意语言、环境的限制，或许在运行速度上有所欠缺，但有句话是这么说的：能用就行。
+> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.

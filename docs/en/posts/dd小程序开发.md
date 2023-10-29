@@ -1,17 +1,20 @@
 ---
-title: 钉钉开发中一些问题(持续更新)
+title: Some issues in DingTalk development (continuously updated)
 date: 2020-11-02 17:58:00
-tag: ["小程序", "钉钉"]
-category: ["前端开发"]
+tag:
+  - mini-app
+  - DingTalk
+category:
+  - front-end development
 ---
 
 ## 2020-10
 
-1. 钉钉不支持 `&nbsp;` text 标签中的空格用中文全角空格代替`{{' '}}`
-2. 钉钉 `dd.switchTab` 方法有问题,既不报错也无提示,现解决方案由 `dd.reLaunch` 代替
-3. 钉钉(与支付宝,未测试) `<swiper>`组件下只能接`<swiper-item>`组件,使用`view`包裹`<swiper-item>`组件可能无法正常显示
+1. DingTalk does not support the use of `&nbsp;` in the `text` tag. Please replace the spaces with Chinese full-width spaces `{{' '}}`.
+2. The `dd.switchTab` method in DingTalk has some issues. It neither throws an error nor provides any prompts. The current solution is to use `dd.reLaunch` instead.
+3. In DingTalk (and Alipay, not tested), the `<swiper>` component can only contain `<swiper-item>` components. Wrapping `<swiper-item>` components with a `view` may cause display issues.
 
-### swiper 组件使用样例
+### Example of using the swiper component
 
 ```html
 <swiper
@@ -34,16 +37,16 @@ category: ["前端开发"]
 </swiper>
 ```
 
-### 选项组件 m-picker
+### Option component m-picker
 
-- 使用`setColumnValues`实现多项联动效果,具体参照 `brand-add.js`
-- `onConfirm`中 `detail.value` 为选项 index 数组 `detail.detail` 为选项值数组
+- Use `setColumnValues` to achieve multiple linkage effects. Please refer to `brand-add.js` for details.
+- In the `onConfirm` event, `detail.value` represents the index array of the selected options, and `detail.detail` represents the value array of the selected options.
 
 ## 2020-11
 
-1.**非常重要** 不要在 data 初始化的时候调用函数进行赋值,否则页面会找不到
+1. **Very important:** Do not call functions to assign values during data initialization, otherwise the page will not be able to find them.
 
-> 反例
+> Negative example
 
 ```js
 data: {
@@ -51,7 +54,7 @@ data: {
 }
 ```
 
-> 正例
+> Positive example
 
 ```js
 data:{
@@ -63,3 +66,5 @@ onLoad() {
     })
 }
 ```
+
+> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.

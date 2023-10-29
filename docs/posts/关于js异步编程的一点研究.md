@@ -13,7 +13,8 @@ category: ["前端开发"]
 
 文档传送门：[Promise 对象](https://wangdoc.com/es6/promise.html "Promise 对象")
 promise 已经是现如今最广泛使用的异步解决方案，几乎已经没有人去使用回调来解决异步问题。callback 最广为人知的问题是回调地狱，因此 promise 应运而生。然鹅，promise 的链式调用也没有从根本上解决这个问题，.then()的调用只是换了一种写法；同时，promise 的错误处理也是一个大麻烦。
-**Promise.all()**
+
+### Promise.all()
 
 > Promise.all()方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
 
@@ -56,9 +57,13 @@ f();
 ```
 
 这个方法可以应用在多个 http 需要同时请求时的情况。需要注意的是，这时的错误处理需要分情况处理：如果原 Promise 实例有自己的 catch 处理，则不会触发 all 的 catch，反之会触发 all 的 catch
-**Promise.race()**
+
+### Promise.race()
+
 这个方法与 all 类似，区别是只要有一个 Promise 先改变了状态（resolve，reject 皆可），就会传回回调。这个方法暂时没有想到什么应用方向（感觉它与高并发的秒杀业务流程类似）
-**Promise.any()**
+
+### Promise.any()
+
 Promise.any()跟 Promise.race()方法很像，只有一点不同，就是不会因为某个 Promise 变成 rejected 状态而结束。
 这是 es2021 引入的新方法。~~谨慎使用~~
 

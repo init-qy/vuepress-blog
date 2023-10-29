@@ -1,19 +1,22 @@
 ---
-title: 关于js运行机制的一点研究
+title: A Brief Study on the Execution Mechanism of JavaScript
 date: 2020-12-25 17:38:48
-tag: ["js", "vue"]
-category: ["前端开发"]
+tag:
+  - js
+  - vue
+category:
+  - front-end development
 ---
 
-## 前言
+## Preface
 
-最近追了阮一峰阮老师的博客，真的是吾辈楷模。写博客不难，难得是一直写博客，一直保持学习、分享的精神。坚持是一件很难的事情，希望我能够坚持下去。言归正传，我是通过阮老师一篇据说被喷的博客（[JavaScript 运行机制详解：再谈 Event Loop](http://www.ruanyifeng.com/blog/2014/10/event-loop.html "JavaScript 运行机制详解：再谈Event Loop")）中去理解了一下，自己做了一点总结。
+Recently, I have been following the blog of Mr. Ruanyifeng, and he is truly an exemplary figure. Writing a blog is not difficult, but what is difficult is to consistently write blogs and maintain a spirit of learning and sharing. Persistence is a challenging thing, and I hope I can keep it up. Now, let's get back to the point. I read a blog post by Mr. Ruanyifeng, which was said to have been criticized ([JavaScript Event Loop Explained: Revisiting Event Loop](http://www.ruanyifeng.com/blog/2014/10/event-loop.html "JavaScript Event Loop Explained: Revisiting Event Loop")), and I made a summary based on it.
 
 ## Event Loop
 
-> 主线程从"任务队列"中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为 Event Loop（事件循环）。
+> The main thread reads events from the "task queue", and this process is continuous, so this running mechanism is also called the Event Loop.
 
-先从一个简单的例子来说明 js 的这种机制：[一道简单的面试题](https://zhuanlan.zhihu.com/p/25407758 "一道简单的面试题")
+Let's start with a simple example to illustrate this mechanism in JavaScript: [A Simple Interview Question](https://zhuanlan.zhihu.com/p/25407758 "A Simple Interview Question")
 
 ```javascript
 setTimeout(function () {
@@ -31,36 +34,38 @@ new Promise(function executor(resolve) {
 console.log(5);
 ```
 
-这段代码可以直接在浏览器中运行，其中打印的顺序为 2，3，5，4，1
-js 是单线程的，执行的过程从上到下
+This code can be directly run in a browser, and the order of the printed numbers is 2, 3, 5, 4, 1. JavaScript is single-threaded, and the execution process goes from top to bottom.
 
-1. setTimeout 函数放入“任务队列”
-2. promise 里函数直接执行，打印 2，resolve()不会影响后面代码执行，打印 3，then 里的函数会放在当前执行的最后
-3. 打印 5
-4. 来到当前函数下个循环之前，执行 then 里的函数，打印 4
-5. setTimeout 函数已就绪，打印 1
+1. The setTimeout function is put into the "task queue".
+2. The function inside the promise is executed directly, printing 2. The resolve() does not affect the subsequent code execution, so it prints 3. The function inside the then will be put at the end of the current execution.
+3. Print 5.
+4. Before moving on to the next loop of the current function, execute the function inside the then and print 4.
+5. The setTimeout function is ready, and it prints 1.
 
-关于 setTimeout 函数有几点需要注意：
+There are a few things to note about the setTimeout function:
 
-- 最小执行时间根据浏览器有所不同，如果需要表现出先后执行顺序，最好设置在 16ms 以上
-- 设置的时间不一定会精确，可能因为当前代码延迟出现不准的情况
+- The minimum execution time varies depending on the browser. If you want to show the order of execution, it is best to set it to 16ms or more.
+- The set time may not be accurate, as there may be delays in the current code.
 
-> 需要注意的是，setTimeout()只是将事件插入了"任务队列"，必须等到当前代码（执行栈）执行完，主线程才会去执行它指定的回调函数。要是当前代码耗时很长，有可能要等很久，所以并没有办法保证，回调函数一定会在 setTimeout()指定的时间执行。
+> It should be noted that setTimeout() only inserts the event into the "task queue" and the main thread will execute the specified callback function only after the current code (execution stack) is executed. If the current code takes a long time, it may have to wait for a long time, so there is no guarantee that the callback function will be executed at the specified time.
 
-## vue 中的$nextTick
+## $nextTick in Vue
 
-官方文档：[异步更新队列](https://cn.vuejs.org/v2/guide/reactivity.html#%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97 "异步更新队列")
+Official documentation: [Asynchronous Update Queue](https://vuejs.org/v2/guide/reactivity.html#Asynchronous-Update-Queue)
 
-> Vue 在内部对异步队列尝试使用原生的 Promise.then、MutationObserver 和 setImmediate，如果执行环境不支持，则会采用 setTimeout(fn, 0) 代替。
+> Vue internally attempts to use native Promise.then, MutationObserver, and setImmediate for the asynchronous queue. If the execution environment does not support them, it will use setTimeout(fn, 0) instead.
 
-如果$nextTick 使用原生的 Promise.then，那么它应该与 Promise.then 平级，执行顺序取决于代码的先后，事实上确实如此。
-在 node.js 中也存在 process.nextTick 方法，不过因为不熟悉，暂且不表。
+If $nextTick uses the native Promise.then, then it should be at the same level as Promise.then, and the execution order depends on the order of the code. In fact, this is true.
+There is also a process.nextTick method in node.js, but I won't go into it for now because I'm not familiar with it.
 
-## 小程序中的 wx.nextTick
+## wx.nextTick in WeChat Mini Program
 
-官方文档：[wx.nextTick](https://developers.weixin.qq.com/miniprogram/dev/api/ui/custom-component/wx.nextTick.html "wx.nextTick")
-小程序中还未接触过这个方法，但是在 vant-weapp 源码中存在。官方文档的解释比较模糊，但大致可以确定为下一个时间段(tick)执行。
+Official documentation: [wx.nextTick](https://developers.weixin.qq.com/miniprogram/dev/api/ui/custom-component/wx.nextTick.html)
 
-## 最后
+I haven't encountered this method in WeChat Mini Program yet, but it exists in the source code of vant-weapp. The official documentation's explanation is somewhat vague, but it can be roughly determined that it will be executed in the next time period (tick).
 
-了解到这些可能不会真正意义上提高你的代码水平，它很少出现在日常的代码中。不过这些东西，知道就是知道，总会有 bug 和坑等待你的发现，到时候，说不定身边正好有一根绳子。
+## Conclusion
+
+Understanding these may not necessarily improve your coding skills in a meaningful way, as they rarely appear in everyday code. However, knowing these things is always beneficial, as there will always be bugs and pitfalls waiting for you to discover. And when that time comes, you might just have the right rope at hand.
+
+> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.

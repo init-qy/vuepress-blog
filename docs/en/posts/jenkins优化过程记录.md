@@ -1,23 +1,25 @@
 ---
-title: Jenkins优化过程记录
+title: Jenkins Optimization Process Documentation
 date: 2022-11-21 15:23:16
-tag: ["Jenkins"]
-category: ["DevOps"]
+tag:
+  - Jenkins
+category:
+  - DevOps
 ---
 
-## 背景
+## Background
 
-仅此记录下我的 Jenkins 优化全过程。部署项目是一个前端项目，node14，vue2，使用 npm 打包，需要将 nginx 同时打包为一个 docker 镜像并部署。
+This is a record of my entire process of optimizing Jenkins. The project being deployed is a frontend project, using Node 14, Vue 2, and npm for packaging. It also requires packaging Nginx as a Docker image and deploying it.
 
-## 第一版(30min)
+## Version 1 (30 minutes)
 
-这一版相当离谱，我接手的时候听说有自动化部署流水线还十分兴奋，但是忍了两个月后实在是受不了。长达 30 分钟的部署时长意味着有些需要线上测试的问题不能及时看到效果，有时第一次部署失败的话又需要一个小时起步。
+This version was quite outrageous. When I took over, I was excited to hear about the automated deployment pipeline. However, after enduring it for two months, I couldn't take it anymore. The 30-minute deployment time meant that some issues that needed to be tested online couldn't be seen in a timely manner. Sometimes, if the first deployment failed, it would take another hour to start over.
 
-在对每一个步骤查看时长后，我发现最耗时的部分竟然是`push to harbor`推送镜像的部分，每一次推送时长竟然都达到了 20+分钟，这里有两种可能：网络问题或者镜像问题。
+After examining the duration of each step, I found that the most time-consuming part was the "push to harbor" image push, which took more than 20 minutes each time. There are two possible reasons for this: network issues or image issues.
 
-这里的情况是后者，我发现一次镜像的大小竟然达到了大约 1G，我想这也是为什么 Jenkins 服务器三天两头硬盘占满的原因之一。事实上，前端镜像打包出来的大小只有 30M 左右，镜像包如此之大的原因是因为它把`node_modules`也放了进去 😓。
+In this case, it was the latter. I found that the size of an image was about 1GB, which is why the Jenkins server's hard drive was constantly filling up every few days. In fact, the size of the frontend image package was only about 30MB. The reason the image package was so large was because it included the `node_modules` directory 😓.
 
-解决方法是加个`.dockerignore`文件，去除不需要的目录
+The solution was to add a `.dockerignore` file to exclude unnecessary directories.
 
 ```docker
 # Ignore everything
@@ -31,13 +33,13 @@ category: ["DevOps"]
 !nginx_reconfigure.sh
 ```
 
-如此，打包时长来到了 3~5 分钟
+With this change, the packaging time was reduced to 3-5 minutes.
 
-## 第二版(10min)
+## Version 2 (10 minutes)
 
-后来随着业务的扩展，新加了一个 repo 进来，现在需要实现的是一次打包 A 和 B，然后将其打包为镜像。
+Later, as the business expanded, a new repository was added, and now the goal was to package A and B together and then package them into an image.
 
-因为比较着急，没有过多思考，直接在 pipeline 中修改。
+Because of the urgency, I didn't think too much and made the changes directly in the pipeline.
 
 ```pipeline
 agent {
@@ -59,11 +61,11 @@ steps {
 }
 ```
 
-如此大致实现了这个功能，但是打包时长明显更长。
+With this change, the functionality was roughly implemented, but the packaging time was noticeably longer.
 
-## 第三版(3~4min)
+## Version 3 (3-4 minutes)
 
-在业务稳定下来后，针对 10 分钟的时长我又进一步做了优化，使用 parallel 进行并发构建。
+After the business stabilized, I further optimized the 10-minute duration by using parallel builds.
 
 ```pipeline
 parallel {
@@ -106,11 +108,11 @@ parallel {
 }
 ```
 
-其中必须要注意的是`reuseNode true`，如果不设置，Jenkins 会自动创建新的工作区，两个工作区之间无法相互传输文件。
+One thing to note is `reuseNode true`. If not set, Jenkins will automatically create a new workspace, and files cannot be transferred between the two workspaces.
 
 Refer to <https://www.jenkins.io/doc/book/pipeline/docker/#workspace-synchronization>
 
-之后我又对`npm install`进行了一些优化，在未改变`package.json`时，其实无需重新`npm install`。
+After that, I made some optimizations to `npm install`. If `package.json` is not changed, there is no need to run `npm install` again.
 
 ```shell
     # file exit or not
@@ -132,7 +134,9 @@ Refer to <https://www.jenkins.io/doc/book/pipeline/docker/#workspace-synchroniza
     fi
 ```
 
-## 总结
+## Conclusion
 
-1. 优化是持续的过程，说不定哪天 Jenkins 就退环境了。
-2. 优先看[官方文档](https://www.jenkins.io/doc/book/)，寻找`reuseNode true`那段最耗费时间。
+1. Optimization is an ongoing process. Jenkins might be replaced one day.
+2. Prioritize referring to the [official documentation](https://www.jenkins.io/doc/book/) and look for the section on `reuseNode true`, as it can be time-consuming.
+
+> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.

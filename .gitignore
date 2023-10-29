@@ -16,3 +16,4 @@ docs/.vuepress/dist
 docs/.vuepress/public/tools/realcugan-ncnn-webassembly*
 docs/.vuepress/public/tools/up2x*
 docs/.vuepress/public/tools/up3x*
+processed_list.txt

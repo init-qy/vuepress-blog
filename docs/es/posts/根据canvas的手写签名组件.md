@@ -1,16 +1,16 @@
 ---
-title: According to the handwritten signature component of Canvas...
+title: Según el componente de firma manual de Canvas,
 date: 2021-01-19 14:39:07
 tag:
   - mini-app
   - DingTalk
 category:
-  - front-end development
+  - desarrollo front-end
 ---
 
 ## Background
 
-Due to business requirements, it is necessary to implement a handwritten signature component on the DingTalk Mini Program. After referring to the implementation of handwritten signatures in WeChat Mini Programs online and considering our own actual needs, we have wrapped it into a popup dialog style, while also referring to the handwritten signature style in DingTalk's approval process. The dependencies used include the `mini-ali-ui` popup and button components, as well as a local icon.
+Due to business requirements, it is necessary to implement a handwriting signature component on the DingTalk mini program. After referring to the method of implementing a handwriting signature in WeChat mini programs online and considering our own actual needs, we have packaged it into a popup dialog style, while also referring to the handwriting signature style in DingTalk approval. The dependencies used include the `mini-ali-ui` popup and button components, as well as a local icon.
 
 ```json
 {
@@ -24,14 +24,14 @@ Due to business requirements, it is necessary to implement a handwritten signatu
 
 ## Approach
 
-The specific implementation is based on the canvas. The canvas API on the Mini Program side is similar to that of WeChat, so this component should be able to be used on the WeChat side with slight modifications.
+The specific implementation is based on the canvas. The canvas API on the mini program side is similar to that of WeChat, so with a slight modification, this component should also be usable on the WeChat side.
 
 ## Some Issues
 
 1. The width and height of the canvas must be fixed, so the implementation is based on the actual width obtained multiplied by a fixed ratio for the height. This can be passed directly in the component.
-2. The required parameter `dpr` is referenced from [How to Solve the Blurry Canvas Problem](https://opensupport.alipay.com/support/helpcenter/144/201602562003?ant_source=zsearch).
-3. Perhaps I misunderstood, but the `save` and `restore` methods did not achieve the desired effect, so the undo function may need to be implemented in a different way. It has been removed here.
-4. `clearRect` does not work unless a line of `content.beginPath()` is added before it. I cannot understand how this issue arises.
+2. The required parameter `dpr` needs to be referenced. For more information, please refer to [How to Solve the Blurry Canvas Problem](https://opensupport.alipay.com/support/helpcenter/144/201602562003?ant_source=zsearch).
+3. Perhaps I misunderstood, but the `save` and `restore` functions did not achieve the desired effect, so the undo feature may need to be implemented in a different way. It has been removed here.
+4. `clearRect` does not work properly, so it needs to be preceded by `content.beginPath()`. I cannot understand how this issue arises.
 
 :::: note Attached: Comparison of clearRect Not Working
 
@@ -257,4 +257,4 @@ Component({
 
 :::
 
-> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.
+> Este post está traducido usando ChatGPT, por favor [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) si hay alguna omisión.

@@ -10,6 +10,8 @@
   "license": "MIT",
   "author": "init-qy",
   "scripts": {
+    "auto-i18n": "python Auto-i18n/auto-translater.py",
+    "dev": "pnpm run docs:dev",
     "docs:build": "vuepress build docs --clean-temp --clean-cache",
     "docs:dev": "vuepress dev docs",
     "docs:dev-nocache": "vuepress dev docs --clean-temp --clean-cache",
@@ -19,7 +21,6 @@
     "lint:md": "markdownlint docs/ --fix",
     "lint:prettier": "prettier --check --write .",
     "prepare": "husky install",
-    "sync:en-docs": "cpy 'docs/posts/*' docs/en/posts",
     "up": "taze major -I"
   },
   "lint-staged": {
@@ -54,7 +55,6 @@
     "@types/color": "3.0.3",
     "@types/emscripten": "^1.39.6",
     "@vuepress/client": "2.0.0-beta.64",
-    "cpy-cli": "^5.0.0",
     "eslint": "8.44.0",
     "husky": "8.0.3",
     "lint-staged": "13.2.3",

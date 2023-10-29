@@ -10,6 +10,7 @@
   "MD024": {
     "allow_different_nesting": true
   },
+  "MD028": false,
   "MD033": {
     "allowed_elements": [
       "br",
@@ -26,5 +27,6 @@
     "style": "---"
   },
   "MD040": false,
+  "MD045": false,
   "MD046": false
 }

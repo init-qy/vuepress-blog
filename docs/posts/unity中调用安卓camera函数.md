@@ -34,14 +34,14 @@ if (cameraManager != null)
 }
 ```
 
---------
+---
+
 其中，如果是调用一个类中的方法，就使用`Call`，第一个参数为方法名，第二个参数可选，是传递的参数。
 如果传参过程中需要用到它本来的类，比如上述代码中的`Key`，需要用`AndroidJavaObject`包装，只有一些基本类型(`int`, `float[]`)可以直接传递。
 如果是调用一个类中的成员(fields)，则使用`GetStatic`，比如`java`中的`CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS`就可以用`GetStatic`获取。
 
-
 ## 参考
 
-- https://github.com/ricoh-live-streaming-api/android-sdk-samples/blob/main/unity-samples/unity-app/Assets/Scripts/CameraInfoList.cs
-- https://github.com/huailiang/WebCam
-- https://developer.android.com/reference/android/hardware/camera2/package-summary.html
+- <https://github.com/ricoh-live-streaming-api/android-sdk-samples/blob/main/unity-samples/unity-app/Assets/Scripts/CameraInfoList.cs>
+- <https://github.com/huailiang/WebCam>
+- <https://developer.android.com/reference/android/hardware/camera2/package-summary.html>

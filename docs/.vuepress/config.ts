@@ -19,6 +19,11 @@ export default defineUserConfig({
       title: 'blog by init-qy',
       description: 'have fun with life',
     },
+    '/es/': {
+      lang: 'es',
+      title: 'blog by init-qy',
+      description: 'have fun with life',
+    },
   },
   plugins: createVuePressPlugins(),
   theme: createVuePressTheme(),

@@ -1,37 +1,39 @@
 ---
-title: git大文件处理
+title: Handling Large Files in Git
 date: 2023-04-16 12:21:06
-tag: ["git"]
-category: ["DevOps"]
+tag:
+  - git
+category:
+  - DevOps
 ---
 
-## 背景
+## Background
 
-最近在开发`flutter+unity`的手机 app 项目，因为第一次开发`unity`，并不是很了解`unity`的文件目录，有很多测试用资产(Assets)中的 3d 模型文件也被放进了`git`中，这就造成了`git`仓库的庞大。
+Recently, I have been working on a mobile app project using `flutter+unity`. Since it is my first time developing with `unity`, I am not very familiar with the file structure of `unity`. As a result, many 3D model files from the test assets have been included in the `git` repository, causing the repository to become bloated.
 
-其实这种资产管理用`svn`处理会更好，毕竟包含了大量图片，音频及二进制文件，但目前项目很小，用`git`管理也还好。
+In fact, managing these assets with `svn` would be better, considering the large number of images, audio, and binary files involved. However, since the project is currently small, managing them with `git` is still acceptable.
 
-## 步骤
+## Steps
 
-1. 查看 git 仓库大小
+1. Check the size of the git repository
 
    ```sh
    git count-objects -vH
    ```
 
-2. 查看有哪些大文件
+2. Identify the large files
 
    ```sh
    git rev-list --objects --all | grep "$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -10 | awk '{print$1}')"
    ```
 
-3. 从 git 所有分支历史中删除该文件
+3. Remove the files from the git repository history
 
    ```sh
    git filter-branch --force --index-filter 'git rm -rf --cached --ignore-unmatch <bigfile>' --prune-empty --tag-name-filter cat -- --all
    ```
 
-4. 回收本地空间
+4. Reclaim local space
 
    ```sh
    rm -rf .git/refs/original/
@@ -40,16 +42,18 @@ category: ["DevOps"]
    git gc --aggressive --prune=now
    ```
 
-5. 推送到远端仓库
+5. Push to the remote repository
 
    ```sh
    git push origin --force --all
    ```
 
-## 其他
+## Other
 
-在上述步骤执行完毕并推送到远端后，有时会发现远端的 git 仓库不仅没有变小，甚至变大了，这是因为远端的`git`仓库没有 gc。
+After completing the above steps and pushing to the remote repository, you may sometimes find that the remote git repository not only did not decrease in size, but even increased. This is because the remote `git` repository has not been garbage collected.
 
-我使用的是公司内部的`GitLab`，仅以此为例，可以使用`GitLab`的[`Housekeeping`](https://docs.gitlab.com/ee/administration/housekeeping.html#running-housekeeping-tasks)功能即可。
+I am using the internal `GitLab` of the company as an example. You can use the [`Housekeeping`](https://docs.gitlab.com/ee/administration/housekeeping.html#running-housekeeping-tasks) feature of `GitLab` to address this issue.
 
-更多详情可以参考[这篇文章](https://juejin.cn/post/7024922528514572302)
+For more details, please refer to [this article](https://juejin.cn/post/7024922528514572302).
+
+> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.

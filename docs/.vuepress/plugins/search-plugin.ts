@@ -10,6 +10,7 @@ export default function createSearchPlugin() {
         formatter: {
           '/': '分类：$content',
           '/en/': 'Category: $content',
+          '/es/': 'Categoría: $content',
         },
       },
       {
@@ -17,6 +18,7 @@ export default function createSearchPlugin() {
         formatter: {
           '/': '标签：$content',
           '/en/': 'Tag: $content',
+          '/es/': 'Etiqueta: $content',
         },
       },
     ],

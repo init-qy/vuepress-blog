@@ -1,29 +1,31 @@
 ---
-title: vue-i18n的一些使用
+title: Some usage of vue-i18n
 date: 2021-06-10 21:59:15
-tag: ["vue"]
-category: ["前端开发"]
+tag:
+  - vue
+category:
+  - front-end development
 ---
 
-## 开始
+## Getting Started
 
-在使用 vue 编写大型项目时，经常使用的一种国际化方案为 Vue i18n。
+When developing large projects using Vue, one commonly used internationalization solution is Vue i18n.
 
-其中大部分的使用看[官网](https://kazupon.github.io/vue-i18n/zh/started.html#javascript "vue-i18n")就够了,这里仅记录一些在实际使用中的问题。
+For most use cases, referring to the [official documentation](https://kazupon.github.io/vue-i18n/zh/started.html#javascript) is sufficient. Here, we will only address some issues that may arise during practical usage.
 
-## 问题
+## Issues
 
-- t()和 tc()
-  这两个方法在大部分情况下展现一致，以至于经常有人混用。事实上，在大部分情况下都应该使用 t()，tc()方法适用于复数，它会让 ‘|’ 无法展示。源码中 tc()有这么一段：
+- t() and tc()
+  These two methods are often used interchangeably because they appear to be similar in most cases. However, in most situations, t() should be used, while tc() is specifically designed for handling pluralization, which may cause issues with the '|' character. In the source code, there is a section for tc():
 
 ```js
 const choices = message.split("|"); // line:1807
 ```
 
-因此，如果你的 message 中含有 ‘|’， 请不要使用 tc()。
+Therefore, if your message contains '|', please avoid using tc().
 
-- 复用性
-  在一些 form 表单中,实现 i18n 可能会显得非常繁复,很多 i18n 的字段只有一个地方会用到,比如一个简单的 form 表单:
+- Reusability
+  Implementing i18n in some form fields can be cumbersome. Many i18n fields are only used in one place, such as in a simple form:
 
 ```vue
 <el-form
@@ -44,7 +46,7 @@ const choices = message.split("|"); // line:1807
 </el-form>
 ```
 
-在这个 form 表单中,'年龄'需要 i18n,'请输入年龄'也需要,这样 i18n 就占了两行
+In this form, 'Age' requires i18n, and 'Please enter your age' also needs to be translated. This means that i18n takes up two lines:
 
 ```json
 {
@@ -53,8 +55,7 @@ const choices = message.split("|"); // line:1807
 }
 ```
 
-每个字段的 i18n 就是两倍的工作量,如果 i18n 还分了模块,代码就变得冗余:`$('modelA.modelB.age')`和`$('modelA.modelB.agePlaceholder')`
-对于这种情况,完全可以写一个方法来代替,如
+Each field's i18n doubles the workload. If i18n is also divided into modules, the code becomes redundant, such as `$('modelA.modelB.age')` and `$('modelA.modelB.agePlaceholder')`. For such cases, it is completely feasible to write a method as a replacement, like this:
 
 ```js
     placeholder(key, inputType = 0, lengthOption = { min: 1, max: 128 }) {
@@ -71,3 +72,5 @@ const choices = message.split("|"); // line:1807
       }
     },
 ```
+
+> This post is translated using ChatGPT, please [**feedback**](https://github.com/linyuxuanlin/Wiki_MkDocs/issues/new) if any omissions.
