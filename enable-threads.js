@@ -28,6 +28,24 @@ if(typeof window === 'undefined') {
         signal: request.signal,
       });
     }
+    // do something Redirect
+    const pattern = /.+\/e[ns]\/tools\/.+\.(wasm|bin|param|data|jpg)$/;
+    if(pattern.test(request.url)){
+      request = new Request(request.url.replaceAll(/\/e[ns]\/tools/g,'/tools'), {
+        cache: request.cache,
+        credentials: request.credentials,
+        headers: request.headers,
+        integrity: request.integrity,
+        destination: request.destination,
+        keepalive: request.keepalive,
+        method: request.method,
+        mode: request.mode,
+        redirect: request.redirect,
+        referrer: request.referrer,
+        referrerPolicy: request.referrerPolicy,
+        signal: request.signal,
+      });
+    }
 
     let r = await fetch(request).catch(e => console.error(e));
 
@@ -42,6 +60,7 @@ if(typeof window === 'undefined') {
   }
 
   self.addEventListener("fetch", function(e) {
+    if(!e.request.url.includes('vuepress-blog')) return;
     e.respondWith(handleFetch(e.request)); // respondWith must be executed synchonously (but can be passed a Promise)
   });
 
