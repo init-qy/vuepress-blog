@@ -1,1 +1,0 @@
-import{R as e}from"./index-ce140314.js";import{f as n,o as a,c as s,d as c,u as l,_ as t}from"./app-c1fb5501.js";const _=n({__name:"realcugan-ncnn-webassembly.html",setup(o){return(r,m)=>(a(),s("div",null,[c(l(e))]))}});const f=t(_,[["__file","realcugan-ncnn-webassembly.html.vue"]]);export{f as default};
