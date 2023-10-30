@@ -135,6 +135,10 @@ export default function createVuePressTheme() {
     plugins: {
       blog: true,
 
+      git: {
+        contributors: false,
+      },
+
       // If you don’t need comment feature, you can remove following option
       // The following config is for demo ONLY, if you need comment feature, please generate and use your own config, see comment plugin documentation for details.
       // To avoid disturbing the theme developer and consuming his resources, please DO NOT use the following config directly in your production environment!!!!!
@@ -184,7 +188,7 @@ export default function createVuePressTheme() {
         // playground: {
         //   presets: ['ts', 'vue'],
         // },
-        // presentation: {
+        // revealJs: {
         //   plugins: ['highlight', 'math', 'search', 'notes', 'zoom'],
         // },
         stylize: [
