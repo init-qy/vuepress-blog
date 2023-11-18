@@ -49,7 +49,7 @@ if(typeof window === 'undefined') {
 
     let r = await fetch(request).catch(e => console.error(e));
 
-    if(r.status === 0) {
+    if(!r || r.status === 0) {
       return r;
     }
     const headers = new Headers(r.headers);
