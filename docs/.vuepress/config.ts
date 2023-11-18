@@ -45,7 +45,7 @@ export default defineUserConfig({
     ),
   },
   head: [
-    // ['script', { src: `${baseUrl}enable-threads.js` }],
+    ['script', { src: `${baseUrl}enable-threads.js` }],
   ],
   bundler: viteBundler({
     viteOptions: {
