@@ -1,7 +1,4 @@
-import { usePageData } from '@vuepress/client'
-import { baseUrl } from '../constants/constants'
-
 export function getAssetsUrl(assetsName: string) {
-  const pageData = usePageData()
-  return baseUrl.substring(0, baseUrl.length - 1) + pageData.value.path.replace(/\/e[ns]\//, '/').replace(/\/[^\/]*$/, '/') + assetsName
+  const pagepath = window.location.pathname
+  return pagepath.replace(/\/e[ns]\//, '/').replace(/\/[^\/]*$/, '/') + assetsName
 }
