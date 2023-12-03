@@ -32,8 +32,8 @@ devDependencies:
     specifier: 18.1.0
     version: 18.1.0
   '@types/color':
-    specifier: 3.0.5
-    version: 3.0.5
+    specifier: 3.0.6
+    version: 3.0.6
   '@types/emscripten':
     specifier: ^1.39.9
     version: 1.39.9
@@ -2526,8 +2526,8 @@ packages:
     resolution: {integrity: sha512-JWO/ZyxTKk0bLuOhAavGjnwLR73rUE7qzACnU7gMeyA/gdrSHm2xJwqNPipw2MtaZUaqQ2UG/q7pP6AQiZ8mqw==}
     dev: true
 
-  /@types/color@3.0.5:
-    resolution: {integrity: sha512-T9yHCNtd8ap9L/r8KEESu5RDMLkoWXHo7dTureNoI1dbp25NsCN054vOu09iniIjR21MXUL+LU9bkIWrbyg8gg==}
+  /@types/color@3.0.6:
+    resolution: {integrity: sha512-NMiNcZFRUAiUUCCf7zkAelY8eV3aKqfbzyFQlXpPIEeoNDbsEHGpb854V3gzTsGKYj830I5zPuOwU/TP5/cW6A==}
     dependencies:
       '@types/color-convert': 2.0.2
     dev: true
