@@ -52,7 +52,7 @@
     "@types/color": "3.0.5",
     "@types/emscripten": "^1.39.9",
     "@vuepress/client": "2.0.0-beta.67",
-    "eslint": "8.52.0",
+    "eslint": "8.57.0",
     "husky": "8.0.3",
     "katex": "^0.16.9",
     "lint-staged": "15.0.2",
