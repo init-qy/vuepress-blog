@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@vueuse/core':
     specifier: 10.5.0
@@ -32,7 +36,7 @@ devDependencies:
     version: 3.0.5
   '@types/emscripten':
     specifier: ^1.39.12
-    version: 1.39.12
+    version: 1.39.13
   '@vuepress/client':
     specifier: 2.0.0-beta.67
     version: 2.0.0-beta.67(typescript@5.2.2)
@@ -71,7 +75,7 @@ devDependencies:
     version: 5.2.2
   unocss:
     specifier: ^0.57.7
-    version: 0.57.7(postcss@8.4.38)(rollup@2.79.1)(vite@5.2.11)
+    version: 0.57.7(postcss@8.4.38)(rollup@2.79.1)(vite@5.2.12)
   vue:
     specifier: 3.3.7
     version: 3.3.7(typescript@5.2.2)
@@ -2991,8 +2995,8 @@ packages:
       '@types/ms': 0.7.34
     dev: true
 
-  /@types/emscripten@1.39.12:
-    resolution: {integrity: sha512-AQImDBgudQfMqUBfrjZYilRxoHDzTBp+ejh+g1fY67eSMalwIKtBXofjpyI0JBgNpHGzxeGAR2QDya0wxW9zbA==}
+  /@types/emscripten@1.39.13:
+    resolution: {integrity: sha512-cFq+fO/isvhvmuP/+Sl4K4jtU6E23DoivtbO4r50e3odaxAiVdbfSYRDdJ4gCdxx+3aRjhphS5ZMwIH4hFy/Cw==}
     dev: true
 
   /@types/estree@0.0.39:
@@ -3313,7 +3317,7 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@unocss/astro@0.57.7(rollup@2.79.1)(vite@5.2.11):
+  /@unocss/astro@0.57.7(rollup@2.79.1)(vite@5.2.12):
     resolution: {integrity: sha512-X4KSBdrAADdtS4x7xz02b016xpRDt9mD/d/oq23HyZAZ+sZc4oZs8el9MLSUJgu2okdWzAE62lRRV/oc4HWI1A==}
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0
@@ -3323,8 +3327,8 @@ packages:
     dependencies:
       '@unocss/core': 0.57.7
       '@unocss/reset': 0.57.7
-      '@unocss/vite': 0.57.7(rollup@2.79.1)(vite@5.2.11)
-      vite: 5.2.11(@types/node@20.12.12)
+      '@unocss/vite': 0.57.7(rollup@2.79.1)(vite@5.2.12)
+      vite: 5.2.12(@types/node@20.12.12)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -3507,7 +3511,7 @@ packages:
       '@unocss/core': 0.57.7
     dev: true
 
-  /@unocss/vite@0.57.7(rollup@2.79.1)(vite@5.2.11):
+  /@unocss/vite@0.57.7(rollup@2.79.1)(vite@5.2.12):
     resolution: {integrity: sha512-SbJrRgfc35MmgMBlHaEK4YpJVD2B0bmxH9PVgHRuDae/hOEOG0VqNP0f2ijJtX9HG3jOpQVlbEoGnUo8jsZtsw==}
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0
@@ -3522,7 +3526,7 @@ packages:
       chokidar: 3.6.0
       fast-glob: 3.3.2
       magic-string: 0.30.10
-      vite: 5.2.11(@types/node@20.12.12)
+      vite: 5.2.12(@types/node@20.12.12)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -8862,7 +8866,7 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unocss@0.57.7(postcss@8.4.38)(rollup@2.79.1)(vite@5.2.11):
+  /unocss@0.57.7(postcss@8.4.38)(rollup@2.79.1)(vite@5.2.12):
     resolution: {integrity: sha512-Z99ZZPkbkjIUXEM7L+K/7Y5V5yqUS0VigG7ZIFzLf/npieKmXHKlrPyvQWFQaf3OqooMFuKBQivh75TwvSOkcQ==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -8874,7 +8878,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      '@unocss/astro': 0.57.7(rollup@2.79.1)(vite@5.2.11)
+      '@unocss/astro': 0.57.7(rollup@2.79.1)(vite@5.2.12)
       '@unocss/cli': 0.57.7(rollup@2.79.1)
       '@unocss/core': 0.57.7
       '@unocss/extractor-arbitrary-variants': 0.57.7
@@ -8893,8 +8897,8 @@ packages:
       '@unocss/transformer-compile-class': 0.57.7
       '@unocss/transformer-directives': 0.57.7
       '@unocss/transformer-variant-group': 0.57.7
-      '@unocss/vite': 0.57.7(rollup@2.79.1)(vite@5.2.11)
-      vite: 5.2.11(@types/node@20.12.12)
+      '@unocss/vite': 0.57.7(rollup@2.79.1)(vite@5.2.12)
+      vite: 5.2.12(@types/node@20.12.12)
     transitivePeerDependencies:
       - postcss
       - rollup
@@ -8989,8 +8993,8 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vite@5.2.11(@types/node@20.12.12):
-    resolution: {integrity: sha512-HndV31LWW05i1BLPMUCE1B9E9GFbOu1MbenhS58FuK6owSO5qHm7GiCotrNY1YE5rMeQSFBGmT5ZaLEjFizgiQ==}
+  /vite@5.2.12(@types/node@20.12.12):
+    resolution: {integrity: sha512-/gC8GxzxMK5ntBwb48pR32GGhENnjtY30G4A0jemunsBkiEZFw60s8InGpN8gkhHEkjnRK1aSAxeQgwvFhUHAA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -10230,7 +10234,3 @@ packages:
     resolution: {integrity: sha512-0VxCNJ7AGOMCWeHVyTrGzUgrK4asT4ml9PEkeGirAkKNYXYzoPJCLvmyfdoOXcjTHPs10OZVMfD1Rwg16AZyYw==}
     dependencies:
       tslib: 2.3.0
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
