@@ -55,7 +55,7 @@
     "eslint": "8.52.0",
     "husky": "8.0.3",
     "katex": "^0.16.10",
-    "lint-staged": "15.0.2",
+    "lint-staged": "15.2.10",
     "markdownlint-cli": "0.37.0",
     "mathjax-full": "^3.2.2",
     "prettier": "3.0.3",
