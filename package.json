@@ -59,7 +59,7 @@
     "markdownlint-cli": "0.37.0",
     "mathjax-full": "^3.2.2",
     "prettier": "3.0.3",
-    "sass-loader": "13.3.2",
+    "sass-loader": "13.3.3",
     "sort-package-json": "2.6.0",
     "taze": "^0.12.3",
     "typescript": "5.2.2",
