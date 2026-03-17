@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@vueuse/core':
     specifier: 10.5.0
@@ -28,8 +32,8 @@ devDependencies:
     specifier: 18.1.0
     version: 18.1.0
   '@types/color':
-    specifier: 3.0.5
-    version: 3.0.5
+    specifier: 3.0.7
+    version: 3.0.7
   '@types/emscripten':
     specifier: ^1.39.12
     version: 1.39.12
@@ -2969,8 +2973,8 @@ packages:
       minimatch: 9.0.4
     dev: true
 
-  /@types/color-convert@2.0.3:
-    resolution: {integrity: sha512-2Q6wzrNiuEvYxVQqhh7sXM2mhIhvZR/Paq4FdsQkOMgWsCIkKvSGj8Le1/XalulrmgOzPMqNa0ix+ePY4hTrfg==}
+  /@types/color-convert@1.9.0:
+    resolution: {integrity: sha512-OKGEfULrvSL2VRbkl/gnjjgbbF7ycIlpSsX7Nkab4MOWi5XxmgBYvuiQ7lcCFY5cPDz7MUNaKgxte2VRmtr4Fg==}
     dependencies:
       '@types/color-name': 1.1.4
     dev: true
@@ -2979,10 +2983,10 @@ packages:
     resolution: {integrity: sha512-hulKeREDdLFesGQjl96+4aoJSHY5b2GRjagzzcqCfIrWhe5vkCqIvrLbqzBaI1q94Vg8DNJZZqTR5ocdWmWclg==}
     dev: true
 
-  /@types/color@3.0.5:
-    resolution: {integrity: sha512-T9yHCNtd8ap9L/r8KEESu5RDMLkoWXHo7dTureNoI1dbp25NsCN054vOu09iniIjR21MXUL+LU9bkIWrbyg8gg==}
+  /@types/color@3.0.7:
+    resolution: {integrity: sha512-e/ecxz2EGJhUEaoeFa9Xx6ayIkBFQ5bwKgOWzmrEtP+ApYB5ou+eOB71DasFsn3qCKzIPrbi/NKdM8lI0tnGUQ==}
     dependencies:
-      '@types/color-convert': 2.0.3
+      '@types/color-convert': 1.9.0
     dev: true
 
   /@types/debug@4.1.12:
@@ -5203,6 +5207,7 @@ packages:
   /eslint-plugin-i@2.28.1(@typescript-eslint/parser@6.21.0)(eslint@8.52.0):
     resolution: {integrity: sha512-a4oVt0j3ixNhGhvV4XF6NS7OWRFK2rrJ0Q5C4S2dSRb8FxZi31J0uUd5WJLL58wnVJ/OiQ1BxiXnFA4dWQO1Cg==}
     engines: {node: '>=12'}
+    deprecated: Please migrate to the brand new `eslint-plugin-import-x` instead
     peerDependencies:
       eslint: ^7.2.0 || ^8
     dependencies:
@@ -10230,7 +10235,3 @@ packages:
     resolution: {integrity: sha512-0VxCNJ7AGOMCWeHVyTrGzUgrK4asT4ml9PEkeGirAkKNYXYzoPJCLvmyfdoOXcjTHPs10OZVMfD1Rwg16AZyYw==}
     dependencies:
       tslib: 2.3.0
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
